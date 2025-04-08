@@ -1,0 +1,136 @@
+/* Estilos globales */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+/* Variables de color personalizadas */
+:root {
+  --primary-color: #2c3e50;
+  --primary-light: #34495e;
+  --primary-dark: #1a252f;
+  --accent-color: #3498db;
+  --success-color: #2ecc71;
+  --warning-color: #f39c12;
+  --danger-color: #e74c3c;
+  --info-color: #3498db;
+  --background-color: #f3f4f6;
+  --card-background: #ffffff;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --border-color: #e2e8f0;
+}
+
+/* Estilos generales */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos para tarjetas */
+.stat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Estilos para botones */
+.sync-button {
+  transition: background-color 0.3s ease;
+}
+
+.sync-button:hover {
+  background-color: var(--primary-light) !important;
+}
+
+/* Estilos para tablas */
+.mat-mdc-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mat-mdc-header-cell {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.mat-mdc-row {
+  transition: background-color 0.2s ease;
+}
+
+.mat-mdc-row:hover {
+  background-color: #f8fafc;
+}
+
+/* Estilos para alertas */
+.alert {
+  transition: transform 0.2s ease;
+}
+
+.alert:hover {
+  transform: translateX(5px);
+}
+
+/* Estilos para enlaces */
+a {
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+/* Estilos para iconos */
+mat-icon {
+  transition: transform 0.2s ease;
+}
+
+mat-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Estilos para formularios */
+mat-form-field {
+  width: 100%;
+}
+
+/* Estilos para spinners */
+mat-spinner {
+  margin: 0 auto;
+}
+
+/* Estilos para notificaciones */
+.success-snackbar {
+  background-color: var(--success-color) !important;
+  color: white !important;
+}
+
+.error-snackbar {
+  background-color: var(--danger-color) !important;
+  color: white !important;
+}
+
+.success-snackbar .mat-simple-snackbar-action,
+.error-snackbar .mat-simple-snackbar-action {
+  color: white !important;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+  
+  .stat-card {
+    margin-bottom: 1rem;
+  }
+} 
