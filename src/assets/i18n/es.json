@@ -44,6 +44,7 @@
   },
   "login": {
     "title": "BankU",
+    "signIn": "Iniciar sesión",
     "subtitle": "Inicia sesión en tu cuenta",
     "email": "Correo electrónico",
     "emailRequired": "El correo electrónico es obligatorio",
@@ -52,13 +53,13 @@
     "passwordRequired": "La contraseña es obligatoria",
     "rememberMe": "Recuérdame",
     "forgotPassword": "¿Olvidaste tu contraseña?",
-    "loginButton": "Iniciar sesión",
     "noAccount": "¿No tienes una cuenta?",
     "register": "Registrarse",
     "loginError": "Error al iniciar sesión. Por favor, verifica tus credenciales."
   },
   "register": {
     "title": "Crear nueva cuenta",
+    "register": "Registrarse",
     "email": "Correo electrónico",
     "emailRequired": "El correo electrónico es obligatorio",
     "emailInvalid": "Por favor, introduce un correo electrónico válido",
@@ -66,9 +67,8 @@
     "passwordRequired": "La contraseña es obligatoria",
     "confirmPassword": "Confirmar Contraseña",
     "confirmPasswordRequired": "Por favor, confirma tu contraseña",
-    "registerButton": "Registrarse",
+    "loginButton": "Iniciar sesión",
     "alreadyHaveAccount": "¿Ya tienes una cuenta?",
-    "signIn": "Iniciar sesión",
     "registrationSuccess": "Registro exitoso. Bienvenido a BankU.",
     "registrationError": "Error al registrar. Por favor, intenta de nuevo.",
     "passwordMismatch": "Las contraseñas no coinciden."

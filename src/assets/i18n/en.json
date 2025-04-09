@@ -44,6 +44,7 @@
   },
   "login": {
     "title": "BankU",
+    "signIn": "Sign in",
     "subtitle": "Sign in to your account",
     "email": "Email",
     "emailRequired": "Email is required",
@@ -52,13 +53,13 @@
     "passwordRequired": "Password is required",
     "rememberMe": "Remember me",
     "forgotPassword": "Forgot password?",
-    "loginButton": "Sign in",
     "noAccount": "Don't have an account?",
     "register": "Register",
     "loginError": "Login error. Please verify your credentials."
   },
   "register": {
     "title": "Create new account",
+    "register": "Register",
     "email": "Email",
     "emailRequired": "Email is required",
     "emailInvalid": "Please enter a valid email",
@@ -66,9 +67,8 @@
     "passwordRequired": "Password is required",
     "confirmPassword": "Confirm Password",
     "confirmPasswordRequired": "Please confirm your password",
-    "registerButton": "Register",
+    "loginButton": "Sign in",
     "alreadyHaveAccount": "Already have an account?",
-    "signIn": "Sign in",
     "registrationSuccess": "Registration successful. Welcome to BankU.",
     "registrationError": "Registration error. Please try again.",
     "passwordMismatch": "Passwords do not match."

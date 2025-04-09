@@ -32,7 +32,6 @@ interface LinkTokenResponse {
     MatTableModule,
     MatSnackBarModule,
     TranslatePipe,
-    CustomNotificationComponent,
     AlertsComponent,
     RecommendationsComponent
   ]
