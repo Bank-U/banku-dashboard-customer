@@ -21,79 +21,79 @@ export class NotificationService {
   ) {}
 
   /**
-   * Muestra una notificación toast y la guarda en el estado
-   * @param message - Mensaje a mostrar
-   * @param type - Tipo de notificación
-   * @param persist - Si debe persistir en el historial
+   * Shows a toast notification and saves it in the state
+   * @param message - Message to display
+   * @param type - Notification type
+   * @param persist - Whether it should persist in history
    */
   showNotification(
     message: string, 
     type: 'error' | 'success' | 'info' | 'warning' = 'info',
     persist: boolean = true
   ): void {
-    // Mostrar snackbar
+    // Show snackbar
     this.snackBar.openFromComponent(CustomNotificationComponent, {
       ...this.snackBarConfig,
       data: { message, type }
     });
     
-    // Agregar al estado si debe persistir
+    // Add to state if it should persist
     if (persist) {
       this.stateService.addNotification({ message, type });
     }
   }
 
   /**
-   * Muestra un mensaje de éxito
+   * Shows a success message
    */
   success(message: string, persist: boolean = true): void {
     this.showNotification(message, 'success', persist);
   }
 
   /**
-   * Muestra un mensaje de error
+   * Shows an error message
    */
   error(message: string, persist: boolean = true): void {
     this.showNotification(message, 'error', persist);
   }
 
   /**
-   * Muestra un mensaje de advertencia
+   * Shows a warning message
    */
   warning(message: string, persist: boolean = true): void {
     this.showNotification(message, 'warning', persist);
   }
 
   /**
-   * Muestra un mensaje informativo
+   * Shows an informational message
    */
   info(message: string, persist: boolean = true): void {
     this.showNotification(message, 'info', persist);
   }
 
   /**
-   * Marca una notificación como leída
+   * Marks a notification as read
    */
   markAsRead(id: string): void {
     this.stateService.markNotificationAsRead(id);
   }
 
   /**
-   * Elimina una notificación
+   * Removes a notification
    */
   removeNotification(id: string): void {
     this.stateService.removeNotification(id);
   }
 
   /**
-   * Obtiene todas las notificaciones
+   * Gets all notifications
    */
   getNotifications(): AppNotification[] {
     return this.stateService.uiState().notifications;
   }
 
   /**
-   * Obtiene las notificaciones no leídas
+   * Gets unread notifications
    */
   getUnreadNotifications(): AppNotification[] {
     return this.getNotifications().filter(n => !n.read);

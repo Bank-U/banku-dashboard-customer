@@ -39,7 +39,8 @@
     "highEntertainmentDesc": "Tus gastos en entretenimiento han superado tu promedio mensual en más del 35%.",
     "loading": "Cargando...",
     "errorLoading": "Hubo un error al cargar los datos",
-    "tryAgain": "Intentar de nuevo"
+    "tryAgain": "Intentar de nuevo",
+    "formError": "Por favor, completa todos los campos correctamente."
   },
   "login": {
     "title": "BankU",
@@ -53,7 +54,34 @@
     "forgotPassword": "¿Olvidaste tu contraseña?",
     "loginButton": "Iniciar sesión",
     "noAccount": "¿No tienes una cuenta?",
-    "register": "Registrarse"
+    "register": "Registrarse",
+    "loginError": "Error al iniciar sesión. Por favor, verifica tus credenciales."
+  },
+  "register": {
+    "title": "Crear nueva cuenta",
+    "email": "Correo electrónico",
+    "emailRequired": "El correo electrónico es obligatorio",
+    "emailInvalid": "Por favor, introduce un correo electrónico válido",
+    "password": "Contraseña",
+    "passwordRequired": "La contraseña es obligatoria",
+    "confirmPassword": "Confirmar Contraseña",
+    "confirmPasswordRequired": "Por favor, confirma tu contraseña",
+    "registerButton": "Registrarse",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "signIn": "Iniciar sesión",
+    "registrationSuccess": "Registro exitoso. Bienvenido a BankU.",
+    "registrationError": "Error al registrar. Por favor, intenta de nuevo.",
+    "passwordMismatch": "Las contraseñas no coinciden."
+  },
+  "dashboard": {
+    "connectionSuccess": "Conexión exitosa con {{institution}}",
+    "connectionError": "Error en la conexión con el banco. Por favor, inténtalo de nuevo.",
+    "intelligenceLoadError": "Error al cargar los datos de inteligencia",
+    "plaidConnectionError": "Error al conectar con Plaid. Por favor, inténtalo de nuevo.",
+    "alertDismissed": "Alerta descartada",
+    "alertDismissError": "Error al descartar la alerta",
+    "recommendationDismissed": "Recomendación descartada",
+    "recommendationDismissError": "Error al descartar la recomendación"
   },
   "sidebar": {
     "mainMenu": "Menú Principal",

@@ -14,6 +14,7 @@ import { AbstractFormComponent } from '../../components/abstract-form.component'
 import { NotificationService } from '../../core/services/notification.service';
 import { finalize } from 'rxjs/operators';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { TranslateService } from '../../core/services/translate.service';
 
 @Component({
   selector: 'app-register',
@@ -42,14 +43,15 @@ export class RegisterComponent extends AbstractFormComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private translateService: TranslateService
   ) {
     super();
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
-    }, { validators: this.passwordMatchValidator });
+    }, { validator: this.passwordMatchValidator });
   }
 
   override ngOnInit(): void {
@@ -83,22 +85,32 @@ export class RegisterComponent extends AbstractFormComponent implements OnInit {
         }))
         .subscribe({
           next: () => {
-            this.notificationService.success('Registro exitoso. Bienvenido a BankU.');
-            this.router.navigate(['/dashboard']);
+            this.translateService.translate('register.registrationSuccess').subscribe((message: string) => {
+              this.notificationService.success(message);
+              this.router.navigate(['/dashboard']);
+            });
           },
           error: (error) => {
-            this.notificationService.error(
-              error.error?.message || 'Error al registrar. Por favor, intenta de nuevo.'
-            );
+            if (error.error?.message) {
+              this.notificationService.error(error.error.message);
+            } else {
+              this.translateService.translate('register.registrationError').subscribe((message: string) => {
+                this.notificationService.error(message);
+              });
+            }
           }
         });
     } else {
       this.markFormGroupTouched(this.form);
       
       if (this.form.hasError('passwordMismatch')) {
-        this.notificationService.warning('Las contraseñas no coinciden.');
+        this.translateService.translate('register.passwordMismatch').subscribe((message: string) => {
+          this.notificationService.warning(message);
+        });
       } else {
-        this.notificationService.warning('Por favor, completa todos los campos correctamente.');
+        this.translateService.translate('common.formError').subscribe((message: string) => {
+          this.notificationService.warning(message);
+        });
       }
     }
   }

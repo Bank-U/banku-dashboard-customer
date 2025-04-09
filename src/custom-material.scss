@@ -1,18 +1,18 @@
-// BankU Typography y Estilos Personalizados
-// Este archivo define la tipografía y estilos personalizados sin usar las funciones de Material
+// BankU Typography and Custom Styles
+// This file defines typography and custom styles without using Material functions
 @use '@angular/material' as mat;
 
-// Importamos solo las variables de colores
+// Import only color variables
 @use 'colors';
 
-// Tipografía
+// Typography
 $font-family-base: 'Roboto, "Helvetica Neue", sans-serif';
 $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 700;
 
-// Tamaños de fuente
+// Font sizes
 $font-size-headline-1: 96px;
 $font-size-headline-2: 60px;
 $font-size-headline-3: 48px;
@@ -26,7 +26,7 @@ $font-size-body-2: 14px;
 $font-size-caption: 12px;
 $font-size-button: 14px;
 
-// CSS Variables para tipografía
+// CSS Variables for typography
 :root {
   --font-family-base: #{$font-family-base};
   
@@ -49,7 +49,7 @@ $font-size-button: 14px;
   --font-size-button: #{$font-size-button};
 }
 
-// Clases de Tipografía
+// Typography Classes
 .banku-headline-1 {
   font-size: var(--font-size-headline-1);
   font-weight: var(--font-weight-light);

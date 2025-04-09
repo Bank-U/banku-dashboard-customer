@@ -1,7 +1,7 @@
 // BankU Color Palette
-// Esta es la paleta de colores oficial de BankU
+// This is the official BankU color palette
 
-// Colores principales
+// Main colors
 $banku-blue: #0052CC;
 $banku-blue-light: #4C9AFF;
 $banku-blue-dark: #24415C;
@@ -17,7 +17,7 @@ $banku-border: #E5E7EB;
 
 // CSS Variables
 :root {
-  // Colores principales
+  // Main colors
   --banku-blue: #{$banku-blue};
   --banku-call-to-action: #{$banku-blue-dark};
   --banku-blue-light: #{$banku-blue-light};
@@ -32,7 +32,7 @@ $banku-border: #E5E7EB;
   --banku-success: #{$banku-success};
   --banku-border: #{$banku-border};
   
-  // Alias funcionales
+  // Functional aliases
   --primary: var(--banku-blue);
   --primary-light: var(--banku-blue-light);
   --primary-dark: var(--banku-blue-dark);
@@ -49,7 +49,7 @@ $banku-border: #E5E7EB;
   --border: var(--banku-border);
 }
 
-// Mixins útiles
+// Useful mixins
 @mixin primary-button {
   background-color: $banku-blue;
   color: white;
@@ -74,7 +74,7 @@ $banku-border: #E5E7EB;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-// Clases de utilidad
+// Utility classes
 .banku-primary-bg {
   background-color: $banku-blue;
   color: white;

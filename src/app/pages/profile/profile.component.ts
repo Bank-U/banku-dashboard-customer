@@ -48,14 +48,14 @@ export class ProfileComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    // Cargar datos del perfil
+    // Load profile data
     this.loadProfileData();
   }
   
   private loadProfileData(): void {
-    // Simulación de carga de datos
+    // Simulation of data loading
     this.profileForm.patchValue({
-      name: 'Usuario Demo',
+      name: 'Demo User',
       email: 'demo@example.com'
     });
   }
@@ -64,10 +64,10 @@ export class ProfileComponent implements OnInit {
     if (this.profileForm.valid) {
       this.isLoading = true;
       
-      // Simulación de actualización
+      // Simulation of update
       setTimeout(() => {
         this.isLoading = false;
-        // Mostrar mensaje de éxito
+        // Show success message
       }, 1500);
     }
   }
@@ -76,11 +76,11 @@ export class ProfileComponent implements OnInit {
     if (this.passwordForm.valid) {
       this.isPasswordLoading = true;
       
-      // Simulación de cambio de contraseña
+      // Simulation of password change
       setTimeout(() => {
         this.isPasswordLoading = false;
         this.passwordForm.reset();
-        // Mostrar mensaje de éxito
+        // Show success message
       }, 1500);
     }
   }

@@ -52,12 +52,12 @@ export class SettingsComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    // Cargar preferencias guardadas
+    // Load saved preferences
     this.loadSettings();
   }
   
   private loadSettings(): void {
-    // Simulación de carga de preferencias
+    // Simulation of loading preferences
     this.notificationForm.patchValue({
       emailNotifications: true,
       pushNotifications: true,
@@ -74,10 +74,10 @@ export class SettingsComponent implements OnInit {
     if (this.notificationForm.valid) {
       this.isLoading = true;
       
-      // Simulación de guardado
+      // Simulation of saving
       setTimeout(() => {
         this.isLoading = false;
-        // Mostrar mensaje de éxito
+        // Show success message
       }, 1500);
     }
   }
@@ -86,17 +86,17 @@ export class SettingsComponent implements OnInit {
     if (this.displayForm.valid) {
       this.isDisplayLoading = true;
       
-      // Simulación de guardado
+      // Simulation of saving
       setTimeout(() => {
         this.isDisplayLoading = false;
-        // Mostrar mensaje de éxito
+        // Show success message
       }, 1500);
     }
   }
   
   confirmDeleteAccount(): void {
-    // Implementar lógica para eliminar la cuenta
-    console.log('Eliminar cuenta');
+    // Implement logic to delete the account
+    console.log('Delete account');
   }
   
   logout(): void {

@@ -14,12 +14,12 @@ export class AuthService {
     private apiService: ApiService,
     private stateService: StateService
   ) {
-    // Inicializar el estado de autenticación al iniciar el servicio
+    // Initialize authentication state when service starts
     this.initAuthState();
   }
 
   /**
-   * Inicializa el estado de autenticación basado en el token almacenado
+   * Initializes the authentication state based on the stored token
    */
   private initAuthState(): void {
     const token = localStorage.getItem('auth_token');
@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   /**
-   * Autentica al usuario con credenciales
+   * Authenticates user with credentials
    */
   login(request: LoginRequest): Observable<AuthResponse> {
     this.stateService.updateAuthState({ loading: true, error: null });
@@ -55,7 +55,7 @@ export class AuthService {
         catchError(error => {
           this.stateService.updateAuthState({ 
             loading: false, 
-            error: error.error?.message || 'Error de autenticación. Por favor, verifica tus credenciales.' 
+            error: error.error?.message || 'Authentication error. Please verify your credentials.' 
           });
           
           return throwError(() => error);
@@ -64,7 +64,7 @@ export class AuthService {
   }
 
   /**
-   * Registra un nuevo usuario
+   * Registers a new user
    */
   register(request: RegisterRequest): Observable<AuthResponse> {
     this.stateService.updateAuthState({ loading: true, error: null });
@@ -84,7 +84,7 @@ export class AuthService {
         catchError(error => {
           this.stateService.updateAuthState({ 
             loading: false, 
-            error: error.error?.message || 'Error al registrar. Por favor, intenta de nuevo.' 
+            error: error.error?.message || 'Registration error. Please try again.' 
           });
           
           return throwError(() => error);
@@ -93,7 +93,7 @@ export class AuthService {
   }
 
   /**
-   * Cierra la sesión del usuario
+   * Logs out the user
    */
   logout(): void {
     localStorage.removeItem('auth_token');
@@ -107,28 +107,28 @@ export class AuthService {
   }
 
   /**
-   * Verifica si el usuario está autenticado
+   * Checks if the user is authenticated
    */
   isAuthenticated(): boolean {
     return this.stateService.authState().isAuthenticated;
   }
 
   /**
-   * Obtiene el token de autenticación
+   * Gets the authentication token
    */
   getToken(): string | null {
     return this.stateService.authState().token;
   }
 
   /**
-   * Obtiene el ID del usuario
+   * Gets the user ID
    */
   getUserId(): string | null {
     return this.stateService.authState().userId;
   }
 
   /**
-   * Guarda la información de autenticación
+   * Saves authentication information
    */
   private saveAuthData(response: AuthResponse): void {
     localStorage.setItem('auth_token', response.token);

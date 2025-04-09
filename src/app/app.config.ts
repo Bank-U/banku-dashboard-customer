@@ -9,7 +9,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 
-// Registrar datos de localización para español
+// Register localization data for Spanish
 registerLocaleData(localeEs);
 
 export const appConfig: ApplicationConfig = {

@@ -1,9 +1,9 @@
-// Estilos personalizados para componentes de Angular Material
-// Utiliza las variables definidas en colors.scss
+// Custom styles for Angular Material components
+// Uses variables defined in colors.scss
 
 @use 'colors';
 
-// Botones
+// Buttons
 .mat-mdc-raised-button.mat-primary {
   background-color: var(--banku-blue) !important;
   color: white !important;
@@ -39,7 +39,7 @@
   color: var(--banku-teal);
 }
 
-// Formularios
+// Forms
 .mat-mdc-form-field {
   width: 100%;
   
@@ -68,7 +68,7 @@
   margin: 0.5rem 0;
 }
 
-// Checkboxes y Radios
+// Checkboxes and Radios
 .mat-mdc-checkbox.mat-accent {
   --mdc-checkbox-selected-checkmark-color: white;
   --mdc-checkbox-selected-focus-icon-color: var(--banku-teal);
@@ -84,7 +84,7 @@
   --mdc-radio-selected-pressed-icon-color: var(--banku-teal);
 }
 
-// Tarjetas
+// Cards
 .mat-mdc-card {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
@@ -142,13 +142,13 @@
   }
 }
 
-// Posicionamiento de Snackbar
+// Snackbar positioning
 .cdk-global-overlay-wrapper {
   justify-content: center !important;
   align-items: flex-start !important;
 }
 
-// Tablas
+// Tables
 .mat-mdc-table {
   background-color: var(--banku-surface);
 }

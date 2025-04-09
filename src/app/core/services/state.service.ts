@@ -6,7 +6,7 @@ import { AppState, AuthState, UiState, AppNotification } from '../models/app-sta
   providedIn: 'root'
 })
 export class StateService {
-  // Estado inicial
+  // Initial state
   private initialState: AppState = {
     auth: {
       isAuthenticated: false,
@@ -23,18 +23,18 @@ export class StateService {
     }
   };
 
-  // BehaviorSubject para el estado completo
+  // BehaviorSubject for the complete state
   private state = new BehaviorSubject<AppState>(this.initialState);
   
-  // Signals para componentes reactivos
+  // Signals for reactive components
   public authState = signal<AuthState>(this.initialState.auth);
   public uiState = signal<UiState>(this.initialState.ui);
 
   constructor() {
-    // Recuperar estado del localStorage si existe
+    // Retrieve state from localStorage if it exists
     this.loadStateFromStorage();
     
-    // Suscribirse a cambios de estado para persistirlos y actualizar las signals
+    // Subscribe to state changes to persist them and update signals
     this.state.subscribe(state => {
       this.persistState(state);
       this.authState.set(state.auth);
@@ -42,12 +42,12 @@ export class StateService {
     });
   }
 
-  // Getters para partes específicas del estado
+  // Getters for specific parts of the state
   getState(): Observable<AppState> {
     return this.state.asObservable();
   }
 
-  // Actualizar el estado de autenticación
+  // Update authentication state
   updateAuthState(authState: Partial<AuthState>): void {
     const currentState = this.state.getValue();
     this.state.next({
@@ -59,7 +59,7 @@ export class StateService {
     });
   }
 
-  // Actualizar el estado de la UI
+  // Update UI state
   updateUiState(uiState: Partial<UiState>): void {
     const currentState = this.state.getValue();
     this.state.next({
@@ -71,7 +71,7 @@ export class StateService {
     });
   }
 
-  // Agregar una notificación
+  // Add a notification
   addNotification(notification: Omit<AppNotification, 'id' | 'timestamp' | 'read'>): void {
     const currentState = this.state.getValue();
     const newNotification: AppNotification = {
@@ -90,7 +90,7 @@ export class StateService {
     });
   }
 
-  // Marcar una notificación como leída
+  // Mark a notification as read
   markNotificationAsRead(id: string): void {
     const currentState = this.state.getValue();
     const updatedNotifications = currentState.ui.notifications.map(notification => 
@@ -106,7 +106,7 @@ export class StateService {
     });
   }
 
-  // Eliminar una notificación
+  // Remove a notification
   removeNotification(id: string): void {
     const currentState = this.state.getValue();
     const updatedNotifications = currentState.ui.notifications.filter(
@@ -122,12 +122,12 @@ export class StateService {
     });
   }
 
-  // Persistir estado en localStorage
+  // Persist state in localStorage
   private persistState(state: AppState): void {
     localStorage.setItem('app_state', JSON.stringify(state));
   }
 
-  // Cargar estado desde localStorage
+  // Load state from localStorage
   private loadStateFromStorage(): void {
     const savedState = localStorage.getItem('app_state');
     if (savedState) {
@@ -143,7 +143,7 @@ export class StateService {
     }
   }
 
-  // Resetear el estado
+  // Reset state
   resetState(): void {
     localStorage.removeItem('app_state');
     this.state.next(this.initialState);

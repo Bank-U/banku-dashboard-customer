@@ -13,6 +13,7 @@ import { CustomNotificationComponent } from '../../components/custom-notificatio
 import { AlertsComponent } from '../../components/alerts/alerts.component';
 import { RecommendationsComponent } from '../../components/recommendations/recommendations.component';
 import { Router } from '@angular/router';
+import { TranslateService } from '../../core/services/translate.service';
 
 interface LinkTokenResponse {
   linkToken: string;
@@ -55,7 +56,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private intelligenceService: IntelligenceService,
     private plaidService: PlaidService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -75,15 +77,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private setupPlaidSubscription() {
     this.plaidSubscription = this.plaidService.plaidEvents$.subscribe(event => {
       if (event.success) {
-        this.showNotification(
-          `Conexión exitosa con ${event.institutionName}`,
-          'success'
-        );
+        this.translateService.translate('dashboard.connectionSuccess').subscribe((message: string) => {
+          this.showNotification(
+            message.replace('{{institution}}', event.institutionName || ''),
+            'success'
+          );
+        });
       } else {
-        this.showNotification(
-          'Error en la conexión con el banco. Por favor, inténtalo de nuevo.',
-          'error'
-        );
+        this.translateService.translate('dashboard.connectionError').subscribe((message: string) => {
+          this.showNotification(message, 'error');
+        });
       }
     });
   }
@@ -110,7 +113,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
       error: (error: any) => {
         this.isLoading = false;
-        this.handleError(error, 'Error al cargar los datos de inteligencia');
+        this.translateService.translate('dashboard.intelligenceLoadError').subscribe((message: string) => {
+          this.handleError(error, message);
+        });
       }
     });
   }
@@ -125,10 +130,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       error: (error: Error) => {
         console.error('Error creating link token:', error);
         this.isLoading = false;
-        this.showNotification(
-          'Error al conectar con Plaid. Por favor, inténtalo de nuevo.',
-          'error'
-        );
+        this.translateService.translate('dashboard.plaidConnectionError').subscribe((message: string) => {
+          this.showNotification(message, 'error');
+        });
       }
     });
   }
@@ -137,10 +141,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.intelligenceService.resolveAlert(alertId).subscribe({
       next: () => {
         this.alerts = this.alerts.filter(alert => alert.id !== alertId);
-        this.showNotification('Alerta descartada', 'info');
+        this.translateService.translate('dashboard.alertDismissed').subscribe((message: string) => {
+          this.showNotification(message, 'info');
+        });
       },
       error: (error: any) => {
-        this.handleError(error, 'Error al descartar la alerta');
+        this.translateService.translate('dashboard.alertDismissError').subscribe((message: string) => {
+          this.handleError(error, message);
+        });
       }
     });
   }
@@ -149,10 +157,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.intelligenceService.resolveRecommendation(recommendationId).subscribe({
       next: () => {
         this.recommendations = this.recommendations.filter(rec => rec.id !== recommendationId);
-        this.showNotification('Recomendación descartada', 'info');
+        this.translateService.translate('dashboard.recommendationDismissed').subscribe((message: string) => {
+          this.showNotification(message, 'info');
+        });
       },
       error: (error: any) => {
-        this.handleError(error, 'Error al descartar la recomendación');
+        this.translateService.translate('dashboard.recommendationDismissError').subscribe((message: string) => {
+          this.handleError(error, message);
+        });
       }
     });
   }

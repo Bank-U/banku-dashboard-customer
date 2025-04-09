@@ -8,7 +8,7 @@ export abstract class AbstractFormComponent implements OnInit, OnDestroy {
   protected abstract form: FormGroup;
   protected destroy$ = new Subject<void>();
   
-  // Flags compartidos para formularios
+  // Shared flags for forms
   protected isSubmitting = false;
   protected isDisabled = false;
   protected submitted = false;
@@ -25,19 +25,19 @@ export abstract class AbstractFormComponent implements OnInit, OnDestroy {
   }
   
   /**
-   * Inicializa los listeners del formulario
+   * Initializes form listeners
    */
   protected initFormListeners(): void {
-    // Implementación por defecto vacía
+    // Default empty implementation
   }
   
   /**
-   * Maneja el envío del formulario
+   * Handles form submission
    */
   protected abstract onSubmit(): void;
   
   /**
-   * Marca todos los controles como tocados
+   * Marks all controls as touched
    */
   protected markFormGroupTouched(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach(key => {
@@ -51,14 +51,14 @@ export abstract class AbstractFormComponent implements OnInit, OnDestroy {
   }
   
   /**
-   * Obtiene un control del formulario por su nombre
+   * Gets a form control by its name
    */
   protected getControl(name: string): AbstractControl | null {
     return this.form.get(name);
   }
   
   /**
-   * Verifica si un control tiene un error específico
+   * Checks if a control has a specific error
    */
   protected hasError(controlName: string, errorName: string): boolean {
     const control = this.getControl(controlName);
@@ -66,7 +66,7 @@ export abstract class AbstractFormComponent implements OnInit, OnDestroy {
   }
   
   /**
-   * Resetea el formulario a su estado inicial
+   * Resets the form to its initial state
    */
   protected resetForm(): void {
     this.form.reset();
@@ -74,7 +74,7 @@ export abstract class AbstractFormComponent implements OnInit, OnDestroy {
   }
   
   /**
-   * Deshabilita el formulario
+   * Disables the form
    */
   protected disableForm(): void {
     this.form.disable();
@@ -82,7 +82,7 @@ export abstract class AbstractFormComponent implements OnInit, OnDestroy {
   }
   
   /**
-   * Habilita el formulario
+   * Enables the form
    */
   protected enableForm(): void {
     this.form.enable();
@@ -90,12 +90,12 @@ export abstract class AbstractFormComponent implements OnInit, OnDestroy {
   }
   
   /**
-   * Retorna un observable que emite cuando un control del formulario cambia
+   * Returns an observable that emits when a form control changes
    */
   protected watchControl<T>(controlName: string): Observable<T> {
     const control = this.getControl(controlName);
     if (!control) {
-      throw new Error(`Control "${controlName}" no encontrado en el formulario.`);
+      throw new Error(`Control "${controlName}" not found in the form.`);
     }
     
     return control.valueChanges.pipe(

@@ -14,6 +14,7 @@ import { AbstractFormComponent } from '../../components/abstract-form.component'
 import { NotificationService } from '../../core/services/notification.service';
 import { finalize } from 'rxjs/operators';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { TranslateService } from '../../core/services/translate.service';
 
 @Component({
   selector: 'app-login',
@@ -41,7 +42,8 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private translateService: TranslateService
   ) {
     super();
     this.form = this.fb.group({
@@ -78,14 +80,20 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
             this.router.navigate(['/dashboard']);
           },
           error: (error) => {
-            this.notificationService.error(
-              error.error?.message || 'Error al iniciar sesión. Por favor, verifica tus credenciales.'
-            );
+            if (error.error?.message) {
+              this.notificationService.error(error.error.message);
+            } else {
+              this.translateService.translate('login.loginError').subscribe((message: string) => {
+                this.notificationService.error(message);
+              });
+            }
           }
         });
     } else {
       this.markFormGroupTouched(this.form);
-      this.notificationService.warning('Por favor, completa todos los campos correctamente.');
+      this.translateService.translate('common.formError').subscribe((message: string) => {
+        this.notificationService.warning(message);
+      });
     }
   }
 } 
