@@ -23,18 +23,14 @@ export class StateService {
     }
   };
 
-  // BehaviorSubject for the complete state
   private state = new BehaviorSubject<AppState>(this.initialState);
   
-  // Signals for reactive components
   public authState = signal<AuthState>(this.initialState.auth);
   public uiState = signal<UiState>(this.initialState.ui);
 
   constructor() {
-    // Retrieve state from localStorage if it exists
     this.loadStateFromStorage();
     
-    // Subscribe to state changes to persist them and update signals
     this.state.subscribe(state => {
       this.persistState(state);
       this.authState.set(state.auth);
@@ -42,12 +38,10 @@ export class StateService {
     });
   }
 
-  // Getters for specific parts of the state
   getState(): Observable<AppState> {
     return this.state.asObservable();
   }
 
-  // Update authentication state
   updateAuthState(authState: Partial<AuthState>): void {
     const currentState = this.state.getValue();
     this.state.next({
@@ -59,7 +53,6 @@ export class StateService {
     });
   }
 
-  // Update UI state
   updateUiState(uiState: Partial<UiState>): void {
     const currentState = this.state.getValue();
     this.state.next({
@@ -71,7 +64,6 @@ export class StateService {
     });
   }
 
-  // Add a notification
   addNotification(notification: Omit<AppNotification, 'id' | 'timestamp' | 'read'>): void {
     const currentState = this.state.getValue();
     const newNotification: AppNotification = {
@@ -90,7 +82,6 @@ export class StateService {
     });
   }
 
-  // Mark a notification as read
   markNotificationAsRead(id: string): void {
     const currentState = this.state.getValue();
     const updatedNotifications = currentState.ui.notifications.map(notification => 
@@ -106,7 +97,6 @@ export class StateService {
     });
   }
 
-  // Remove a notification
   removeNotification(id: string): void {
     const currentState = this.state.getValue();
     const updatedNotifications = currentState.ui.notifications.filter(
@@ -122,12 +112,10 @@ export class StateService {
     });
   }
 
-  // Persist state in localStorage
   private persistState(state: AppState): void {
     localStorage.setItem('app_state', JSON.stringify(state));
   }
 
-  // Load state from localStorage
   private loadStateFromStorage(): void {
     const savedState = localStorage.getItem('app_state');
     if (savedState) {
@@ -143,7 +131,6 @@ export class StateService {
     }
   }
 
-  // Reset state
   resetState(): void {
     localStorage.removeItem('app_state');
     this.state.next(this.initialState);

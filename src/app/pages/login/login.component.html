@@ -12,7 +12,7 @@
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>{{ 'login.email' | translate | async }}</mat-label>
           <input matInput formControlName="email" type="email">
-          <mat-icon class="material-symbols-outlined" matPrefix>mail_outlined</mat-icon>
+          <mat-icon class="material-symbols-outlined login-input-icon" matPrefix>mail_outlined</mat-icon>
           <mat-error *ngIf="hasError('email', 'required')">{{ 'login.emailRequired' | translate | async }}</mat-error>
           <mat-error *ngIf="hasError('email', 'email')">{{ 'login.emailInvalid' | translate | async }}</mat-error>
         </mat-form-field>
@@ -20,7 +20,7 @@
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>{{ 'login.password' | translate | async }}</mat-label>
           <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
-          <mat-icon class="material-symbols-outlined" matPrefix>lock_outlined</mat-icon>
+          <mat-icon class="material-symbols-outlined login-input-icon" matPrefix>lock_outlined</mat-icon>
           <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
             <mat-icon class="material-symbols-outlined">{{ hidePassword ? 'visibility_off_outlined' : 'visibility_outlined' }}</mat-icon>
           </button>
@@ -38,7 +38,7 @@
 
         <div class="register-prompt">
           <span>{{ 'login.noAccount' | translate | async }}</span>
-          <a routerLink="/register" class="register-link">{{ 'login.createAccount' | translate | async }}</a>
+          <a routerLink="/register" class="register-link">{{ 'login.register' | translate | async }}</a>
         </div>
       </form>
     </mat-card-content>
