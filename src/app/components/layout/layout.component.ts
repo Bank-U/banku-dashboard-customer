@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-layout',
@@ -10,13 +9,11 @@ import { HeaderComponent } from '../header/header.component';
   imports: [
     CommonModule,
     RouterModule,
-    SidebarComponent,
-    HeaderComponent
+    SidebarComponent
   ],
   template: `
     <div class="layout-container">
       <app-sidebar></app-sidebar>
-      <app-header></app-header>
       <main class="main-content">
         <router-outlet></router-outlet>
       </main>
@@ -31,24 +28,23 @@ import { HeaderComponent } from '../header/header.component';
     .layout-container {
       display: flex;
       height: 100%;
+      flex-direction: row;
+    }
+    
+    .layout-content {
+      display: flex;
     }
     
     .main-content {
       flex: 1;
       padding: 2rem;
-      margin-top: 64px;
-      background-color: var(--background-color);
+      padding-top: 64px;
+      background-color: var(--background);
       min-height: calc(100vh - 64px);
       overflow-y: auto;
-    }
-    
-    @media (max-width: 768px) {
-      .main-content {
-        margin-left: 60px;
-      }
     }
   `]
 })
 export class LayoutComponent {
   constructor() {}
-} 
+}   

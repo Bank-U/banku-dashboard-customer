@@ -1,0 +1,107 @@
+// BankU Color Palette
+// Esta es la paleta de colores oficial de BankU
+
+// Colores principales
+$banku-blue: #0052CC;
+$banku-blue-light: #4C9AFF;
+$banku-blue-dark: #24415C;
+$banku-teal: #00BFA5;
+$banku-bg-light: #F6F6F9;
+$banku-surface: #FFFFFF;
+$banku-text: #1C1C1E;
+$banku-text-muted: #6B7280;
+$banku-warning: #F59E0B;
+$banku-error: #EF4444;
+$banku-success: #10B981;
+$banku-border: #E5E7EB;
+
+// CSS Variables
+:root {
+  // Colores principales
+  --banku-blue: #{$banku-blue};
+  --banku-call-to-action: #{$banku-blue-dark};
+  --banku-blue-light: #{$banku-blue-light};
+  --banku-blue-dark: #{$banku-blue-dark};
+  --banku-teal: #{$banku-teal};
+  --banku-bg-light: #{$banku-bg-light};
+  --banku-surface: #{$banku-surface};
+  --banku-text: #{$banku-text};
+  --banku-text-muted: #{$banku-text-muted};
+  --banku-warning: #{$banku-warning};
+  --banku-error: #{$banku-error};
+  --banku-success: #{$banku-success};
+  --banku-border: #{$banku-border};
+  
+  // Alias funcionales
+  --primary: var(--banku-blue);
+  --primary-light: var(--banku-blue-light);
+  --primary-dark: var(--banku-blue-dark);
+  --accent: var(--banku-teal);
+  --success: var(--banku-success);
+  --warning: var(--banku-warning);
+  --error: var(--banku-error);
+  --info: var(--banku-blue-light);
+  --background: var(--banku-bg-light);
+  --background-dark: var(--banku-blue-dark);
+  --surface: var(--banku-surface);
+  --text: var(--banku-text);
+  --text-secondary: var(--banku-text-muted);
+  --border: var(--banku-border);
+}
+
+// Mixins útiles
+@mixin primary-button {
+  background-color: $banku-blue;
+  color: white;
+  
+  &:hover {
+    background-color: $banku-blue-dark;
+  }
+}
+
+@mixin accent-button {
+  background-color: $banku-teal;
+  color: white;
+  
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+@mixin card {
+  background-color: $banku-surface;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+// Clases de utilidad
+.banku-primary-bg {
+  background-color: $banku-blue;
+  color: white;
+}
+
+.banku-accent-bg {
+  background-color: $banku-teal;
+  color: white;
+}
+
+.banku-card {
+  @include card;
+  padding: 1rem;
+}
+
+.banku-text-primary {
+  color: $banku-text;
+}
+
+.banku-text-secondary {
+  color: $banku-text-muted;
+}
+
+.banku-error-text {
+  color: $banku-error;
+}
+
+.banku-success-text {
+  color: $banku-success;
+} 

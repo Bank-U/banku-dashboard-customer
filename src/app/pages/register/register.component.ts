@@ -9,16 +9,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../../services/auth.service';
-import { LoginRequest } from '../../core/models/auth/login-request';
+import { RegisterRequest } from '../../core/models/auth/register-request';
 import { AbstractFormComponent } from '../../components/abstract-form.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { finalize } from 'rxjs/operators';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -33,9 +33,10 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
     RouterModule
   ]
 })
-export class LoginComponent extends AbstractFormComponent implements OnInit {
+export class RegisterComponent extends AbstractFormComponent implements OnInit {
   form: FormGroup;
   hidePassword = true;
+  hideConfirmPassword = true;
 
   constructor(
     private fb: FormBuilder,
@@ -46,8 +47,9 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
     super();
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
-    });
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required]]
+    }, { validators: this.passwordMatchValidator });
   }
 
   override ngOnInit(): void {
@@ -58,34 +60,46 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
     }
   }
 
+  passwordMatchValidator(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  }
+
   protected override onSubmit(): void {
     if (this.form.valid) {
       this.isSubmitting = true;
       this.disableForm();
       
-      const loginRequest: LoginRequest = {
+      const registerRequest: RegisterRequest = {
         email: this.form.get('email')?.value,
         password: this.form.get('password')?.value
       };
       
-      this.authService.login(loginRequest)
+      this.authService.register(registerRequest)
         .pipe(finalize(() => {
           this.isSubmitting = false;
           this.enableForm();
         }))
         .subscribe({
           next: () => {
+            this.notificationService.success('Registro exitoso. Bienvenido a BankU.');
             this.router.navigate(['/dashboard']);
           },
           error: (error) => {
             this.notificationService.error(
-              error.error?.message || 'Error al iniciar sesión. Por favor, verifica tus credenciales.'
+              error.error?.message || 'Error al registrar. Por favor, intenta de nuevo.'
             );
           }
         });
     } else {
       this.markFormGroupTouched(this.form);
-      this.notificationService.warning('Por favor, completa todos los campos correctamente.');
+      
+      if (this.form.hasError('passwordMismatch')) {
+        this.notificationService.warning('Las contraseñas no coinciden.');
+      } else {
+        this.notificationService.warning('Por favor, completa todos los campos correctamente.');
+      }
     }
   }
 } 

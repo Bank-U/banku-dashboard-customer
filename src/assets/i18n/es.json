@@ -1,13 +1,14 @@
 {
   "common": {
-    "dashboard": "Dashboard",
+    "menu": "Menú",
+    "dashboard": "Panel de Control",
     "transactions": "Transacciones",
     "accounts": "Cuentas",
     "analytics": "Análisis",
     "budget": "Presupuesto",
     "settings": "Configuración",
     "help": "Ayuda",
-    "logout": "Cerrar sesión",
+    "logout": "Cerrar Sesión",
     "search": "Buscar transacciones, cuentas...",
     "notifications": "Notificaciones",
     "profile": "Perfil",
@@ -19,8 +20,8 @@
     "inLastMonth": "en el último mes",
     "category": "Categoría",
     "product": "Producto",
-    "merchant": "Comerciante",
-    "amount": "Cantidad",
+    "merchant": "Comercio",
+    "amount": "Importe",
     "status": "Estado",
     "currency": "Moneda",
     "date": "Fecha",
@@ -31,23 +32,28 @@
     "unusualSpending": "Gasto inusual detectado",
     "unusualSpendingDesc": "Hemos identificado un aumento significativo en tus transacciones esta semana en comparación con tus patrones habituales.",
     "duplicateCharges": "Posibles cargos duplicados",
-    "duplicateChargesDesc": "Dos o más transacciones con el mismo monto y comerciante se publicaron en un corto período de tiempo.",
-    "unusedSubscriptions": "Podrías optimizar suscripciones no utilizadas",
-    "unusedSubscriptionsDesc": "Varios cargos recurrentes no muestran actividad reciente relacionada. Considera revisar estas suscripciones.",
+    "duplicateChargesDesc": "Dos o más transacciones con el mismo importe y comercio se registraron en un corto período de tiempo.",
+    "unusedSubscriptions": "Podrías optimizar suscripciones sin usar",
+    "unusedSubscriptionsDesc": "Varios cargos recurrentes no muestran actividad relacionada reciente. Considera revisar estas suscripciones.",
     "highEntertainment": "Alto gasto en Entretenimiento",
-    "highEntertainmentDesc": "Tus gastos de entretenimiento han superado tu promedio mensual en más del 35%."
+    "highEntertainmentDesc": "Tus gastos en entretenimiento han superado tu promedio mensual en más del 35%.",
+    "loading": "Cargando...",
+    "errorLoading": "Hubo un error al cargar los datos",
+    "tryAgain": "Intentar de nuevo"
   },
   "login": {
     "title": "BankU",
     "subtitle": "Inicia sesión en tu cuenta",
-    "email": "Email",
-    "emailRequired": "El email es requerido",
-    "emailInvalid": "Por favor ingresa un email válido",
+    "email": "Correo electrónico",
+    "emailRequired": "El correo electrónico es obligatorio",
+    "emailInvalid": "Por favor, introduce un correo electrónico válido",
     "password": "Contraseña",
-    "passwordRequired": "La contraseña es requerida",
-    "rememberMe": "Recordarme",
+    "passwordRequired": "La contraseña es obligatoria",
+    "rememberMe": "Recuérdame",
     "forgotPassword": "¿Olvidaste tu contraseña?",
-    "loginButton": "Iniciar sesión"
+    "loginButton": "Iniciar sesión",
+    "noAccount": "¿No tienes una cuenta?",
+    "register": "Registrarse"
   },
   "sidebar": {
     "mainMenu": "Menú Principal",
@@ -63,5 +69,22 @@
     "account": "Cuenta",
     "deleteWarning": "Si deseas eliminar tu cuenta, ten en cuenta que esta acción no se puede deshacer.",
     "deleteAccount": "Eliminar Cuenta"
+  },
+  "accounts": {
+    "title": "Mis Cuentas",
+    "yourAccounts": "Tus Cuentas Financieras",
+    "subtitle": "Visualiza todas tus cuentas bancarias conectadas",
+    "noAccounts": "No se encontraron cuentas",
+    "linkYourAccount": "Conecta tu cuenta bancaria para comenzar"
+  },
+  "transactions": {
+    "title": "Transacciones",
+    "recentTransactions": "Transacciones Recientes",
+    "description": "Descripción",
+    "category": "Categoría",
+    "date": "Fecha",
+    "amount": "Importe",
+    "noTransactions": "No se encontraron transacciones",
+    "linkYourAccount": "Conecta tu cuenta bancaria para ver tus transacciones"
   }
 } 
