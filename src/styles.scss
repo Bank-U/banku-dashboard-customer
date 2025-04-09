@@ -1,5 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
-@use '@angular/material' as mat;
+/* BankU Colors and Custom Components */
+@use 'colors';
+@use 'components';
+@use 'custom-material';
+
+/* Font imports */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
 /* Reset default styles */
 * {
@@ -15,9 +20,12 @@ html, body {
 
 body {
   margin: 0;
-  background-color: #f5f5f5;
+  background-color: var(--banku-bg-light);
+  color: var(--banku-text);
 }
-
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 100, 'GRAD' 0, 'opsz' 24;
+}
 /* Material Design theme customization */
 .mat-typography {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -51,31 +59,10 @@ body {
 .items-center { align-items: center; }
 .justify-center { justify-content: center; }
 .justify-between { justify-content: space-between; }
+.row-reverse { flex-direction: row-reverse; }
 
-/* Card styles */
-.mat-mdc-card {
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-}
-
-/* Form styles */
-.mat-mdc-form-field {
-  width: 100%;
-}
-
-/* Button styles */
-.mat-mdc-button,
-.mat-mdc-raised-button {
-  &:not(:disabled) {
-    &:hover {
-      opacity: 0.9;
-    }
-  }
-}
-
-/* Error message styles */
-.error-message {
-  color: #f44336;
-  font-size: 0.875rem;
-  margin: 0.5rem 0;
+/* Snackbar positioning */
+.cdk-global-overlay-wrapper {
+  justify-content: center !important;
+  align-items: flex-start !important;
 } 

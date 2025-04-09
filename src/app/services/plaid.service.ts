@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, Subject } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { AuthService } from '../core/services/auth.service';
+import { AuthService } from './auth.service';
+import { ApiService } from './api.service';
 
 interface LinkTokenResponse {
   linkToken: string;
@@ -22,29 +21,23 @@ interface PlaidEventData {
   providedIn: 'root'
 })
 export class PlaidService {
-  private readonly apiUrl = 'http://localhost:8082/api/openbanking';
   private plaidEvents = new Subject<PlaidEventData>();
 
   plaidEvents$ = this.plaidEvents.asObservable();
   private selectedInstitution: string = '';
 
   constructor(
-    private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private apiService: ApiService
   ) {}
 
   createLinkToken(): Observable<LinkTokenResponse> {
-    const headers = this.getHeaders();
-    if (!headers) {
-      return throwError(() => new Error('No authentication token available'));
-    }
-
     const userId = this.authService.getUserId();
     if (!userId) {
       return throwError(() => new Error('No user ID available'));
     }
     
-    return this.http.post<LinkTokenResponse>(`${this.apiUrl}/link-token`, { userId }, { headers });
+    return this.apiService.post<LinkTokenResponse>(`/v1/openbanking/link-token`, { userId });
   }
 
   openPlaidLink(token: string): void {
@@ -87,11 +80,6 @@ export class PlaidService {
   }
 
   private exchangePublicToken(publicToken: string): Observable<any> {
-    const headers = this.getHeaders();
-    if (!headers) {
-      return throwError(() => new Error('No authentication token available'));
-    }
-
     const userId = this.authService.getUserId();
     if (!userId) {
       return throwError(() => new Error('No user ID available'));
@@ -102,18 +90,6 @@ export class PlaidService {
       publicToken
     };
 
-    return this.http.post(`${this.apiUrl}/exchange-token`, payload, { headers });
-  }
-
-  private getHeaders(): HttpHeaders | null {
-    const token = this.authService.getToken();
-    if (!token) {
-      return null;
-    }
-
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
+    return this.apiService.post<any>(`/v1/openbanking/exchange-token`, payload);
   }
 } 

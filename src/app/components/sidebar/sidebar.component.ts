@@ -8,7 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { TranslateService } from '../../core/services/translate.service';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -25,43 +25,37 @@ import { AuthService } from '../../core/services/auth.service';
   ],
   template: `
     <div class="sidebar-container">
-      <div class="logo-container">
-        <mat-icon class="logo-icon">account_balance</mat-icon>
-        <span class="logo-text">BankU</span>
-      </div>
-      
       <div class="menu-section">
-        <div class="section-title">{{ 'sidebar.mainMenu' | translate | async }}</div>
         <mat-nav-list>
-          <a mat-list-item routerLink="/home" routerLinkActive="active">
-            <mat-icon matListItemIcon>home</mat-icon>
+          <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+            <mat-icon class="material-symbols-outlined" matListItemIcon>home_outlined</mat-icon>
             <span matListItemTitle>{{ 'sidebar.home' | translate | async }}</span>
           </a>
           
           <a mat-list-item routerLink="/accounts" routerLinkActive="active">
-            <mat-icon matListItemIcon>account_balance_wallet</mat-icon>
+            <mat-icon class="material-symbols-outlined" matListItemIcon>account_balance_wallet_outlined</mat-icon>
             <span matListItemTitle>{{ 'sidebar.accounts' | translate | async }}</span>
           </a>
           
           <a mat-list-item routerLink="/alerts" routerLinkActive="active">
-            <mat-icon matListItemIcon>notifications</mat-icon>
+            <mat-icon class="material-symbols-outlined" matListItemIcon>notifications_outlined</mat-icon>
             <span matListItemTitle>{{ 'sidebar.alerts' | translate | async }}</span>
           </a>
           
           <a mat-list-item routerLink="/transactions" routerLinkActive="active">
-            <mat-icon matListItemIcon>receipt_long</mat-icon>
+            <mat-icon class="material-symbols-outlined" matListItemIcon>receipt_long_outlined</mat-icon>
             <span matListItemTitle>{{ 'sidebar.transactions' | translate | async }}</span>
           </a>
         </mat-nav-list>
       </div>
       
-      <mat-divider></mat-divider>
+      <mat-divider class="sidebar-divider"></mat-divider>
       
       <div class="menu-section">
         <div class="section-title">{{ 'sidebar.general' | translate | async }}</div>
         <mat-nav-list>
           <a mat-list-item routerLink="/settings" routerLinkActive="active">
-            <mat-icon matListItemIcon>settings</mat-icon>
+            <mat-icon class="material-symbols-outlined" matListItemIcon>settings_outlined</mat-icon>
             <span matListItemTitle>{{ 'sidebar.settings' | translate | async }}</span>
           </a>
         </mat-nav-list>
@@ -69,7 +63,7 @@ import { AuthService } from '../../core/services/auth.service';
       
       <div class="sidebar-footer">
         <button mat-button color="primary" class="logout-button" (click)="logout()">
-          <mat-icon>logout</mat-icon>
+          <mat-icon class="material-symbols-outlined">logout_outlined</mat-icon>
           <span>{{ 'common.logout' | translate | async }}</span>
         </button>
       </div>
@@ -87,34 +81,19 @@ import { AuthService } from '../../core/services/auth.service';
       flex-direction: column;
       height: 100%;
       width: 250px;
-      background-color: var(--card-background);
+      background-color: var(--background-dark);
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
-      position: fixed;
-      left: 0;
-      top: 0;
       z-index: 1000;
-    }
-    
-    .logo-container {
-      display: flex;
-      align-items: center;
-      padding: 1.5rem 1rem;
-      background-color: var(--primary-color);
       color: white;
+      font-family: 'Roboto';
+      font-weight: 100;
+      font-size: 14px;
     }
     
-    .logo-icon {
-      font-size: 2rem;
-      height: 2rem;
-      width: 2rem;
-      margin-right: 0.5rem;
+    .sidebar-divider {
+      margin: 0 auto;
+      width: 80%;
     }
-    
-    .logo-text {
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-    
     .menu-section {
       padding: 1rem 0;
     }
@@ -174,24 +153,8 @@ import { AuthService } from '../../core/services/auth.service';
     }
     
     @media (max-width: 768px) {
-      .sidebar-container {
+      .sidebar-container, :host {
         width: 60px;
-      }
-      
-      .logo-text, 
-      a.mat-list-item span,
-      .logout-button span,
-      .section-title {
-        display: none;
-      }
-      
-      .logo-container {
-        justify-content: center;
-        padding: 1rem 0;
-      }
-      
-      .logo-icon {
-        margin-right: 0;
       }
       
       a.mat-list-item {
@@ -212,7 +175,6 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class SidebarComponent {
   constructor(
-    private translateService: TranslateService,
     private authService: AuthService,
     private router: Router
   ) {}

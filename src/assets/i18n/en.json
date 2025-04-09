@@ -1,5 +1,6 @@
 {
   "common": {
+    "menu": "Menu",
     "dashboard": "Dashboard",
     "transactions": "Transactions",
     "accounts": "Accounts",
@@ -35,7 +36,11 @@
     "unusedSubscriptions": "You could optimize unused subscriptions",
     "unusedSubscriptionsDesc": "Several recurring charges show no recent related activity. Consider reviewing these subscriptions.",
     "highEntertainment": "High spending in Entertainment",
-    "highEntertainmentDesc": "Your entertainment expenses have exceeded your monthly average by more than 35%."
+    "highEntertainmentDesc": "Your entertainment expenses have exceeded your monthly average by more than 35%.",
+    "loading": "Loading...",
+    "errorLoading": "There was an error loading the data",
+    "tryAgain": "Try Again",
+    "formError": "Please complete all fields correctly."
   },
   "login": {
     "title": "BankU",
@@ -47,7 +52,36 @@
     "passwordRequired": "Password is required",
     "rememberMe": "Remember me",
     "forgotPassword": "Forgot password?",
-    "loginButton": "Sign in"
+    "loginButton": "Sign in",
+    "noAccount": "Don't have an account?",
+    "register": "Register",
+    "loginError": "Login error. Please verify your credentials."
+  },
+  "register": {
+    "title": "Create new account",
+    "email": "Email",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email",
+    "password": "Password",
+    "passwordRequired": "Password is required",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordRequired": "Please confirm your password",
+    "registerButton": "Register",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "registrationSuccess": "Registration successful. Welcome to BankU.",
+    "registrationError": "Registration error. Please try again.",
+    "passwordMismatch": "Passwords do not match."
+  },
+  "dashboard": {
+    "connectionSuccess": "Success connecting to {{institution}}",
+    "connectionError": "Error connecting to the bank. Please try again.",
+    "intelligenceLoadError": "Error loading intelligence data",
+    "plaidConnectionError": "Error connecting to Plaid. Please try again.",
+    "alertDismissed": "Alert dismissed",
+    "alertDismissError": "Error dismissing the alert",
+    "recommendationDismissed": "Recommendation dismissed",
+    "recommendationDismissError": "Error dismissing the recommendation"
   },
   "sidebar": {
     "mainMenu": "Main Menu",
@@ -63,5 +97,22 @@
     "account": "Account",
     "deleteWarning": "If you want to delete your account, please note that this action cannot be undone.",
     "deleteAccount": "Delete Account"
+  },
+  "accounts": {
+    "title": "My Accounts",
+    "yourAccounts": "Your Financial Accounts",
+    "subtitle": "View all your connected bank accounts",
+    "noAccounts": "No accounts found",
+    "linkYourAccount": "Link your bank account to get started"
+  },
+  "transactions": {
+    "title": "Transactions",
+    "recentTransactions": "Recent Transactions",
+    "description": "Description",
+    "category": "Category",
+    "date": "Date",
+    "amount": "Amount",
+    "noTransactions": "No transactions found",
+    "linkYourAccount": "Link your bank account to see your transactions"
   }
 } 

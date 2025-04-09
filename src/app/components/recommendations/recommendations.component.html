@@ -1,0 +1,23 @@
+<div class="recommendations-container">
+  <div class="space-y-3">
+    <div *ngFor="let rec of recommendations" 
+         class="recommendation-item flex items-start gap-3 p-4 rounded-lg bg-white shadow-sm border-l-4 border-indigo-500">
+      <mat-icon class="material-symbols-outlined text-indigo-500">{{ getRecommendationIcon(rec.type) }}</mat-icon>
+      <div class="flex-grow">
+        <h4 class="font-bold text-gray-900 text-sm">{{ rec.title }}</h4>
+        <p class="text-gray-600 text-sm mt-1">{{ rec.description }}</p>
+        <button mat-button color="primary" class="text-xs mt-2" (click)="onResolve(rec.id)">
+          Resolve
+        </button>
+      </div>
+    </div>
+    <div *ngIf="recommendations.length === 0" class="text-gray-500 text-sm italic text-center p-4">
+      No recommendations at this time.
+    </div>
+  </div>
+  <div class="text-center mt-4" *ngIf="recommendations.length > 0">
+    <button mat-button color="primary" class="text-sm" (click)="onViewAll()">
+      View all recommendations
+    </button>
+  </div>
+</div> 

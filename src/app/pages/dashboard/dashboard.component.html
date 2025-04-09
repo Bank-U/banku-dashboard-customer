@@ -1,0 +1,33 @@
+<div class="dashboard-container p-6">
+  <!-- Header with Sync Button -->
+  <div class="flex row-reverse items-center mb-8">
+    <button mat-raised-button color="primary" class="sync-button" (click)="syncWithPlaid()" [disabled]="isSyncing">
+      <mat-icon class="material-symbols-outlined sync-button-icon">sync_outlined</mat-icon>
+      <span>{{ 'common.sync' | translate | async }}</span>
+    </button>
+  </div>
+
+  <!-- BankU Intelligence Section -->
+  <div class="bg-white p-6 rounded-lg shadow">
+    <div class="flex items-center gap-3 mb-6">
+      <mat-icon class="material-symbols-outlined text-2xl text-primary">psychology_outlined</mat-icon>
+      <h2 class="text-xl font-semibold">BankU Intelligence</h2>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Alerts Section -->
+      <app-alerts
+        [alerts]="alerts"
+        (resolve)="resolveAlert($event)"
+        (viewAll)="viewAllAlerts()">
+      </app-alerts>
+
+      <!-- Recommendations Section -->
+      <app-recommendations
+        [recommendations]="recommendations"
+        (resolve)="resolveRecommendation($event)"
+        (viewAll)="viewAllRecommendations()">
+      </app-recommendations>
+    </div>
+  </div>
+</div> 

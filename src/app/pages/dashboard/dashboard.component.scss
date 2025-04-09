@@ -1,0 +1,55 @@
+:host {
+  display: block;
+  background-color: var(--background);
+}
+
+.dashboard-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.sync-button {
+  color: white;
+  font-weight: 200;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  background-color: var(--banku-call-to-action) !important;
+  &:hover {
+    color: var(--banku-bg-light) !important;
+  }
+  .sync-button-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+  }
+}
+
+.alert, .recommendation {
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: translateX(5px);
+  }
+}
+
+h1, h2 {
+  color: var(--primary-color);
+}
+
+.text-blue-600 {
+  color: var(--accent-color);
+}
+
+.text-red-600 {
+  color: var(--danger-color);
+}
+
+.text-yellow-600 {
+  color: var(--warning-color);
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+} 

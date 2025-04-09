@@ -1,0 +1,53 @@
+<div class="register-container">
+  <div class="logo-container">
+    <img src="assets/images/logo.png" alt="BankU Logo" class="logo">
+    <span class="brand-name">BankU</span>
+  </div>
+
+  <mat-card class="register-card">
+    <mat-card-content>
+      <h1 class="register-title">{{ 'register.title' | translate | async }}</h1>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="register-form">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'register.email' | translate | async }}</mat-label>
+          <input matInput formControlName="email" type="email">
+          <mat-icon class="material-symbols-outlined" matPrefix>mail_outlined</mat-icon>
+          <mat-error *ngIf="hasError('email', 'required')">{{ 'register.emailRequired' | translate | async }}</mat-error>
+          <mat-error *ngIf="hasError('email', 'email')">{{ 'register.emailInvalid' | translate | async }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'register.password' | translate | async }}</mat-label>
+          <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
+          <mat-icon class="material-symbols-outlined" matPrefix>lock_outlined</mat-icon>
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+            <mat-icon class="material-symbols-outlined">{{ hidePassword ? 'visibility_off_outlined' : 'visibility_outlined' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="hasError('password', 'required')">{{ 'register.passwordRequired' | translate | async }}</mat-error>
+          <mat-error *ngIf="hasError('password', 'minlength')">{{ 'register.passwordMinLength' | translate | async }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'register.confirmPassword' | translate | async }}</mat-label>
+          <input matInput formControlName="confirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'">
+          <mat-icon class="material-symbols-outlined" matPrefix>lock_outlined</mat-icon>
+          <button mat-icon-button matSuffix type="button" (click)="hideConfirmPassword = !hideConfirmPassword">
+            <mat-icon class="material-symbols-outlined">{{ hideConfirmPassword ? 'visibility_off_outlined' : 'visibility_outlined' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="hasError('confirmPassword', 'required')">{{ 'register.confirmPasswordRequired' | translate | async }}</mat-error>
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="submit" class="register-button" [disabled]="form.invalid || isSubmitting">
+          <mat-spinner *ngIf="isSubmitting" diameter="20" class="spinner"></mat-spinner>
+          <span>{{ 'register.createAccount' | translate | async }}</span>
+        </button>
+
+        <div class="login-prompt">
+          <span>{{ 'register.alreadyHaveAccount' | translate | async }}</span>
+          <a routerLink="/login" class="login-link">{{ 'register.logIn' | translate | async }}</a>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div> 

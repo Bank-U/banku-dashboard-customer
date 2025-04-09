@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../../services/auth.service';
-import { LoginRequest } from '../../core/models/auth/login-request';
+import { RegisterRequest } from '../../core/models/auth/register-request';
 import { AbstractFormComponent } from '../../components/abstract-form.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { finalize } from 'rxjs/operators';
@@ -17,9 +17,9 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
 import { TranslateService } from '../../core/services/translate.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -34,9 +34,10 @@ import { TranslateService } from '../../core/services/translate.service';
     RouterModule
   ]
 })
-export class LoginComponent extends AbstractFormComponent implements OnInit {
+export class RegisterComponent extends AbstractFormComponent implements OnInit {
   form: FormGroup;
   hidePassword = true;
+  hideConfirmPassword = true;
 
   constructor(
     private fb: FormBuilder,
@@ -48,8 +49,9 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
     super();
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
-    });
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]]
+    }, { validator: this.passwordMatchValidator });
   }
 
   override ngOnInit(): void {
@@ -60,30 +62,39 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
     }
   }
 
+  passwordMatchValidator(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  }
+
   protected override onSubmit(): void {
     if (this.form.valid) {
       this.isSubmitting = true;
       this.disableForm();
       
-      const loginRequest: LoginRequest = {
+      const registerRequest: RegisterRequest = {
         email: this.form.get('email')?.value,
         password: this.form.get('password')?.value
       };
       
-      this.authService.login(loginRequest)
+      this.authService.register(registerRequest)
         .pipe(finalize(() => {
           this.isSubmitting = false;
           this.enableForm();
         }))
         .subscribe({
           next: () => {
-            this.router.navigate(['/dashboard']);
+            this.translateService.translate('register.registrationSuccess').subscribe((message: string) => {
+              this.notificationService.success(message);
+              this.router.navigate(['/dashboard']);
+            });
           },
           error: (error) => {
             if (error.error?.message) {
               this.notificationService.error(error.error.message);
             } else {
-              this.translateService.translate('login.loginError').subscribe((message: string) => {
+              this.translateService.translate('register.registrationError').subscribe((message: string) => {
                 this.notificationService.error(message);
               });
             }
@@ -91,9 +102,16 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
         });
     } else {
       this.markFormGroupTouched(this.form);
-      this.translateService.translate('common.formError').subscribe((message: string) => {
-        this.notificationService.warning(message);
-      });
+      
+      if (this.form.hasError('passwordMismatch')) {
+        this.translateService.translate('register.passwordMismatch').subscribe((message: string) => {
+          this.notificationService.warning(message);
+        });
+      } else {
+        this.translateService.translate('common.formError').subscribe((message: string) => {
+          this.notificationService.warning(message);
+        });
+      }
     }
   }
 } 
