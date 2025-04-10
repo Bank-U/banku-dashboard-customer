@@ -26,6 +26,10 @@ import { AuthService } from '../../services/auth.service';
   template: `
     <div class="sidebar-container">
       <div class="menu-section">
+      <div routerLink="/dashboard" class="sidebar-logo-container">
+        <img src="assets/images/white-logo.png" alt="BankU Logo" class="sidebar-logo">
+        <span class="sidebar-brand-name">BankU</span>
+      </div>
         <mat-nav-list>
           <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
             <mat-icon class="material-symbols-outlined" matListItemIcon>home_outlined</mat-icon>
@@ -52,7 +56,6 @@ import { AuthService } from '../../services/auth.service';
       <mat-divider class="sidebar-divider"></mat-divider>
       
       <div class="menu-section">
-        <div class="section-title">{{ 'sidebar.general' | translate | async }}</div>
         <mat-nav-list>
           <a mat-list-item routerLink="/settings" routerLinkActive="active">
             <mat-icon class="material-symbols-outlined" matListItemIcon>settings_outlined</mat-icon>
@@ -89,6 +92,42 @@ import { AuthService } from '../../services/auth.service';
       font-weight: 100;
       font-size: 14px;
     }
+    .sidebar-brand-name {
+      font-size: 24px;
+      font-weight: 100;
+    }
+    .sidebar-logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      width: 100%;
+      height: 75px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      
+      /* White line animation on hover */
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: -100%;
+        width: 100%;
+        height: 1px;
+        background-color: white;
+        transition: left 0.3s ease-in-out;
+      }
+      
+      &:hover::after {
+        left: 0;
+      }
+    }
+
+    .sidebar-logo {
+      width: 30px;
+      height: 30px;
+    }
     
     .sidebar-divider {
       margin: 0 auto;
@@ -96,16 +135,6 @@ import { AuthService } from '../../services/auth.service';
     }
     .menu-section {
       padding: 1rem 0;
-    }
-    
-    .section-title {
-      padding: 0 1.5rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 0.5rem;
     }
     
     mat-nav-list {
@@ -153,6 +182,10 @@ import { AuthService } from '../../services/auth.service';
     }
     
     @media (max-width: 768px) {
+      .sidebar-brand-name {
+        display: none;
+      }
+
       .sidebar-container, :host {
         width: 60px;
       }
