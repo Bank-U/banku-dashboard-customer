@@ -1,0 +1,193 @@
+@use 'colors';
+
+// Estilos de la página
+.page-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--background-dark);
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+
+// Estilos de la tarjeta principal
+.accounts-card {
+  background-color: var(--banku-surface);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+  overflow: hidden;
+  mat-card-title {
+    font-weight: 400;
+  }  
+}
+
+::ng-deep .mat-mdc-card-header {
+  padding: 16px 16px 0;
+  
+  .mat-mdc-card-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--banku-text);
+    margin-bottom: 4px;
+  }
+  
+  .mat-mdc-card-subtitle {
+    font-size: 0.875rem;
+    color: var(--banku-text-muted);
+    margin-bottom: 0;
+  }
+}
+
+.mat-mdc-card-content {
+  padding: 16px !important;
+}
+
+// Contenedor de cuentas
+.accounts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  padding: 8px 0;
+}
+
+// Estilos de cada cuenta
+.account-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background-color: var(--banku-bg-light);
+  border-radius: 8px;
+}
+
+.account-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: var(--background-dark);
+  margin-right: 16px;
+  
+  .mat-icon {
+    color: var(--banku-surface);
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.account-details {
+  flex: 1;
+}
+
+.account-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--banku-text);
+  margin: 0 0 4px;
+}
+
+.account-type {
+  font-size: 0.875rem;
+  color: var(--banku-text-muted);
+  margin-bottom: 8px;
+}
+
+.account-balance {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--background-dark);
+}
+
+// Estados vacíos y errores
+.no-data-container, .loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--banku-text);
+    margin: 16px 0 8px;
+  }
+  
+  p {
+    font-size: 0.875rem;
+    color: var(--banku-text-muted);
+    margin: 0;
+  }
+}
+
+.no-data-icon {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  color: var(--banku-text-muted);
+  opacity: 0.5;
+}
+
+.error-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  background-color: #FEF2F2;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 16px;
+  
+  mat-icon {
+    font-size: 32px;
+    height: 32px;
+    width: 32px;
+    color: var(--banku-error);
+    margin-bottom: 12px;
+  }
+  
+  p {
+    color: var(--banku-error);
+    margin: 0 0 16px;
+  }
+  
+  button {
+    color: var(--banku-error);
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .accounts-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .account-item {
+    padding: 12px;
+  }
+  
+  .account-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+    
+    .mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+} 

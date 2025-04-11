@@ -1,0 +1,101 @@
+<div class="page-container">
+  <h1 class="page-title">{{ 'transactions.title' | translate | async }}</h1>
+  
+  <div class="filters-container">
+    <!-- Date Range Filter -->
+    <mat-form-field appearance="fill" class="filter-field date-filter">
+      <mat-label>{{ 'transactions.filters.dateRange' | translate | async }}</mat-label>
+      <mat-date-range-input [formGroup]="dateRange" [rangePicker]="picker">
+        <input matStartDate placeholder="{{ 'transactions.filters.startDate' | translate | async }}" formControlName="start">
+        <input matEndDate placeholder="{{ 'transactions.filters.endDate' | translate | async }}" formControlName="end">
+      </mat-date-range-input>
+      <button mat-icon-button matSuffix *ngIf="dateRange.value.start || dateRange.value.end" (click)="clearDateRange($event)">
+        <mat-icon class="material-symbols-outlined">close</mat-icon>
+      </button>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker>
+      </mat-date-range-picker>
+    </mat-form-field>
+
+    <!-- Category Filter -->
+    <mat-form-field appearance="fill" class="filter-field">
+      <mat-label>{{ 'transactions.filters.categories' | translate | async }}</mat-label>
+      <mat-select [formControl]="categoryControl" multiple>
+        <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+      </mat-select>
+      <button mat-icon-button matSuffix *ngIf="categoryControl.value?.length" (click)="clearCategoryFilter($event)">
+        <mat-icon class="material-symbols-outlined no-data-icon delete-filter-icon">close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <!-- Account Filter -->
+    <mat-form-field appearance="fill" class="filter-field">
+      <mat-label>{{ 'transactions.filters.accounts' | translate | async }}</mat-label>
+      <button mat-icon-button matSuffix *ngIf="accountControl.value?.length" (click)="clearAccountFilter($event)">
+        <mat-icon class="material-symbols-outlined no-data-icon delete-filter-icon">close</mat-icon>
+      </button>
+      <mat-select [formControl]="accountControl" multiple>
+        <mat-option *ngFor="let account of accounts" [value]="account.name">{{ account.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
+  <div class="transactions-container" *ngIf="!loading; else loadingTemplate">
+    <div *ngIf="filteredTransactions.length > 0; else noTransactions">
+      <!-- Transaction Cards -->
+      <div *ngFor="let transaction of filteredTransactions" class="transaction-card">
+        <div class="transaction-details">
+          <div class="transaction-main">
+            <div class="transaction-header">
+              <h3 class="transaction-name">{{ transaction.name }}</h3>
+              <div class="transaction-categories">
+                <div *ngFor="let category of getCategories(transaction.category)" class="category-chip">
+                  {{ category }}
+                </div>
+              </div>
+            </div>
+            <span class="transaction-amount" [ngClass]="{'positive': transaction.amount > 0, 'negative': transaction.amount < 0}">
+              <ng-container *ngIf="transaction.amount > 0">+</ng-container>
+              {{ transaction.amount | currency:transaction.currency }}
+            </span>
+          </div>
+          
+          <div *ngIf="transaction.merchantName" class="merchant-name">{{ transaction.merchantName }}</div>
+          
+          <div class="transaction-footer">
+            <div class="transaction-account" *ngIf="transaction.accountId">
+              {{ getAccountName(transaction.accountId) }}
+            </div>
+            
+            <div class="transaction-date">
+              {{ transaction.date | date:'dd/MM/yyyy' }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template #noTransactions>
+      <div class="no-data-container">
+        <mat-icon class="material-symbols-outlined no-data-icon">receipt_long_outlined</mat-icon>
+        <p class="no-data-title">{{ 'transactions.noTransactions' | translate | async }}</p>
+        <p class="no-data-subtitle">{{ 'transactions.linkYourAccount' | translate | async }}</p>
+      </div>
+    </ng-template>
+  </div>
+  
+  <ng-template #loadingTemplate>
+    <div class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>{{ 'common.loading' | translate | async }}</p>
+    </div>
+  </ng-template>
+  
+  <div *ngIf="error" class="error-message">
+    <mat-icon class="material-symbols-outlined">error_outlined</mat-icon>
+    <p>{{ 'common.errorLoading' | translate | async }}</p>
+    <button mat-button color="primary" (click)="loadData()">
+      {{ 'common.tryAgain' | translate | async }}
+    </button>
+  </div>
+</div> 

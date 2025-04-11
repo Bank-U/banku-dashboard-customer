@@ -65,10 +65,12 @@ import { AuthService } from '../../services/auth.service';
       </div>
       
       <div class="sidebar-footer">
-        <button mat-button color="primary" class="logout-button" (click)="logout()">
-          <mat-icon class="material-symbols-outlined">logout_outlined</mat-icon>
-          <span>{{ 'common.logout' | translate | async }}</span>
-        </button>
+        <mat-nav-list>
+          <a mat-list-item (click)="logout()">
+            <mat-icon class="material-symbols-outlined" matListItemIcon>logout_outlined</mat-icon>
+            <span matListItemTitle>{{ 'common.logout' | translate | async }}</span>
+          </a>
+        </mat-nav-list>
       </div>
     </div>
   `,
@@ -141,29 +143,26 @@ import { AuthService } from '../../services/auth.service';
       padding-top: 0.5rem;
     }
     
-    a.mat-list-item {
+    a.mat-mdc-list-item {
       height: 48px;
-      margin: 0.25rem 0.5rem;
-      border-radius: 8px;
       transition: background-color 0.2s ease;
     }
     
-    a.mat-list-item:hover {
-      background-color: rgba(0, 0, 0, 0.04);
+    a.mat-mdc-list-item:hover {
+      background-color: rgba(0, 0, 0, 0.2);
     }
     
-    a.mat-list-item.active {
-      background-color: rgba(var(--primary-color-rgb), 0.1);
-      color: var(--primary-color);
+    a.mat-mdc-list-item.active {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    a.mat-mdc-list-item.active mat-icon {
+      color: white;
     }
     
     mat-icon {
       margin-right: 0.5rem;
       color: var(--text-secondary);
-    }
-    
-    a.mat-list-item.active mat-icon {
-      color: var(--primary-color);
     }
     
     .sidebar-footer {

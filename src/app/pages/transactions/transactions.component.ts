@@ -1,18 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { MatSortModule, MatSort } from '@angular/material/sort';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
 import { TranslatePipe } from '../../pipes/translate.pipe';
-import { FinancialService, Transaction } from '../../services/financial.service';
+import { FinancialService, Transaction, Account } from '../../services/financial.service';
 import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
+import { TranslateService } from '../../core/services/translate.service';
 
 @Component({
   selector: 'app-transactions',
@@ -20,238 +26,91 @@ import { of } from 'rxjs';
   imports: [
     CommonModule,
     MatCardModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
     MatProgressSpinnerModule,
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatChipsModule,
+    MatDividerModule,
     TranslatePipe,
     DatePipe
   ],
-  template: `
-    <div class="page-container">
-      <h1 class="page-title">{{ 'transactions.title' | translate | async }}</h1>
-      
-      <div class="page-content">
-        <mat-card class="transactions-card" *ngIf="!loading; else loadingTemplate">
-          <mat-card-header class="card-header">
-            <mat-card-title>{{ 'transactions.recentTransactions' | translate | async }}</mat-card-title>
-            
-            <div class="search-container">
-              <mat-form-field appearance="outline">
-                <mat-label>{{ 'common.search' | translate | async }}</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="{{ 'common.search' | translate | async }}">
-                <mat-icon class="material-symbols-outlined" matSuffix>search_outlined</mat-icon>
-              </mat-form-field>
-            </div>
-          </mat-card-header>
-          
-          <mat-card-content>
-            <div *ngIf="transactions.length > 0; else noTransactions">
-              <div class="table-container">
-                <table mat-table [dataSource]="dataSource" matSort class="transactions-table">
-                  <!-- Date Column -->
-                  <ng-container matColumnDef="date">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'transactions.date' | translate | async }}</th>
-                    <td mat-cell *matCellDef="let transaction">{{ transaction.date | date:'MMM d, y' }}</td>
-                  </ng-container>
-                  
-                  <!-- Name Column -->
-                  <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'transactions.description' | translate | async }}</th>
-                    <td mat-cell *matCellDef="let transaction" class="description-cell">
-                      <div class="transaction-name">{{ transaction.name }}</div>
-                      <div class="merchant-name" *ngIf="transaction.merchantName">{{ transaction.merchantName }}</div>
-                    </td>
-                  </ng-container>
-                  
-                  <!-- Category Column -->
-                  <ng-container matColumnDef="category">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'transactions.category' | translate | async }}</th>
-                    <td mat-cell *matCellDef="let transaction">{{ transaction.category }}</td>
-                  </ng-container>
-                  
-                  <!-- Amount Column -->
-                  <ng-container matColumnDef="amount">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'transactions.amount' | translate | async }}</th>
-                    <td mat-cell *matCellDef="let transaction" [ngClass]="{'negative': transaction.amount > 0, 'positive': transaction.amount < 0}">
-                      {{ transaction.amount | currency:transaction.currency }}
-                    </td>
-                  </ng-container>
-                  
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-                
-                <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
-              </div>
-            </div>
-            
-            <ng-template #noTransactions>
-              <div class="no-data-container">
-                <mat-icon class="material-symbols-outlined no-data-icon">receipt_long_outlined</mat-icon>
-                <h3>{{ 'transactions.noTransactions' | translate | async }}</h3>
-                <p>{{ 'transactions.linkYourAccount' | translate | async }}</p>
-              </div>
-            </ng-template>
-          </mat-card-content>
-        </mat-card>
-        
-        <ng-template #loadingTemplate>
-          <div class="loading-container">
-            <mat-spinner diameter="50"></mat-spinner>
-            <p>{{ 'common.loading' | translate | async }}</p>
-          </div>
-        </ng-template>
-        
-        <div *ngIf="error" class="error-message">
-          <mat-icon class="material-symbols-outlined">error_outlined</mat-icon>
-          <p>{{ 'common.errorLoading' | translate | async }}</p>
-          <button mat-button color="primary" (click)="loadTransactions()">
-            {{ 'common.tryAgain' | translate | async }}
-          </button>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .page-container {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    
-    .page-title {
-      margin-bottom: 1.5rem;
-      color: var(--text-primary);
-      font-size: 1.75rem;
-      font-weight: 500;
-    }
-    
-    .transactions-card {
-      margin-bottom: 1.5rem;
-      border-radius: 12px;
-    }
-    
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      padding-bottom: 0;
-    }
-    
-    .search-container {
-      min-width: 280px;
-    }
-    
-    .search-container mat-form-field {
-      width: 100%;
-      font-size: 0.9rem;
-    }
-    
-    .table-container {
-      overflow-x: auto;
-    }
-    
-    .transactions-table {
-      width: 100%;
-    }
-    
-    .description-cell {
-      max-width: 300px;
-    }
-    
-    .transaction-name {
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-    
-    .merchant-name {
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-    }
-    
-    .positive {
-      color: #4caf50;
-    }
-    
-    .negative {
-      color: #f44336;
-    }
-    
-    .no-data-container, .loading-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 0;
-      color: var(--text-secondary);
-      text-align: center;
-    }
-    
-    .no-data-icon {
-      font-size: 3rem;
-      height: 3rem;
-      width: 3rem;
-      margin-bottom: 1rem;
-      color: var(--text-secondary);
-      opacity: 0.5;
-    }
-    
-    .error-message {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 1.5rem;
-      background-color: #ffebee;
-      border-radius: 8px;
-      color: #c62828;
-      text-align: center;
-    }
-    
-    .error-message mat-icon {
-      margin-bottom: 0.5rem;
-      font-size: 2rem;
-      height: 2rem;
-      width: 2rem;
-    }
-    
-    @media (max-width: 768px) {
-      .card-header {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      
-      .search-container {
-        margin-top: 1rem;
-      }
-    }
-  `]
+  templateUrl: './transactions.component.html',
+  styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit {
   transactions: Transaction[] = [];
-  displayedColumns: string[] = ['date', 'name', 'category', 'amount'];
-  dataSource = new MatTableDataSource<Transaction>([]);
+  accounts: Account[] = [];
+  filteredTransactions: Transaction[] = [];
   loading = true;
   error = false;
+  
+  // Category and account filters using FormControl for multi-select
+  categories: string[] = [];
+  categoryControl = new FormControl<string[]>([]);
+  accountControl = new FormControl<string[]>([]);
+  
+  // Date range filter
+  dateRange = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  constructor(private financialService: FinancialService) { }
-
-  ngOnInit(): void {
-    this.loadTransactions();
+  constructor(
+    private financialService: FinancialService,
+    private dateAdapter: DateAdapter<any>,
+    private translateService: TranslateService
+  ) {
+    this.translateService.getCurrentLanguage().subscribe(lang => {
+      this.dateAdapter.setLocale(lang);
+    });
   }
 
-  loadTransactions(): void {
+  ngOnInit(): void {
+    this.loadData();
+    
+    // Subscribe to filter changes
+    this.dateRange.valueChanges.subscribe(() => {
+      this.applyFilters();
+    });
+    
+    this.categoryControl.valueChanges.subscribe(() => {
+      this.applyFilters();
+    });
+    
+    this.accountControl.valueChanges.subscribe(() => {
+      this.applyFilters();
+    });
+  }
+
+  loadData(): void {
     this.loading = true;
     this.error = false;
     
+    // Load accounts
+    this.financialService.getAccounts()
+      .pipe(
+        catchError(err => {
+          console.error('Error fetching accounts', err);
+          this.error = true;
+          return of([]);
+        })
+      )
+      .subscribe(accounts => {
+        this.accounts = accounts;
+        
+        // Load transactions after accounts are loaded
+        this.loadTransactions();
+      });
+  }
+  
+  loadTransactions(): void {
     this.financialService.getTransactions()
       .pipe(
         catchError(err => {
@@ -265,23 +124,97 @@ export class TransactionsComponent implements OnInit {
       )
       .subscribe(transactions => {
         this.transactions = transactions;
-        this.dataSource = new MatTableDataSource(this.transactions);
-        
-        setTimeout(() => {
-          if (this.paginator && this.sort) {
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          }
-        });
+        this.extractCategories();
+        this.applyFilters();
       });
   }
-
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  
+  extractCategories(): void {
+    // Extract unique categories from all transactions
+    const categorySet = new Set<string>();
+    
+    this.transactions.forEach(transaction => {
+      if (transaction.category) {
+        // Handle category strings in JSON format like "[Travel, Credit Card]"
+        const categories = this.getCategories(transaction.category);
+        categories.forEach(category => categorySet.add(category));
+      }
+    });
+    
+    this.categories = Array.from(categorySet);
+  }
+  
+  getCategories(categoryString: string): string[] {
+    try {
+      // Try to parse if it's a JSON string like "[Travel, Credit Card]"
+      if (categoryString.startsWith('[') && categoryString.endsWith(']')) {
+        return categoryString
+          .slice(1, -1)
+          .split(',')
+          .map(cat => cat.trim());
+      }
+      // If not, return as single category
+      return [categoryString];
+    } catch {
+      return [categoryString];
     }
+  }
+  
+  getAccountName(accountId: string): string {
+    const account = this.accounts.find(a => a.accountId === accountId);
+    return account ? account.name : accountId;
+  }
+  
+  applyFilters(): void {
+    let filtered = [...this.transactions];
+    
+    // Apply date filter
+    if (this.dateRange.value.start && this.dateRange.value.end) {
+      const startDate = new Date(this.dateRange.value.start);
+      const endDate = new Date(this.dateRange.value.end);
+      
+      filtered = filtered.filter(transaction => {
+        const transactionDate = new Date(transaction.date);
+        return transactionDate >= startDate && transactionDate <= endDate;
+      });
+    }
+    
+    // Apply category filter (multi-select)
+    if (this.categoryControl.value && this.categoryControl.value.length > 0) {
+      filtered = filtered.filter(transaction => {
+        const transactionCategories = this.getCategories(transaction.category);
+        return transactionCategories.some(category => 
+          this.categoryControl.value?.includes(category)
+        );
+      });
+    }
+    
+    // Apply account filter (multi-select)
+    if (this.accountControl.value && this.accountControl.value.length > 0) {
+      filtered = filtered.filter(transaction => {
+        const accountName = this.getAccountName(transaction.accountId);
+        return this.accountControl.value?.includes(accountName);
+      });
+    }
+    
+    // Sort by date (newest first)
+    filtered.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    
+    this.filteredTransactions = filtered;
+  }
+  
+  clearDateRange(event: Event): void {
+    event.stopPropagation();
+    this.dateRange.reset();
+  }
+
+  clearCategoryFilter(event: Event): void {
+    event.stopPropagation();
+    this.categoryControl.reset();
+  }
+
+  clearAccountFilter(event: Event): void {
+    event.stopPropagation();
+    this.accountControl.reset();
   }
 } 

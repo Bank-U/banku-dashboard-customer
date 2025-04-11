@@ -1,0 +1,479 @@
+@use 'colors';
+
+// Estilos de la página
+.page-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #0f172a;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+
+// Estilos de los filtros
+.filters-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.filter-field {
+  font-size: 14px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.filter-chip {
+  font-size: 12px;
+  background-color: #f8fafc;
+  color: #334155;
+}
+
+.clear-filters-btn {
+  color: #64748b !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: auto !important;
+  padding: 4px 12px !important;
+}
+
+.clear-filters-btn mat-icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  margin-right: 4px;
+}
+
+.delete-filter-icon {
+  font-size: 24px !important;
+  color: var(--banku-error);
+  opacity: 0.8 !important;
+  padding-top: 6px;
+  padding-right: 12px;
+}
+
+// Estilos de Material Design personalizados
+::ng-deep .mat-form-field-wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+::ng-deep .mat-form-field-infix {
+  padding: 0.5em 0 !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #f1f5f9;
+  border-radius: 8px !important;
+  padding: 0.5em 0.75em !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline::before,
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline::after {
+  display: none;
+}
+
+::ng-deep .mat-form-field-subscript-wrapper {
+  display: none;
+}
+
+::ng-deep .mat-select-panel {
+  background-color: white !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+::ng-deep .mat-mdc-select-panel {
+  background-color: white !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+::ng-deep .mat-option, ::ng-deep .mat-mdc-option {
+  background-color: white !important;
+}
+
+::ng-deep .mat-option:hover:not(.mat-option-disabled), 
+::ng-deep .mat-mdc-option:hover:not(.mat-mdc-option-disabled) {
+  background-color: #f1f5f9 !important;
+}
+
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled), 
+::ng-deep .mat-primary .mat-mdc-option.mat-mdc-option-active:not(.mat-mdc-option-disabled) {
+  color: var(--background-dark) !important;
+}
+
+::ng-deep .mat-pseudo-checkbox-checked {
+  background-color: var(--background-dark) !important;
+  color: var(--background) !important;
+}
+
+// Estilos del DatePicker
+::ng-deep .mat-calendar {
+  background-color: var(--banku-surface) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  padding: 0 !important;
+  width: 280px !important;
+}
+
+::ng-deep .mat-calendar-header {
+  padding: 12px !important;
+  background-color: var(--banku-surface) !important;
+}
+
+::ng-deep .mat-calendar-controls {
+  margin: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px !important;
+}
+
+::ng-deep .mat-calendar-period-button {
+  padding: 0 !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  color: var(--banku-text) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  min-width: unset !important;
+}
+
+.mat-calendar-body-cell::before, .mat-calendar-body-cell::after, .mat-calendar-body-cell-preview {
+  position: absolute !important;
+    top: 3px !important;
+}
+
+::ng-deep .mat-calendar-arrow {
+  display: none !important;
+}
+
+::ng-deep .mat-calendar-previous-button,
+::ng-deep .mat-calendar-next-button {
+  color: var(--banku-text-muted) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+}
+
+::ng-deep .mat-calendar-table-header {
+  color: var(--banku-text-muted) !important;
+  font-weight: 400 !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  padding: 0 0 8px !important;
+}
+
+::ng-deep .mat-calendar-table-header th {
+  padding: 0 0 8px !important;
+  height: 32px !important;
+}
+
+::ng-deep .mat-calendar-body-label {
+  color: var(--banku-text) !important;
+  font-weight: 400 !important;
+  opacity: 0.8 !important;
+  height: 0 !important;
+  padding: 0 !important;
+  visibility: hidden !important;
+}
+
+::ng-deep .mat-calendar-body-cell {
+  height: 32px !important;
+}
+
+::ng-deep .mat-calendar-body-cell-content {
+  border-radius: 50% !important;
+  height: 28px !important;
+  width: 28px !important;
+  line-height: 28px !important;
+  font-size: 13px !important;
+  font-weight: 300 !important;
+  color: var(--banku-text) !important;
+}
+
+::ng-deep .mat-calendar-body-selected {
+  color: var(--banku-surface) !important;
+  background-color: var(--background-dark) !important;
+}
+
+::ng-deep .mat-calendar-body-in-range::before {
+  background: var(--background-dark) !important;
+  opacity: 1 !important;
+  color: var(--banku-surface) !important;
+}
+
+::ng-deep .mat-calendar-body-in-range > .mat-calendar-body-cell-content {
+  border-radius: 0 !important;
+  opacity: 1 !important;
+  color: var(--banku-surface) !important;
+  position: relative !important;
+  top: 0px !important;
+}
+
+::ng-deep .mat-calendar-body-in-range.mat-calendar-body-range-start > .mat-calendar-body-cell-content {
+  border-top-left-radius: 50% !important;
+  border-bottom-left-radius: 50% !important;
+  opacity: 1 !important;
+  color: var(--banku-surface) !important;
+}
+
+::ng-deep .mat-calendar-body-in-range.mat-calendar-body-range-end > .mat-calendar-body-cell-content {
+  border-top-right-radius: 50% !important;
+  border-bottom-right-radius: 50% !important;
+  opacity: 1 !important;
+  color: var(--banku-surface) !important;
+}
+::ng-deep .mat-calendar-body-in-preview .mat-calendar-body-cell-preview {
+  border-top: solid 1px var(--background-dark) !important;
+  border-bottom: solid 1px var(--background-dark) !important;
+}
+::ng-deep .mat-calendar-body-preview-end .mat-calendar-body-cell-preview {
+  border-right: solid 1px var(--background-dark) !important;
+}
+::ng-deep .mat-calendar-body-preview-start .mat-calendar-body-cell-preview {
+  border-left: solid 1px var(--background-dark) !important;
+}
+
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border: 1px solid var(--background-dark) !important;
+
+  .mat-calendar-body-cell-content {
+    border: 1px solid red !important;
+    color: var(--banku-surface) !important;
+    font-weight: 500 !important;
+  }
+}
+
+::ng-deep .mat-calendar-body-today.mat-calendar-body-selected {
+  .mat-calendar-body-cell-content {
+    border: none !important;
+    background-color: var(--background-dark) !important;
+    color: var(--banku-surface) !important;
+  }
+}
+
+::ng-deep .mat-calendar-body-disabled > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  color: var(--banku-text-muted) !important;
+  opacity: 0.5 !important;
+}
+
+::ng-deep .mat-calendar-content {
+  padding: 0 8px 8px !important;
+  margin: 0 !important;
+}
+
+::ng-deep .mat-calendar-table {
+  width: 100% !important;
+  border-spacing: 0 !important;
+  border-collapse: collapse !important;
+}
+
+::ng-deep .mat-calendar-body-cell {
+  text-align: center !important;
+  padding: 0 !important;
+  outline: none !important;
+}
+
+::ng-deep .mat-date-range-input-container {
+  font-size: 14px !important;
+  color: var(--banku-text) !important;
+}
+
+::ng-deep .mat-date-range-input-start-wrapper {
+  padding-left: 0 !important;
+}
+
+::ng-deep .mat-date-range-input-end-wrapper {
+  padding-right: 0 !important;
+}
+
+::ng-deep .mat-date-range-input-separator {
+  color: var(--banku-text-muted) !important;
+  opacity: 0.8 !important;
+  padding: 0 4px !important;
+}
+
+// Estilos para los botones de limpieza de filtros
+::ng-deep .mat-mdc-form-field-suffix {
+  .mat-mdc-icon-button {
+    width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+    margin-right: 4px !important;
+    
+    .mat-icon {
+      font-size: 18px !important;
+      height: 18px !important;
+      width: 18px !important;
+      color: #64748b !important;
+    }
+  }
+}
+
+// Estilos para el botón Limpiar Filtros
+::ng-deep .mat-date-range-picker-actions {
+  display: flex !important;
+  justify-content: center !important;
+  padding: 12px 0 !important;
+  border-top: 1px solid #e2e8f0 !important;
+  background-color: white !important;
+}
+
+::ng-deep .mat-date-range-picker-actions button {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  color: #64748b !important;
+  font-size: 14px !important;
+}
+
+// Estilos de las transacciones
+.transactions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.transaction-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  margin-bottom: 8px;
+}
+
+.transaction-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+}
+
+.transaction-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.transaction-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #0f172a;
+  margin: 0;
+}
+
+.merchant-name {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.transaction-amount {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.positive {
+  color: var(--banku-success);
+}
+
+.negative {
+  color: #ef4444;
+}
+
+.transaction-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.category-chip {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #f1f5f9;
+  color: #64748b;
+}
+
+.transaction-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+// Estilos para estados vacíos y errores
+.no-data-container, .loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  color: #64748b;
+  text-align: center;
+  font-weight: 300;
+}
+
+.no-data-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.no-data-icon {
+  font-size: 3rem;
+  height: 3rem;
+  width: 3rem;
+  opacity: 0.5;
+}
+
+.error-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: #ffebee;
+  border-radius: 8px;
+  color: #c62828;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.error-message mat-icon {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  height: 2rem;
+  width: 2rem;
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .filters-container {
+    flex-direction: column;
+  }
+  
+  .filter-field {
+    width: 100%;
+  }
+} 

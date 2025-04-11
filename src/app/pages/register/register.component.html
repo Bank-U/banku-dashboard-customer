@@ -10,7 +10,7 @@
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="register-form">
         <mat-form-field appearance="outline" class="form-field">
-          <mat-label>{{ 'register.email' | translate | async }}</mat-label>
+          <mat-label class="register-label">{{ 'register.email' | translate | async }}</mat-label>
           <input matInput formControlName="email" type="email">
           <mat-icon class="material-symbols-outlined register-input-icon" matPrefix>mail_outlined</mat-icon>
           <mat-error *ngIf="hasError('email', 'required')">{{ 'register.emailRequired' | translate | async }}</mat-error>
@@ -18,7 +18,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="form-field">
-          <mat-label>{{ 'register.password' | translate | async }}</mat-label>
+          <mat-label class="register-label">{{ 'register.password' | translate | async }}</mat-label>
           <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
           <mat-icon class="material-symbols-outlined register-input-icon" matPrefix>lock_outlined</mat-icon>
           <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
@@ -29,7 +29,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="form-field">
-          <mat-label>{{ 'register.confirmPassword' | translate | async }}</mat-label>
+          <mat-label class="register-label">{{ 'register.confirmPassword' | translate | async }}</mat-label>
           <input matInput formControlName="confirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'">
           <mat-icon class="material-symbols-outlined register-input-icon" matPrefix>lock_outlined</mat-icon>
           <button mat-icon-button matSuffix type="button" (click)="hideConfirmPassword = !hideConfirmPassword">
