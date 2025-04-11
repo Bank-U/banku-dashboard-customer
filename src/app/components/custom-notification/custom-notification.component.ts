@@ -24,7 +24,7 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar'
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 24px;
+      padding: 4px 15px;
       border-radius: 12px;
       min-width: 400px;
       max-width: 600px;
@@ -74,6 +74,7 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar'
     }
 
     .notification-message {
+      font-weight: 200;
       font-size: 16px;
       color: #1a1f36;
     }

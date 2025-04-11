@@ -81,7 +81,7 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
           },
           error: (error) => {
             if (error.error?.message) {
-              this.notificationService.error(error.error.message);
+              this.notificationService.error(error.error.message, true);
             } else {
               this.translateService.translate('login.loginError').subscribe((message: string) => {
                 this.notificationService.error(message);
