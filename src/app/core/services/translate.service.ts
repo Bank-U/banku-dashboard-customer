@@ -2,45 +2,30 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map, tap, catchError } from 'rxjs/operators';
-
-export type Language = 'en' | 'es';
+import { StateService } from './state.service';
+import { Language } from '../models/app-state.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TranslateService {
-  private currentLanguage = new BehaviorSubject<Language>('es');
+  private currentLanguage = new BehaviorSubject<Language>(navigator.language.split('-')[0] as Language || 'en');
   private translations: { [key: string]: any } = {};
   private loadedLanguages: Set<Language> = new Set();
 
-  constructor(private http: HttpClient) {
-    // Load saved language preference or use browser language
-    const savedLang = localStorage.getItem('language') as Language;
-    if (savedLang && (savedLang === 'en' || savedLang === 'es')) {
-      this.setLanguage(savedLang);
-    } else {
-      const browserLang = navigator.language.split('-')[0] as Language;
-      this.setLanguage(browserLang === 'es' ? 'es' : 'en');
-    }
+  constructor(private http: HttpClient, private stateService: StateService) {
+    this.loadTranslations();
   }
 
-  getCurrentLanguage(): Observable<Language> {
-    return this.currentLanguage.asObservable();
-  }
-
-  setLanguage(lang: Language) {
-    localStorage.setItem('language', lang);
-    this.currentLanguage.next(lang);
-    this.loadTranslations(lang);
-  }
-
-  private loadTranslations(lang: Language) {
-    if (!this.loadedLanguages.has(lang)) {
-      this.http.get(`/assets/i18n/${lang}.json`)
-        .pipe(
+  private loadTranslations() {
+    this.stateService.getLanguage().subscribe(lang => {
+      if (!this.loadedLanguages.has(lang)) {
+        this.http.get(`/assets/i18n/${lang}.json`)
+          .pipe(
           tap(translations => {
             this.translations[lang] = translations;
             this.loadedLanguages.add(lang);
+            this.currentLanguage.next(lang);
           }),
           catchError(error => {
             console.error(`Error loading translations for ${lang}:`, error);
@@ -48,7 +33,10 @@ export class TranslateService {
           })
         )
         .subscribe();
-    }
+      } else {
+        this.currentLanguage.next(lang);
+      }
+    });
   }
 
   translate(key: string): Observable<string> {

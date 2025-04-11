@@ -11,9 +11,11 @@ export interface AuthState {
   loading: boolean;
 }
 
+export type Language = 'en' | 'es';
+
 export interface UiState {
   isDarkMode: boolean;
-  language: 'en' | 'es';
+  language: Language;
   isSidebarExpanded: boolean;
   notifications: AppNotification[];
 }

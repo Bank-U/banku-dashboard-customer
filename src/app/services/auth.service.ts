@@ -134,4 +134,27 @@ export class AuthService {
     localStorage.setItem('auth_token', response.token);
     localStorage.setItem('user_id', response.userId);
   }
+
+  /**
+   * Deletes the user's account
+   */
+  deleteAccount(): Observable<void> {
+    const userId = this.getUserId();
+    if (!userId) {
+      return throwError(() => new Error('User not authenticated'));
+    }
+
+    return this.apiService.delete<void>(`/v1/users/${userId}`)
+      .pipe(
+        tap(() => {
+          this.logout();
+        }),
+        catchError(error => {
+          this.stateService.updateAuthState({ 
+            error: error.error?.message || 'Error deleting account. Please try again.' 
+          });
+          return throwError(() => error);
+        })
+      );
+  }
 } 
