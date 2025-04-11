@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { AppState, AuthState, UiState, AppNotification } from '../models/app-state.model';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { AppState, AuthState, UiState, AppNotification, Language } from '../models/app-state.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class StateService {
     },
     ui: {
       isDarkMode: false,
-      language: 'en',
+      language: navigator.language.split('-')[0] as Language || 'en',
       isSidebarExpanded: true,
       notifications: []
     }
@@ -40,6 +40,12 @@ export class StateService {
 
   getState(): Observable<AppState> {
     return this.state.asObservable();
+  }
+
+  getLanguage(): Observable<Language> {
+    return this.state.pipe(
+      map(state => state.ui.language)
+    );
   }
 
   updateAuthState(authState: Partial<AuthState>): void {

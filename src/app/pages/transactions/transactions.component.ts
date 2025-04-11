@@ -18,7 +18,7 @@ import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
-import { TranslateService } from '../../core/services/translate.service';
+import { StateService } from '../../core/services/state.service';
 
 @Component({
   selector: 'app-transactions',
@@ -65,9 +65,9 @@ export class TransactionsComponent implements OnInit {
   constructor(
     private financialService: FinancialService,
     private dateAdapter: DateAdapter<any>,
-    private translateService: TranslateService
+    private stateService: StateService
   ) {
-    this.translateService.getCurrentLanguage().subscribe(lang => {
+    this.stateService.getLanguage().subscribe(lang => {
       this.dateAdapter.setLocale(lang);
     });
   }

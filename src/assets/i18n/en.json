@@ -40,7 +40,8 @@
     "loading": "Loading...",
     "errorLoading": "There was an error loading the data",
     "tryAgain": "Try Again",
-    "formError": "Please complete all fields correctly."
+    "formError": "Please complete all fields correctly.",
+    "cancel": "Cancel"
   },
   "login": {
     "title": "Login",
@@ -93,9 +94,23 @@
   },
   "settings": {
     "title": "Settings",
-    "account": "Account",
-    "deleteWarning": "If you want to delete your account, please note that this action cannot be undone.",
-    "deleteAccount": "Delete Account"
+    "language": {
+      "title": "Language",
+      "subtitle": "Select your preferred language"
+    },
+    "dangerZone": {
+      "title": "Danger Zone",
+      "subtitle": "Actions that cannot be undone"
+    },
+    "deleteAccount": {
+      "title": "Delete Account",
+      "description": "This action will permanently delete your account and all associated data.",
+      "button": "Delete Account",
+      "warning": "Are you sure you want to delete your account? This action cannot be undone.",
+      "confirmationText": "To confirm, type DELETE in the field below",
+      "confirmInput": "Type DELETE to confirm",
+      "confirm": "Confirm Deletion"
+    }
   },
   "accounts": {
     "title": "Accounts",

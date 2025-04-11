@@ -1,10 +1,157 @@
 :host {
   display: block;
   min-height: calc(100vh - 64px);
-  background-color: #f3f4f6;
+  background-color: var(--banku-background);
+  padding: 24px;
+}
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.full-width {
-  width: 100%;
-  margin-bottom: 16px;
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--banku-text-primary);
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+
+.settings-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.settings-card {
+  background-color: var(--banku-surface);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  mat-card-header {
+    padding: 24px 24px 16px;
+    
+    mat-card-title {
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: var(--banku-text-primary);
+    }
+
+    mat-card-subtitle {
+      color: var(--banku-text-secondary);
+      margin-top: 10px;
+      font-weight: 300;
+    }
+  }
+
+  mat-card-content {
+    padding: 0 24px 24px;
+  }
+}
+
+.language-selector {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--banku-border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: var(--banku-surface);
+  flex: 1;
+
+  &:hover {
+    border-color: var(--banku-primary);
+    background-color: var(--banku-primary-light);
+  }
+
+  &.selected {
+    border-color: var(--banku-primary);
+    background-color: var(--banku-primary-light);
+  }
+
+  .language-flag {
+    font-size: 1.5rem;
+  }
+
+  .language-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--banku-text-primary);
+  }
+}
+
+.danger-zone {
+  mat-card-header {
+    mat-card-title {
+      color: var(--banku-error);
+    }
+    mat-card-subtitle {
+      color: var(--banku-text-secondary);
+      margin-top: 10px;
+      font-weight: 300;
+    }
+  }
+
+  .danger-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-radius: 8px;
+
+    .danger-info {
+      h3 {
+        color: var(--banku-error);
+        margin: 0 0 8px;
+        font-size: 1.1rem;
+        font-weight: 300;
+      }
+
+      p {
+        color: var(--banku-text-secondary);
+        margin: 0;
+        font-size: 0.9rem;
+        font-weight: 300;
+      }
+    }
+
+    button {
+      min-width: 120px;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 600px) {
+  .page-container {
+    padding: 0;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+
+  .language-selector {
+    flex-direction: column;
+  }
+
+  .danger-action {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+
+    button {
+      width: 100%;
+    }
+  }
 } 

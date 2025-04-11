@@ -40,7 +40,8 @@
     "loading": "Cargando...",
     "errorLoading": "Hubo un error al cargar los datos",
     "tryAgain": "Intentar de nuevo",
-    "formError": "Por favor, completa todos los campos correctamente."
+    "formError": "Por favor, completa todos los campos correctamente.",
+    "cancel": "Cancelar"
   },
   "login": {
     "title": "Iniciar sesión",
@@ -93,9 +94,23 @@
   },
   "settings": {
     "title": "Configuración",
-    "account": "Cuenta",
-    "deleteWarning": "Si deseas eliminar tu cuenta, ten en cuenta que esta acción no se puede deshacer.",
-    "deleteAccount": "Eliminar Cuenta"
+    "language": {
+      "title": "Idioma",
+      "subtitle": "Selecciona tu idioma preferido"
+    },
+    "dangerZone": {
+      "title": "Zona de peligro",
+      "subtitle": "Acciones que no se pueden deshacer"
+    },
+    "deleteAccount": {
+      "title": "Eliminar cuenta",
+      "description": "Esta acción eliminará permanentemente tu cuenta y todos los datos asociados.",
+      "button": "Eliminar cuenta",
+      "warning": "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.",
+      "confirmationText": "Para confirmar, escribe DELETE en el campo de abajo",
+      "confirmInput": "Escribe DELETE para confirmar",
+      "confirm": "Confirmar eliminación"
+    }
   },
   "accounts": {
     "title": "Cuentas",

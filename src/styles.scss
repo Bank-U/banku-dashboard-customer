@@ -66,3 +66,42 @@ body {
   justify-content: center !important;
   align-items: flex-start !important;
 } 
+
+
+.modal-delete-account {
+  .mat-mdc-dialog-container {
+    .mat-mdc-dialog-inner-container {
+      width: 100%;
+      margin: 32px auto;
+      padding: 0;
+      border-radius: 12px;
+      background-color: var(--banku-surface);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+
+      @media (max-width: 600px) {
+        width: calc(100% - 32px);
+        margin: 16px;
+        max-height: calc(100vh - 32px);
+      }
+
+      .mat-mdc-dialog-content {
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+        
+        &::-webkit-scrollbar {
+          width: 8px;
+        }
+        
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          background-color: var(--banku-border);
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+}
