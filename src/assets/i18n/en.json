@@ -41,7 +41,8 @@
     "errorLoading": "There was an error loading the data",
     "tryAgain": "Try Again",
     "formError": "Please complete all fields correctly.",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "close": "Close"
   },
   "login": {
     "title": "Login",
@@ -109,7 +110,9 @@
       "warning": "Are you sure you want to delete your account? This action cannot be undone.",
       "confirmationText": "To confirm, type DELETE in the field below",
       "confirmInput": "Type DELETE to confirm",
-      "confirm": "Confirm Deletion"
+      "confirm": "Confirm Deletion",
+      "success": "Your account has been successfully deleted",
+      "error": "An error occurred while deleting your account. Please try again."
     }
   },
   "accounts": {
