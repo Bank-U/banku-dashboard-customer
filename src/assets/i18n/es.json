@@ -43,7 +43,7 @@
     "formError": "Por favor, completa todos los campos correctamente."
   },
   "login": {
-    "title": "BankU",
+    "title": "Iniciar sesión",
     "signIn": "Iniciar sesión",
     "subtitle": "Inicia sesión en tu cuenta",
     "email": "Correo electrónico",
@@ -98,20 +98,83 @@
     "deleteAccount": "Eliminar Cuenta"
   },
   "accounts": {
-    "title": "Mis Cuentas",
-    "yourAccounts": "Tus Cuentas Financieras",
-    "subtitle": "Visualiza todas tus cuentas bancarias conectadas",
-    "noAccounts": "No se encontraron cuentas",
-    "linkYourAccount": "Conecta tu cuenta bancaria para comenzar"
+    "title": "Cuentas",
+    "yourAccounts": "Tus Cuentas",
+    "subtitle": "Gestiona todas tus cuentas bancarias en un solo lugar",
+    "noAccounts": "No tienes cuentas vinculadas",
+    "linkYourAccount": "Vincula tu primera cuenta para empezar a gestionar tus finanzas",
+    "accountTypes": {
+      "credit": "Tarjeta de Crédito",
+      "loan": "Préstamo",
+      "investment": "Inversión",
+      "depository": "Cuenta Corriente",
+      "checking": "Cuenta Corriente",
+      "savings": "Cuenta de Ahorro"
+    }
   },
   "transactions": {
     "title": "Transacciones",
-    "recentTransactions": "Transacciones Recientes",
-    "description": "Descripción",
-    "category": "Categoría",
-    "date": "Fecha",
-    "amount": "Importe",
     "noTransactions": "No se encontraron transacciones",
-    "linkYourAccount": "Conecta tu cuenta bancaria para ver tus transacciones"
+    "linkYourAccount": "Conecta tu cuenta bancaria para ver tus transacciones",
+    "filters": {
+      "dateRange": "Rango de fechas",
+      "startDate": "Fecha de inicio",
+      "endDate": "Fecha de fin",
+      "categories": "Selecciona categoría",
+      "accounts": "Selecciona cuenta",
+      "clearFilters": "Limpiar filtros"
+    }
+  },
+  "datepicker": {
+    "months": {
+      "long": {
+        "january": "Enero",
+        "february": "Febrero",
+        "march": "Marzo",
+        "april": "Abril",
+        "may": "Mayo",
+        "june": "Junio",
+        "july": "Julio",
+        "august": "Agosto",
+        "september": "Septiembre",
+        "october": "Octubre",
+        "november": "Noviembre",
+        "december": "Diciembre"
+      },
+      "short": {
+        "january": "Ene",
+        "february": "Feb",
+        "march": "Mar",
+        "april": "Abr",
+        "may": "May",
+        "june": "Jun",
+        "july": "Jul",
+        "august": "Ago",
+        "september": "Sep",
+        "october": "Oct",
+        "november": "Nov",
+        "december": "Dic"
+      }
+    },
+    "weekDays": {
+      "long": {
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado",
+        "sunday": "Domingo"
+      },
+      "short": {
+        "monday": "L",
+        "tuesday": "M",
+        "wednesday": "X",
+        "thursday": "J",
+        "friday": "V",
+        "saturday": "S",
+        "sunday": "D"
+      }
+    }
   }
 } 

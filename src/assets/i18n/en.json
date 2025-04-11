@@ -43,7 +43,7 @@
     "formError": "Please complete all fields correctly."
   },
   "login": {
-    "title": "BankU",
+    "title": "Login",
     "signIn": "Sign in",
     "subtitle": "Sign in to your account",
     "email": "Email",
@@ -98,20 +98,83 @@
     "deleteAccount": "Delete Account"
   },
   "accounts": {
-    "title": "My Accounts",
-    "yourAccounts": "Your Financial Accounts",
-    "subtitle": "View all your connected bank accounts",
-    "noAccounts": "No accounts found",
-    "linkYourAccount": "Link your bank account to get started"
+    "title": "Accounts",
+    "yourAccounts": "Your Accounts",
+    "subtitle": "Manage all your bank accounts in one place",
+    "noAccounts": "No linked accounts",
+    "linkYourAccount": "Link your first account to start managing your finances",
+    "accountTypes": {
+      "credit": "Credit Card",
+      "loan": "Loan",
+      "investment": "Investment",
+      "depository": "Checking Account",
+      "checking": "Checking Account",
+      "savings": "Savings Account"
+    }
   },
   "transactions": {
     "title": "Transactions",
-    "recentTransactions": "Recent Transactions",
-    "description": "Description",
-    "category": "Category",
-    "date": "Date",
-    "amount": "Amount",
     "noTransactions": "No transactions found",
-    "linkYourAccount": "Link your bank account to see your transactions"
+    "linkYourAccount": "Link your bank account to see your transactions",
+    "filters": {
+      "dateRange": "Date range",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "categories": "Select category",
+      "accounts": "Select account",
+      "clearFilters": "Clear filters"
+    }
+  },
+  "datepicker": {
+    "months": {
+      "long": {
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
+      },
+      "short": {
+        "january": "Jan",
+        "february": "Feb",
+        "march": "Mar",
+        "april": "Apr",
+        "may": "May",
+        "june": "Jun",
+        "july": "Jul",
+        "august": "Aug",
+        "september": "Sep",
+        "october": "Oct",
+        "november": "Nov",
+        "december": "Dec"
+      }
+    },
+    "weekDays": {
+      "long": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      },
+      "short": {
+        "monday": "M",
+        "tuesday": "T",
+        "wednesday": "W",
+        "thursday": "T",
+        "friday": "F",
+        "saturday": "S",
+        "sunday": "S"
+      }
+    }
   }
 } 

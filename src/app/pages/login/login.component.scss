@@ -41,6 +41,11 @@
   background: var(--banku-surface);
   padding: 24px;
 }
+.login-label {
+  color: var(--banku-text);
+  opacity: 0.8;
+  font-size: 14px;
+}
 
 .login-title {
   font-size: 24px;
@@ -81,6 +86,10 @@
         color: var(--banku-text-muted);
         padding-right: 8px;
       }
+
+      .mat-mdc-form-field-required-marker {
+        display: none;
+      }
     }
   }
 }
@@ -90,9 +99,13 @@
   border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
-  background-color: var(--banku-blue) !important;
+  background-color: var(--background-dark) !important;
   margin: 8px 0;
-
+  color: var(--banku-surface) !important;
+  font-weight: 200;
+  &.mat-mdc-button-disabled {
+    background-color: var(--banku-text-muted) !important;
+  }
   .spinner {
     margin-right: 8px;
   }
@@ -111,7 +124,17 @@
     text-decoration: underline;
   }
 }
+.forgot-password-link {
+  color: var(--background-dark);
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 5px;
 
+  &:hover {
+    text-decoration: underline;
+  }
+}
 .register-prompt {
   text-align: center;
   padding-top: 30px;
@@ -119,8 +142,8 @@
   color: var(--banku-text-muted);
   border-top: 1px solid var(--banku-border);
 
-  .register-link {
-    color: var(--banku-blue);
+  .register-link{
+    color: var(--background-dark);
     text-decoration: none;
     font-weight: 500;
     cursor: pointer;

@@ -1,0 +1,51 @@
+<div class="page-container">
+  <h1 class="page-title">{{ 'accounts.title' | translate | async }}</h1>
+  
+  <div class="page-content">
+    <mat-card class="accounts-card" *ngIf="!loading; else loadingTemplate">
+      <mat-card-header>
+        <mat-card-title>{{ 'accounts.yourAccounts' | translate | async }}</mat-card-title>
+        <mat-card-subtitle>{{ 'accounts.subtitle' | translate | async }}</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div *ngIf="accounts.length > 0; else noAccounts" class="accounts-container">
+          <div *ngFor="let account of accounts" 
+               class="account-item" >
+            <div class="account-icon">
+              <mat-icon class="material-symbols-outlined">{{ getAccountIcon(account.type) }}</mat-icon>
+            </div>
+            <div class="account-details">
+              <h3 class="account-name">{{ account.name }}</h3>
+              <div class="account-type">{{ account.type | capitalize }}</div>
+              <div class="account-balance">{{ account.balance | currency:account.currency }}</div>
+            </div>
+          </div>
+        </div>
+        
+        <ng-template #noAccounts>
+          <div class="no-data-container">
+            <mat-icon class="material-symbols-outlined no-data-icon">account_balance_wallet</mat-icon>
+            <h3>{{ 'accounts.noAccounts' | translate | async }}</h3>
+            <p>{{ 'accounts.linkYourAccount' | translate | async }}</p>
+          </div>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+    
+    <ng-template #loadingTemplate>
+      <div class="loading-container">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>{{ 'common.loading' | translate | async }}</p>
+      </div>
+    </ng-template>
+    
+    <div *ngIf="error" class="error-message">
+      <mat-icon class="material-symbols-outlined">error</mat-icon>
+      <p>{{ 'common.errorLoading' | translate | async }}</p>
+      <button mat-button color="warn" (click)="loadAccounts()">
+        {{ 'common.tryAgain' | translate | async }}
+      </button>
+    </div>
+  </div>
+</div> 
