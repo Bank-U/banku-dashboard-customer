@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError, Subject } from 'rxjs';
+import { Observable, throwError, Subject, take, switchMap } from 'rxjs';
 import { AuthService } from './auth.service';
 import { ApiService } from './api.service';
+import { StateService } from '../core/services/state.service';
 
 interface LinkTokenResponse {
   linkToken: string;
@@ -28,7 +29,8 @@ export class PlaidService {
 
   constructor(
     private authService: AuthService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private stateService: StateService
   ) {}
 
   createLinkToken(): Observable<LinkTokenResponse> {
@@ -36,8 +38,15 @@ export class PlaidService {
     if (!userId) {
       return throwError(() => new Error('No user ID available'));
     }
-    
-    return this.apiService.post<LinkTokenResponse>(`/v1/openbanking/link-token`, { userId });
+    return this.stateService.getLanguage().pipe(
+      take(1),
+      switchMap(language => 
+        this.apiService.post<LinkTokenResponse>(`/v1/openbanking/link-token`, { 
+          userId, 
+          language: language || "en" 
+        })
+      )
+    );
   }
 
   openPlaidLink(token: string): void {
