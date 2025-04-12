@@ -1,0 +1,46 @@
+<div class="login-container">
+  <div class="logo-container">
+    <img src="assets/images/logo.png" alt="BankU Logo" class="logo">
+    <span class="brand-name">BankU</span>
+  </div>
+
+  <mat-card class="login-card">
+    <mat-card-content>
+      <h1 class="login-title">{{ 'login.title' | translate | async }}</h1>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label class="login-label">{{ 'login.email' | translate | async }}</mat-label>
+          <input matInput formControlName="email" type="email">
+          <mat-icon class="material-symbols-outlined login-input-icon" matPrefix>mail_outlined</mat-icon>
+          <mat-error *ngIf="hasError('email', 'required')">{{ 'login.emailRequired' | translate | async }}</mat-error>
+          <mat-error *ngIf="hasError('email', 'email')">{{ 'login.emailInvalid' | translate | async }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label class="login-label">{{ 'login.password' | translate | async }}</mat-label>
+          <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
+          <mat-icon class="material-symbols-outlined login-input-icon" matPrefix>lock_outlined</mat-icon>
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+            <mat-icon class="material-symbols-outlined">{{ hidePassword ? 'visibility_off_outlined' : 'visibility_outlined' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="hasError('password', 'required')">{{ 'login.passwordRequired' | translate | async }}</mat-error>
+        </mat-form-field>
+
+        <div class="forgot-password">
+          <a routerLink="/forgot-password" class="forgot-password-link">{{ 'login.forgotPassword' | translate | async }}</a>
+        </div>
+
+        <button mat-flat-button color="primary" type="submit" class="login-button" [disabled]="form.invalid || isSubmitting">
+          <mat-spinner *ngIf="isSubmitting" diameter="20" class="spinner"></mat-spinner>
+          <span>{{ 'login.signIn' | translate | async }}</span>
+        </button>
+
+        <div class="register-prompt">
+          <span>{{ 'login.noAccount' | translate | async }}</span>
+          <a routerLink="/register" class="register-link">{{ 'login.register' | translate | async }}</a>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div> 

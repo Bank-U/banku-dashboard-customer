@@ -1,0 +1,158 @@
+:host {
+  display: block;
+  height: 100vh;
+  width: 100%;
+}
+
+.register-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--banku-bg-light);
+  padding: 20px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 12px;
+
+  .logo {
+    height: 36px;
+    width: 36px;
+  }
+
+  .brand-name {
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--banku-text);
+  }
+}
+
+.register-card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 16px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  background: var(--banku-surface);
+  padding: 24px;
+}
+
+.register-label {
+  color: var(--banku-text);
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.register-title {
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--banku-text);
+  text-align: center;
+  margin-bottom: 24px;
+  margin-top: 0;
+}
+
+.register-input-icon {
+  margin-left: 14px;
+  padding: 0 !important;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .form-field {
+    width: 100%;
+
+    ::ng-deep {
+      .mat-mdc-form-field-flex {
+        background-color: var(--banku-bg-light);
+      }
+
+      .mat-mdc-text-field-wrapper {
+        background-color: var(--banku-bg-light);
+      }
+
+      .mdc-text-field--outlined {
+        --mdc-outlined-text-field-container-shape: 8px;
+      }
+
+      .mat-mdc-form-field-icon-prefix {
+        color: var(--banku-text-muted);
+        padding-right: 8px;
+      }
+
+      .mat-mdc-form-field-required-marker {
+        display: none;
+      }
+    }
+  }
+}
+
+.register-button {
+  height: 48px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: var(--background-dark) !important;
+  margin: 8px 0;
+  color: var(--banku-surface) !important;
+  font-weight: 200;
+  &.mat-mdc-button-disabled {
+    background-color: var(--banku-text-muted) !important;
+  }
+  .spinner {
+    margin-right: 8px;
+  }
+}
+
+.login-prompt {
+  text-align: center;
+  padding-top: 30px;
+  font-size: 14px;
+  color: var(--banku-text-muted);
+  border-top: 1px solid var(--banku-border);
+  margin-top: 20px;
+
+  .login-link {
+    color: var(--background-dark);
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: 5px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .register-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .header-icon {
+    font-size: 1.5rem;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  
+  .header-title {
+    font-size: 1.25rem;
+  }
+  
+  .register-main {
+    padding: 1rem;
+  }
+  
+  .register-card {
+    padding: 1.5rem;
+  }
+} 

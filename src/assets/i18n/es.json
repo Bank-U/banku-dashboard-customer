@@ -1,13 +1,14 @@
 {
   "common": {
-    "dashboard": "Dashboard",
+    "menu": "Menú",
+    "dashboard": "Panel de Control",
     "transactions": "Transacciones",
     "accounts": "Cuentas",
     "analytics": "Análisis",
     "budget": "Presupuesto",
     "settings": "Configuración",
     "help": "Ayuda",
-    "logout": "Cerrar sesión",
+    "logout": "Cerrar Sesión",
     "search": "Buscar transacciones, cuentas...",
     "notifications": "Notificaciones",
     "profile": "Perfil",
@@ -19,8 +20,8 @@
     "inLastMonth": "en el último mes",
     "category": "Categoría",
     "product": "Producto",
-    "merchant": "Comerciante",
-    "amount": "Cantidad",
+    "merchant": "Comercio",
+    "amount": "Importe",
     "status": "Estado",
     "currency": "Moneda",
     "date": "Fecha",
@@ -31,37 +32,167 @@
     "unusualSpending": "Gasto inusual detectado",
     "unusualSpendingDesc": "Hemos identificado un aumento significativo en tus transacciones esta semana en comparación con tus patrones habituales.",
     "duplicateCharges": "Posibles cargos duplicados",
-    "duplicateChargesDesc": "Dos o más transacciones con el mismo monto y comerciante se publicaron en un corto período de tiempo.",
-    "unusedSubscriptions": "Podrías optimizar suscripciones no utilizadas",
-    "unusedSubscriptionsDesc": "Varios cargos recurrentes no muestran actividad reciente relacionada. Considera revisar estas suscripciones.",
+    "duplicateChargesDesc": "Dos o más transacciones con el mismo importe y comercio se registraron en un corto período de tiempo.",
+    "unusedSubscriptions": "Podrías optimizar suscripciones sin usar",
+    "unusedSubscriptionsDesc": "Varios cargos recurrentes no muestran actividad relacionada reciente. Considera revisar estas suscripciones.",
     "highEntertainment": "Alto gasto en Entretenimiento",
-    "highEntertainmentDesc": "Tus gastos de entretenimiento han superado tu promedio mensual en más del 35%."
+    "highEntertainmentDesc": "Tus gastos en entretenimiento han superado tu promedio mensual en más del 35%.",
+    "loading": "Cargando...",
+    "errorLoading": "Hubo un error al cargar los datos",
+    "tryAgain": "Intentar de nuevo",
+    "formError": "Por favor, completa todos los campos correctamente.",
+    "cancel": "Cancelar",
+    "close": "Cerrar"
   },
   "login": {
-    "title": "BankU",
+    "title": "Iniciar sesión",
+    "signIn": "Iniciar sesión",
     "subtitle": "Inicia sesión en tu cuenta",
-    "email": "Email",
-    "emailRequired": "El email es requerido",
-    "emailInvalid": "Por favor ingresa un email válido",
+    "email": "Correo electrónico",
+    "emailRequired": "El correo electrónico es obligatorio",
+    "emailInvalid": "Por favor, introduce un correo electrónico válido",
     "password": "Contraseña",
-    "passwordRequired": "La contraseña es requerida",
-    "rememberMe": "Recordarme",
+    "passwordRequired": "La contraseña es obligatoria",
+    "rememberMe": "Recuérdame",
     "forgotPassword": "¿Olvidaste tu contraseña?",
-    "loginButton": "Iniciar sesión"
+    "noAccount": "¿No tienes una cuenta?",
+    "register": "Registrarse",
+    "loginError": "Error al iniciar sesión. Por favor, verifica tus credenciales."
+  },
+  "register": {
+    "title": "Crear nueva cuenta",
+    "register": "Registrarse",
+    "email": "Correo electrónico",
+    "emailRequired": "El correo electrónico es obligatorio",
+    "emailInvalid": "Por favor, introduce un correo electrónico válido",
+    "password": "Contraseña",
+    "passwordRequired": "La contraseña es obligatoria",
+    "confirmPassword": "Confirmar Contraseña",
+    "confirmPasswordRequired": "Por favor, confirma tu contraseña",
+    "loginButton": "Iniciar sesión",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "registrationSuccess": "Registro exitoso. Bienvenido a BankU.",
+    "registrationError": "Error al registrar. Por favor, intenta de nuevo.",
+    "passwordMismatch": "Las contraseñas no coinciden."
+  },
+  "dashboard": {
+    "connectionSuccess": "Conexión exitosa con {{institution}}",
+    "connectionError": "Error en la conexión con el banco. Por favor, inténtalo de nuevo.",
+    "intelligenceLoadError": "Error al cargar los datos de inteligencia",
+    "plaidConnectionError": "Error al conectar con Plaid. Por favor, inténtalo de nuevo.",
+    "alertDismissed": "Alerta descartada",
+    "alertDismissError": "Error al descartar la alerta",
+    "recommendationDismissed": "Recomendación descartada",
+    "recommendationDismissError": "Error al descartar la recomendación"
   },
   "sidebar": {
     "mainMenu": "Menú Principal",
     "home": "Inicio",
     "accounts": "Cuentas",
-    "alerts": "Alertas",
+    "intelligence": "Intelligence",
     "transactions": "Transacciones",
-    "general": "General",
     "settings": "Configuración"
   },
   "settings": {
     "title": "Configuración",
-    "account": "Cuenta",
-    "deleteWarning": "Si deseas eliminar tu cuenta, ten en cuenta que esta acción no se puede deshacer.",
-    "deleteAccount": "Eliminar Cuenta"
+    "language": {
+      "title": "Idioma",
+      "subtitle": "Selecciona tu idioma preferido"
+    },
+    "dangerZone": {
+      "title": "Zona de peligro",
+      "subtitle": "Acciones que no se pueden deshacer"
+    },
+    "deleteAccount": {
+      "title": "Eliminar cuenta",
+      "description": "Esta acción eliminará permanentemente tu cuenta y todos los datos asociados.",
+      "button": "Eliminar cuenta",
+      "warning": "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.",
+      "confirmationText": "Para confirmar, escribe DELETE en el campo de abajo",
+      "confirmInput": "Escribe DELETE para confirmar",
+      "confirm": "Confirmar eliminación",
+      "success": "Tu cuenta ha sido eliminada correctamente",
+      "error": "Ha ocurrido un error al eliminar tu cuenta. Por favor, inténtalo de nuevo."
+    }
+  },
+  "accounts": {
+    "title": "Cuentas",
+    "yourAccounts": "Tus Cuentas",
+    "subtitle": "Gestiona todas tus cuentas bancarias en un solo lugar",
+    "noAccounts": "No tienes cuentas vinculadas",
+    "linkYourAccount": "Vincula tu primera cuenta para empezar a gestionar tus finanzas",
+    "accountTypes": {
+      "credit": "Tarjeta de Crédito",
+      "loan": "Préstamo",
+      "investment": "Inversión",
+      "depository": "Cuenta Corriente",
+      "checking": "Cuenta Corriente",
+      "savings": "Cuenta de Ahorro"
+    }
+  },
+  "transactions": {
+    "title": "Transacciones",
+    "noTransactions": "No se encontraron transacciones",
+    "linkYourAccount": "Conecta tu cuenta bancaria para ver tus transacciones",
+    "filters": {
+      "dateRange": "Rango de fechas",
+      "startDate": "Fecha de inicio",
+      "endDate": "Fecha de fin",
+      "categories": "Selecciona categoría",
+      "accounts": "Selecciona cuenta",
+      "clearFilters": "Limpiar filtros"
+    }
+  },
+  "datepicker": {
+    "months": {
+      "long": {
+        "january": "Enero",
+        "february": "Febrero",
+        "march": "Marzo",
+        "april": "Abril",
+        "may": "Mayo",
+        "june": "Junio",
+        "july": "Julio",
+        "august": "Agosto",
+        "september": "Septiembre",
+        "october": "Octubre",
+        "november": "Noviembre",
+        "december": "Diciembre"
+      },
+      "short": {
+        "january": "Ene",
+        "february": "Feb",
+        "march": "Mar",
+        "april": "Abr",
+        "may": "May",
+        "june": "Jun",
+        "july": "Jul",
+        "august": "Ago",
+        "september": "Sep",
+        "october": "Oct",
+        "november": "Nov",
+        "december": "Dic"
+      }
+    },
+    "weekDays": {
+      "long": {
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado",
+        "sunday": "Domingo"
+      },
+      "short": {
+        "monday": "L",
+        "tuesday": "M",
+        "wednesday": "X",
+        "thursday": "J",
+        "friday": "V",
+        "saturday": "S",
+        "sunday": "D"
+      }
+    }
   }
 } 

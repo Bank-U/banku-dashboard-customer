@@ -1,0 +1,45 @@
+<div class="page-container">
+  <h1 class="page-title">{{ 'settings.title' | translate | async }}</h1>
+
+  <div class="settings-content">
+    <mat-card class="settings-card">
+      <mat-card-header>
+        <mat-card-title class="settings-card-title">{{ 'settings.language.title' | translate | async }}</mat-card-title>
+        <mat-card-subtitle class="settings-card-subtitle">{{ 'settings.language.subtitle' | translate | async }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]="settingsForm">
+          <div class="language-selector">
+            <div *ngFor="let lang of languages" 
+                 class="language-option" 
+                 [class.selected]="settingsForm.get('language')?.value === lang.code"
+                 (click)="settingsForm.get('language')?.setValue(lang.code)">
+              <span class="language-flag">{{ lang.flag }}</span>
+              <span class="language-name">{{ lang.name }}</span>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="settings-card danger-zone">
+      <mat-card-header>
+        <mat-card-title class="settings-card-title danger-zone-title">{{ 'settings.dangerZone.title' | translate | async }}</mat-card-title>
+        <mat-card-subtitle class="settings-card-subtitle danger-zone-subtitle">{{ 'settings.dangerZone.subtitle' | translate | async }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="danger-action">
+          <div class="danger-info">
+            <h3>{{ 'settings.deleteAccount.title' | translate | async }}</h3>
+            <p>{{ 'settings.deleteAccount.description' | translate | async }}</p>
+          </div>
+          <button mat-flat-button color="warn" (click)="confirmDeleteAccount()">
+            {{ 'settings.deleteAccount.button' | translate | async }}
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div> 

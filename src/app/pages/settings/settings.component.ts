@@ -1,68 +1,72 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-account-dialog.component';
+import { StateService } from '../../core/services/state.service';
+import { TranslateService } from '../../core/services/translate.service';
+import { UsersService } from '../../services/users.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { firstValueFrom } from 'rxjs';
+import { NotificationService } from '../../core/services/notification.service';
+
+interface Language {
+  code: string;
+  name: string;
+  flag: string;
+}
 
 @Component({
   selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
     RouterModule,
     MatCardModule,
     MatButtonModule,
+    MatIconModule,
     MatSlideToggleModule,
     MatFormFieldModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     ReactiveFormsModule,
     TranslatePipe
-  ],
-  template: `
-    <div class="container mx-auto px-4 py-8">
-      <h1 class="text-4xl font-bold mb-6">{{ 'settings.title' | translate | async }}</h1>
-      
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">{{ 'settings.account' | translate | async }}</h2>
-        
-        <div class="mb-4">
-          <p class="text-gray-700">{{ 'settings.deleteWarning' | translate | async }}</p>
-          <button mat-raised-button color="warn" class="mt-2" (click)="confirmDeleteAccount()">
-            {{ 'settings.deleteAccount' | translate | async }}
-          </button>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: [`
-    :host {
-      display: block;
-      min-height: calc(100vh - 64px);
-      background-color: #f3f4f6;
-    }
-    .full-width {
-      width: 100%;
-      margin-bottom: 16px;
-    }
-  `]
+  ]
 })
 export class SettingsComponent implements OnInit {
   notificationForm: FormGroup;
   displayForm: FormGroup;
   isLoading = false;
   isDisplayLoading = false;
+  settingsForm: FormGroup;
+  languages: Language[] = [
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'en', name: 'English', flag: '🇬🇧' }
+  ];
   
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private translateService: TranslateService,
+    private dialog: MatDialog,
+    private stateService: StateService,
+    private usersService: UsersService,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private notificationService: NotificationService
   ) {
     this.notificationForm = this.fb.group({
       emailNotifications: [true],
@@ -74,15 +78,23 @@ export class SettingsComponent implements OnInit {
       theme: ['light'],
       currency: ['USD']
     });
+
+    this.settingsForm = this.fb.group({
+      language: [this.stateService.uiState().language]
+    });
   }
   
   ngOnInit(): void {
-    // Cargar preferencias guardadas
+    // Load saved preferences
     this.loadSettings();
+
+    this.settingsForm.get('language')?.valueChanges.subscribe(lang => {
+      this.stateService.updateUiState({ language: lang });
+    });
   }
   
   private loadSettings(): void {
-    // Simulación de carga de preferencias
+    // Simulation of loading preferences
     this.notificationForm.patchValue({
       emailNotifications: true,
       pushNotifications: true,
@@ -99,10 +111,10 @@ export class SettingsComponent implements OnInit {
     if (this.notificationForm.valid) {
       this.isLoading = true;
       
-      // Simulación de guardado
+      // Simulation of saving
       setTimeout(() => {
         this.isLoading = false;
-        // Mostrar mensaje de éxito
+        // Show success message
       }, 1500);
     }
   }
@@ -111,17 +123,39 @@ export class SettingsComponent implements OnInit {
     if (this.displayForm.valid) {
       this.isDisplayLoading = true;
       
-      // Simulación de guardado
+      // Simulation of saving
       setTimeout(() => {
         this.isDisplayLoading = false;
-        // Mostrar mensaje de éxito
+        // Show success message
       }, 1500);
     }
   }
   
-  confirmDeleteAccount(): void {
-    // Implementar lógica para eliminar la cuenta
-    console.log('Eliminar cuenta');
+  async confirmDeleteAccount(): Promise<void> {
+    const dialogRef = this.dialog.open(DeleteAccountDialogComponent, {
+      width: '400px',
+      panelClass: 'custom-dialog'
+    });
+
+    const result = await dialogRef.afterClosed().toPromise();
+    if (result === true) {
+      try {
+        await firstValueFrom(this.usersService.deleteAccount());
+        this.authService.logout();
+        this.router.navigate(['/auth/login']);
+        
+        const successMessage = await firstValueFrom(this.translateService.translate('settings.deleteAccount.success'));
+        
+        this.notificationService.success(successMessage);
+
+      } catch (error) {
+        console.error('Error deleting account:', error);
+        
+        const errorMessage = await firstValueFrom(this.translateService.translate('settings.deleteAccount.error'));
+        
+        this.notificationService.error(errorMessage);
+      }
+    }
   }
   
   logout(): void {

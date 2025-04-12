@@ -1,0 +1,127 @@
+// BankU Typography and Custom Styles
+// This file defines typography and custom styles without using Material functions
+@use '@angular/material' as mat;
+
+// Import only color variables
+@use 'colors';
+
+// Typography
+$font-family-base: 'Roboto, "Helvetica Neue", sans-serif';
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Font sizes
+$font-size-headline-1: 96px;
+$font-size-headline-2: 60px;
+$font-size-headline-3: 48px;
+$font-size-headline-4: 34px;
+$font-size-headline-5: 24px;
+$font-size-headline-6: 20px;
+$font-size-subtitle-1: 16px;
+$font-size-subtitle-2: 14px;
+$font-size-body-1: 16px;
+$font-size-body-2: 14px;
+$font-size-caption: 12px;
+$font-size-button: 14px;
+
+// CSS Variables for typography
+:root {
+  --font-family-base: #{$font-family-base};
+  
+  --font-weight-light: #{$font-weight-light};
+  --font-weight-regular: #{$font-weight-regular};
+  --font-weight-medium: #{$font-weight-medium};
+  --font-weight-bold: #{$font-weight-bold};
+  
+  --font-size-headline-1: #{$font-size-headline-1};
+  --font-size-headline-2: #{$font-size-headline-2};
+  --font-size-headline-3: #{$font-size-headline-3};
+  --font-size-headline-4: #{$font-size-headline-4};
+  --font-size-headline-5: #{$font-size-headline-5};
+  --font-size-headline-6: #{$font-size-headline-6};
+  --font-size-subtitle-1: #{$font-size-subtitle-1};
+  --font-size-subtitle-2: #{$font-size-subtitle-2};
+  --font-size-body-1: #{$font-size-body-1};
+  --font-size-body-2: #{$font-size-body-2};
+  --font-size-caption: #{$font-size-caption};
+  --font-size-button: #{$font-size-button};
+}
+
+// Typography Classes
+.banku-headline-1 {
+  font-size: var(--font-size-headline-1);
+  font-weight: var(--font-weight-light);
+  letter-spacing: -0.015em;
+  line-height: 1;
+}
+
+.banku-headline-2 {
+  font-size: var(--font-size-headline-2);
+  font-weight: var(--font-weight-light);
+  letter-spacing: -0.005em;
+  line-height: 1;
+}
+
+.banku-headline-3 {
+  font-size: var(--font-size-headline-3);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.04;
+}
+
+.banku-headline-4 {
+  font-size: var(--font-size-headline-4);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.17;
+}
+
+.banku-headline-5 {
+  font-size: var(--font-size-headline-5);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.33;
+}
+
+.banku-headline-6 {
+  font-size: var(--font-size-headline-6);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
+}
+
+.banku-subtitle-1 {
+  font-size: var(--font-size-subtitle-1);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+}
+
+.banku-subtitle-2 {
+  font-size: var(--font-size-subtitle-2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.57;
+}
+
+.banku-body-1 {
+  font-size: var(--font-size-body-1);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+}
+
+.banku-body-2 {
+  font-size: var(--font-size-body-2);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.43;
+}
+
+.banku-caption {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.66;
+}
+
+.banku-button {
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-medium);
+  line-height: 2.57;
+  letter-spacing: 0.0892857143em;
+  text-transform: uppercase;
+}
