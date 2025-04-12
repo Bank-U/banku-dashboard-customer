@@ -35,14 +35,14 @@ import { AuthService } from '../../services/auth.service';
             <span matListItemTitle>{{ 'sidebar.home' | translate | async }}</span>
           </a>
           
+          <a mat-list-item routerLink="/intelligence" routerLinkActive="active">
+            <mat-icon class="material-symbols-outlined" matListItemIcon>bubble_chart_outlined</mat-icon>
+            <span matListItemTitle>{{ 'sidebar.intelligence' | translate | async }}</span>
+          </a>
+          
           <a mat-list-item routerLink="/accounts" routerLinkActive="active">
             <mat-icon class="material-symbols-outlined" matListItemIcon>account_balance_wallet_outlined</mat-icon>
             <span matListItemTitle>{{ 'sidebar.accounts' | translate | async }}</span>
-          </a>
-          
-          <a mat-list-item routerLink="/alerts" routerLinkActive="active">
-            <mat-icon class="material-symbols-outlined" matListItemIcon>notifications_outlined</mat-icon>
-            <span matListItemTitle>{{ 'sidebar.alerts' | translate | async }}</span>
           </a>
           
           <a mat-list-item routerLink="/transactions" routerLinkActive="active">
