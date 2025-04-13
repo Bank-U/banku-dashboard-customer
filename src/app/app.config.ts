@@ -8,6 +8,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { TokenRefreshService } from './services/token-refresh.service';
 
 // Register localization data for Spanish
 registerLocaleData(localeEs);
@@ -28,5 +29,6 @@ export const appConfig: ApplicationConfig = {
       panelClass: ['custom-notification']
     }},
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' }},
+    TokenRefreshService
   ]
 }; 
