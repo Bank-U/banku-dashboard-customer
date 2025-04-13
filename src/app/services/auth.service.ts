@@ -5,6 +5,7 @@ import { RegisterRequest } from '../core/models/auth/register-request';
 import { AuthResponse } from '../core/models/auth/auth-response';
 import { ApiService } from './api.service';
 import { StateService } from '../core/services/state.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -156,5 +157,53 @@ export class AuthService {
           return throwError(() => error);
         })
       );
+  }
+
+  /**
+   * Refreshes the authentication token
+   */
+  refreshToken(): Observable<AuthResponse> {
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+      return throwError(() => new Error('No token available'));
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.apiService.post<AuthResponse>(`/v1/auth/refresh`, null, headers)
+      .pipe(
+        tap(response => {
+          this.saveAuthData(response);
+          this.stateService.updateAuthState({
+            isAuthenticated: true,
+            userId: response.userId,
+            token: response.token
+          });
+        }),
+        catchError(error => {
+          this.logout();
+          return throwError(() => error);
+        })
+      );
+  }
+
+  /**
+   * Checks if the token is expired
+   */
+  isTokenExpired(): boolean {
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+      return true;
+    }
+
+    try {
+      const tokenData = JSON.parse(atob(token.split('.')[1]));
+      const expirationDate = new Date(tokenData.exp * 1000);
+      return expirationDate < new Date();
+    } catch (error) {
+      return true;
+    }
   }
 } 
