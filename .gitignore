@@ -9,9 +9,6 @@
 /.angular/cache/
 /.angular/
 
-# Environment files (if any)
-src/environments/environment*.ts
-
 # Compiled files
 *.js
 *.d.ts
