@@ -166,7 +166,6 @@ import { AuthService } from '../../services/auth.service';
     
     .sidebar-footer {
       margin-top: auto;
-      padding: 1rem;
     }
     
     .logout-button {

@@ -57,7 +57,9 @@
     "forgotPassword": "¿Olvidaste tu contraseña?",
     "noAccount": "¿No tienes una cuenta?",
     "register": "Registrarse",
-    "loginError": "Error al iniciar sesión. Por favor, verifica tus credenciales."
+    "loginError": "Error al iniciar sesión. Por favor, verifica tus credenciales.",
+    "or": "o",  
+    "signInWithGoogle": "Iniciar sesión con Google"
   },
   "register": {
     "title": "Crear nueva cuenta",

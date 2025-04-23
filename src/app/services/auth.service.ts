@@ -6,6 +6,7 @@ import { AuthResponse } from '../core/models/auth/auth-response';
 import { ApiService } from './api.service';
 import { StateService } from '../core/services/state.service';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -204,6 +205,43 @@ export class AuthService {
       return expirationDate < new Date();
     } catch (error) {
       return true;
+    }
+  }
+
+  /**
+   * Logs in with Google OAuth
+   */
+  loginWithGoogle(): void {
+    const clientId = '441073112820-p5s6l898b5v91bouvltbccbu7cf147lk.apps.googleusercontent.com';
+    const redirectUri = encodeURIComponent(`${environment.apiUrl}/api/v1/auth/oauth2/callback/google`);
+    const scope = encodeURIComponent('email profile');
+    const responseType = 'code';
+    
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}`;
+    window.location.href = authUrl;
+  }
+
+  /**
+   * Handles OAuth callback
+   */
+  handleOAuthCallback(token: string): void {
+    try {
+      const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+      const userId = tokenPayload.userId;
+      
+      this.saveAuthData({ token, userId });
+      this.stateService.updateAuthState({
+        isAuthenticated: true,
+        userId,
+        token,
+        loading: false,
+        error: null
+      });
+    } catch (error) {
+      this.stateService.updateAuthState({
+        loading: false,
+        error: 'Invalid token received'
+      });
     }
   }
 } 
