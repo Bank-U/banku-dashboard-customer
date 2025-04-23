@@ -57,7 +57,9 @@
     "forgotPassword": "Forgot password?",
     "noAccount": "Don't have an account?",
     "register": "Register",
-    "loginError": "Login error. Please verify your credentials."
+    "loginError": "Login error. Please verify your credentials.",
+    "or": "or",
+    "signInWithGoogle": "Sign in with Google"
   },
   "register": {
     "title": "Create new account",

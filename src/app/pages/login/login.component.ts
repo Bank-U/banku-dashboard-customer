@@ -96,4 +96,9 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
       });
     }
   }
+
+  loginWithGoogle(): void {
+    this.isSubmitting = true;
+    this.authService.loginWithGoogle();
+  }
 } 
