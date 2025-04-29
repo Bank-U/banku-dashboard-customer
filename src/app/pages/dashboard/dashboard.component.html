@@ -21,11 +21,7 @@
       <div class="no-accounts-logo-container">
         <img src="assets/images/black-logo.png" alt="BankU Logo" class="no-accounts-logo">
       </div>
-      <p class="no-accounts-subtitle">{{ 'accounts.subtitle' | translate | async }}</p>
-      <button mat-raised-button color="primary" class="connect-button" (click)="syncWithPlaid()">
-        <mat-icon class="material-symbols-outlined connect-button-icon">add_circle_outline</mat-icon>
-        <span>{{ 'accounts.linkYourAccount' | translate | async }}</span>
-      </button>
+      <p class="no-accounts-subtitle">{{ currentMotivationalMessage }}</p>
     </div>
   </div>
 
@@ -35,14 +31,12 @@
       <!-- Alerts Section -->
       <app-alerts
         [mode]="'light'"
-        (resolve)="resolveAlert"
         (viewAll)="viewAllAlerts()">  
       </app-alerts>
 
       <!-- Recommendations Section -->
       <app-recommendations
         [mode]="'light'"
-        (resolve)="resolveRecommendation"
         (viewAll)="viewAllRecommendations()">
       </app-recommendations>
     </div>

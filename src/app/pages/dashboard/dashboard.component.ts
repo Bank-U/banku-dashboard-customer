@@ -48,6 +48,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   userInfo: UserInfo | null = null;
   accounts: any[] = [];
   hasAccounts = false;
+  currentMotivationalMessage = '';
 
   private snackBarConfig: MatSnackBarConfig = {
     duration: 5000,
@@ -69,6 +70,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadUserInfo();
     this.loadAccounts();
+    this.setupPlaidSubscription();
+    this.setRandomMotivationalMessage();
   }
 
   ngOnDestroy() {
@@ -208,5 +211,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.hasAccounts = false;
       }
     });
+  }
+
+  private setRandomMotivationalMessage() {
+    const randomNumber = Math.floor(Math.random() * 10) + 1;
+    this.translateService.translate(`motivationalMessages.message${randomNumber}`).subscribe(
+      message => {
+        this.currentMotivationalMessage = message;
+      }
+    );
   }
 } 
