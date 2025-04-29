@@ -15,7 +15,7 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
 import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-account-dialog.component';
 import { StateService } from '../../core/services/state.service';
 import { TranslateService } from '../../core/services/translate.service';
-import { UsersService } from '../../services/users.service';
+import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { firstValueFrom } from 'rxjs';
 import { NotificationService } from '../../core/services/notification.service';
@@ -63,7 +63,7 @@ export class SettingsComponent implements OnInit {
     private translateService: TranslateService,
     private dialog: MatDialog,
     private stateService: StateService,
-    private usersService: UsersService,
+    private userService: UserService,
     private snackBar: MatSnackBar,
     private router: Router,
     private notificationService: NotificationService
@@ -140,7 +140,7 @@ export class SettingsComponent implements OnInit {
     const result = await dialogRef.afterClosed().toPromise();
     if (result === true) {
       try {
-        await firstValueFrom(this.usersService.deleteAccount());
+        await firstValueFrom(this.userService.deleteAccount());
         this.authService.logout();
         this.router.navigate(['/auth/login']);
         

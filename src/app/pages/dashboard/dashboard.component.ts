@@ -8,12 +8,14 @@ import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from '@angular/mate
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { PlaidService } from '../../services/plaid.service';
 import { IntelligenceService, Alert, Recommendation, IntelligenceData } from '../../services/intelligence.service';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { CustomNotificationComponent } from '../../components/custom-notification/custom-notification.component';
 import { AlertsComponent } from '../../components/alerts/alerts.component';
 import { RecommendationsComponent } from '../../components/recommendations/recommendations.component';
 import { Router } from '@angular/router';
 import { TranslateService } from '../../core/services/translate.service';
+import { UserService, UserInfo } from '../../services/user.service';
+import { FinancialService } from '../../services/financial.service';
 
 interface LinkTokenResponse {
   linkToken: string;
@@ -43,6 +45,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   intelligenceSubscription: Subscription | undefined;
   alerts: Alert[] = [];
   recommendations: Recommendation[] = [];
+  userInfo: UserInfo | null = null;
+  accounts: any[] = [];
+  hasAccounts = false;
 
   private snackBarConfig: MatSnackBarConfig = {
     duration: 5000,
@@ -56,12 +61,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private plaidService: PlaidService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private userService: UserService,
+    private financialService: FinancialService
   ) {}
 
   ngOnInit() {
-    this.loadIntelligenceData();
-    this.setupPlaidSubscription();
+    this.loadUserInfo();
+    this.loadAccounts();
   }
 
   ngOnDestroy() {
@@ -74,16 +81,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private setupPlaidSubscription() {
-    this.plaidSubscription = this.plaidService.plaidEvents$.subscribe(event => {
+    this.plaidSubscription = this.plaidService.plaidEvents$.subscribe(async (event) => {
       if (event.success) {
-        this.translateService.translate('dashboard.connectionSuccess').subscribe((message: string) => {
+        await firstValueFrom(this.translateService.translate('dashboard.connectionSuccess')).then((message: string) => {
           this.showNotification(
             message.replace('{{institution}}', event.institutionName || ''),
             'success'
           );
         });
       } else {
-        this.translateService.translate('dashboard.connectionError').subscribe((message: string) => {
+        await firstValueFrom(this.translateService.translate('dashboard.connectionError')).then((message: string) => {
           this.showNotification(message, 'error');
         });
       }
@@ -105,14 +112,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   loadIntelligenceData(): void {
     this.isLoading = true;
     this.intelligenceSubscription = this.intelligenceService.getIntelligenceData().subscribe({
-      next: (data: IntelligenceData) => {
+      next: async (data: IntelligenceData) => {
         this.alerts = data.alerts;
         this.recommendations = data.recommendations;
         this.isLoading = false;
       },
-      error: (error: any) => {
+      error: async (error: any) => {
         this.isLoading = false;
-        this.translateService.translate('dashboard.intelligenceLoadError').subscribe((message: string) => {
+        await firstValueFrom(this.translateService.translate('dashboard.intelligenceLoadError')).then((message: string) => {
           this.handleError(error, message);
         });
       }
@@ -122,14 +129,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   syncWithPlaid(): void {
     this.isLoading = true;
     this.plaidService.createLinkToken().subscribe({
-      next: (response: LinkTokenResponse) => {
+      next: async (response: LinkTokenResponse) => {
         this.plaidService.openPlaidLink(response.linkToken);
         this.isLoading = false;
       },
-      error: (error: Error) => {
+      error: async (error: Error) => {
         console.error('Error creating link token:', error);
         this.isLoading = false;
-        this.translateService.translate('dashboard.plaidConnectionError').subscribe((message: string) => {
+        await firstValueFrom(this.translateService.translate('dashboard.plaidConnectionError')).then((message: string) => {
           this.showNotification(message, 'error');
         });
       }
@@ -138,14 +145,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   resolveAlert(alertId: string): void {
     this.intelligenceService.resolveAlert(alertId).subscribe({
-      next: () => {
+      next: async () => {
         this.alerts = this.alerts.filter(alert => alert.id !== alertId);
-        this.translateService.translate('dashboard.alertDismissed').subscribe((message: string) => {
+        await firstValueFrom(this.translateService.translate('dashboard.alertDismissed')).then((message: string) => {
           this.showNotification(message, 'info');
         });
       },
-      error: (error: any) => {
-        this.translateService.translate('dashboard.alertDismissError').subscribe((message: string) => {
+      error: async (error: any) => {
+        await firstValueFrom(this.translateService.translate('dashboard.alertDismissError')).then((message: string) => {
           this.handleError(error, message);
         });
       }
@@ -154,14 +161,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   resolveRecommendation(recommendationId: string): void {
     this.intelligenceService.resolveRecommendation(recommendationId).subscribe({
-      next: () => {
+      next: async () => {
         this.recommendations = this.recommendations.filter(rec => rec.id !== recommendationId);
-        this.translateService.translate('dashboard.recommendationDismissed').subscribe((message: string) => {
+        await firstValueFrom(this.translateService.translate('dashboard.recommendationDismissed')).then((message: string) => {
           this.showNotification(message, 'info');
         });
       },
-      error: (error: any) => {
-        this.translateService.translate('dashboard.recommendationDismissError').subscribe((message: string) => {
+      error: async (error: any) => {
+        await firstValueFrom( this.translateService.translate('dashboard.recommendationDismissError')).then((message: string) => {
           this.handleError(error, message);
         });
       }
@@ -174,5 +181,32 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   viewAllRecommendations(): void {
     this.router.navigate(['/recommendations']);
+  }
+
+  private loadUserInfo() {
+    this.userService.getUserInfo().subscribe({
+      next: (userInfo) => {
+        this.userInfo = userInfo;
+      },
+      error: (error) => {
+        console.error('Error loading user info:', error);
+      }
+    });
+  }
+
+  private loadAccounts() {
+    this.financialService.getAccounts().subscribe({
+      next: (accounts) => {
+        this.accounts = accounts;
+        this.hasAccounts = accounts.length > 0;
+        if (this.hasAccounts) {
+          this.loadIntelligenceData();
+        }
+      },
+      error: (error) => {
+        console.error('Error loading accounts:', error);
+        this.hasAccounts = false;
+      }
+    });
   }
 } 

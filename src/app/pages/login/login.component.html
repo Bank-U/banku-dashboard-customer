@@ -36,6 +36,15 @@
           <span>{{ 'login.signIn' | translate | async }}</span>
         </button>
 
+        <div class="divider">
+          <span>{{ 'login.or' | translate | async }}</span>
+        </div>
+
+        <button mat-stroked-button type="button" class="google-button" (click)="loginWithGoogle()" [disabled]="isSubmitting">
+          <img src="assets/images/google-logo.svg" alt="Google" class="google-logo">
+          <span>{{ 'login.signInWithGoogle' | translate | async }}</span>
+        </button>
+
         <div class="register-prompt">
           <span>{{ 'login.noAccount' | translate | async }}</span>
           <a routerLink="/register" class="register-link">{{ 'login.register' | translate | async }}</a>

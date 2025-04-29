@@ -29,6 +29,9 @@
     "pending": "Pendiente",
     "done": "Completado",
     "alerts": "Alertas",
+    "recommendations": "Recomendaciones",
+    "showResolved": "Mostrar resueltas",
+    "showApplied": "Mostrar aplicadas",
     "unusualSpending": "Gasto inusual detectado",
     "unusualSpendingDesc": "Hemos identificado un aumento significativo en tus transacciones esta semana en comparación con tus patrones habituales.",
     "duplicateCharges": "Posibles cargos duplicados",
@@ -42,7 +45,8 @@
     "tryAgain": "Intentar de nuevo",
     "formError": "Por favor, completa todos los campos correctamente.",
     "cancel": "Cancelar",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "hello": "Hola"
   },
   "login": {
     "title": "Iniciar sesión",
@@ -57,7 +61,17 @@
     "forgotPassword": "¿Olvidaste tu contraseña?",
     "noAccount": "¿No tienes una cuenta?",
     "register": "Registrarse",
-    "loginError": "Error al iniciar sesión. Por favor, verifica tus credenciales."
+    "loginError": "Error al iniciar sesión. Por favor, verifica tus credenciales.",
+    "or": "o",  
+    "signInWithGoogle": "Iniciar sesión con Google"
+  },
+  "alerts": {
+    "noAlertsTitle": "No se encontraron alertas",
+    "noAlertsDescription": "Te notificaremos cuando detectemos cualquier actividad anormal."
+  },
+  "recommendations": {
+    "noRecommendationsTitle": "No se encontraron recomendaciones",
+    "noRecommendationsDescription": "Te notificaremos cuando detectemos cualquier actividad anormal."
   },
   "register": {
     "title": "Crear nueva cuenta",
@@ -80,10 +94,10 @@
     "connectionError": "Error en la conexión con el banco. Por favor, inténtalo de nuevo.",
     "intelligenceLoadError": "Error al cargar los datos de inteligencia",
     "plaidConnectionError": "Error al conectar con Plaid. Por favor, inténtalo de nuevo.",
-    "alertDismissed": "Alerta descartada",
-    "alertDismissError": "Error al descartar la alerta",
-    "recommendationDismissed": "Recomendación descartada",
-    "recommendationDismissError": "Error al descartar la recomendación"
+    "alertDismissed": "Alerta resuelta",
+    "alertDismissError": "Error al resolver la alerta",
+    "recommendationDismissed": "Recomendación aplicada",
+    "recommendationDismissError": "Error al aplicar la recomendación"
   },
   "sidebar": {
     "mainMenu": "Menú Principal",
