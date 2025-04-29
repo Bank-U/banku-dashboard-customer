@@ -4,7 +4,6 @@
 .page-container {
   display: flex;
   flex-direction: column;
-  padding: 0 16px;
 }
 
 .page-title {
@@ -13,6 +12,10 @@
   color: #0f172a;
   margin-bottom: 1.5rem;
   margin-top: 1rem;
+}
+
+.page-content {
+  margin-top: 24px;
 }
 
 // Estilos de la tarjeta principal

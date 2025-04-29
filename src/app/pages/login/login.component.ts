@@ -15,6 +15,7 @@ import { NotificationService } from '../../core/services/notification.service';
 import { finalize } from 'rxjs/operators';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { TranslateService } from '../../core/services/translate.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -60,7 +61,7 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
     }
   }
 
-  protected override onSubmit(): void {
+  protected override async onSubmit(): Promise<void> {
     if (this.form.valid) {
       this.isSubmitting = true;
       this.disableForm();
@@ -79,11 +80,11 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
           next: () => {
             this.router.navigate(['/dashboard']);
           },
-          error: (error) => {
+          error: async (error) => {
             if (error.error?.message) {
               this.notificationService.error(error.error.message, true);
             } else {
-              this.translateService.translate('login.loginError').subscribe((message: string) => {
+              await firstValueFrom(this.translateService.translate('login.loginError')).then((message: string) => {
                 this.notificationService.error(message);
               });
             }
@@ -91,7 +92,7 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
         });
     } else {
       this.markFormGroupTouched(this.form);
-      this.translateService.translate('common.formError').subscribe((message: string) => {
+      await firstValueFrom(this.translateService.translate('common.formError')).then((message: string) => {
         this.notificationService.warning(message);
       });
     }

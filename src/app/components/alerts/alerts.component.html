@@ -1,34 +1,43 @@
-<div class="alerts-container">
-  <div class="space-y-3">
-    <div *ngFor="let alert of alerts" 
-         class="alert-item flex items-start gap-3 p-4 rounded-lg bg-white shadow-sm border-l-4"
-         [ngClass]="{
-           'border-red-500': alert.type === 'CRITICAL',
-           'border-yellow-500': alert.type === 'WARNING',
-           'border-blue-500': alert.type === 'INFO'
-         }">
-      <mat-icon class="material-symbols-outlined" [ngClass]="{
-        'text-red-500': alert.type === 'CRITICAL',
-        'text-yellow-500': alert.type === 'WARNING',
-        'text-blue-500': alert.type === 'INFO'
-      }">
-        {{ getAlertIcon(alert.type) }}
-      </mat-icon>
-      <div class="flex-grow">
-        <h4 class="font-bold text-gray-900 text-sm">{{ alert.title }}</h4>
-        <p class="text-gray-600 text-sm mt-1">{{ alert.description }}</p>
-        <button mat-button color="primary" class="text-xs mt-2" (click)="onResolve(alert.id)">
-          Resolve
+<div class="alerts-container" [class.light-mode]="mode === 'light'">
+  <div class="alerts-controls" *ngIf="mode === 'full' && filteredAlerts && filteredAlerts.length > 0">
+    <mat-slide-toggle [(ngModel)]="showResolved" >
+      {{ 'common.showResolved' | translate | async }}
+    </mat-slide-toggle>
+  </div>
+  <div class="alerts-controls" *ngIf="mode === 'light'">
+    <button mat-button color="primary" (click)="onViewAll()">
+      {{ 'common.viewAll' | translate | async }}
+      <mat-icon class="material-symbols-outlined">arrow_forward</mat-icon>
+    </button>
+    <h2>{{ 'common.alerts' | translate | async }}</h2>
+  </div>
+
+  <div class="alerts-list" *ngIf="filteredAlerts && filteredAlerts.length > 0">
+    <div *ngFor="let alert of (mode === 'light' ? (filteredAlerts | slice:0:3) : filteredAlerts)" class="alert-item" [class.resolved]="alert.resolved">
+      <div class="alert-icon" [class]="alert.type.toLowerCase()">
+        <mat-icon class="material-symbols-outlined">{{ getAlertIcon(alert.type) }}</mat-icon>
+      </div>
+      <div class="alert-content">
+        <h3 class="alert-title">{{ alert.title }}</h3>
+        <p class="alert-description">{{ alert.description }}</p>
+        <div class="alert-meta">
+          <span class="alert-date">{{ alert.lastUpdated | date:'short' }}</span>
+          <span class="alert-type">{{ alert.type }}</span>
+        </div>
+      </div>
+      <div class="alert-actions" *ngIf="mode === 'full'">
+        <button mat-icon-button color="primary" (click)="onResolve(alert.id)" *ngIf="!alert.resolved">
+          <mat-icon class="material-symbols-outlined">check_circle</mat-icon>
         </button>
+        <mat-icon *ngIf="alert.resolved" class="resolved-icon material-symbols-outlined">check_circle</mat-icon>
       </div>
     </div>
-    <div *ngIf="alerts.length === 0" class="text-gray-500 text-sm italic text-center p-4">
-      No alerts at this time.
-    </div>
   </div>
-  <div class="text-center mt-4" *ngIf="alerts.length > 0">
-    <button mat-button color="primary" class="text-sm" (click)="onViewAll()">
-      View all alerts
-    </button>
+
+  <div class="no-alerts-container" *ngIf="!filteredAlerts || filteredAlerts.length === 0">
+    <div class="no-alerts-content">
+      <h2>{{ 'alerts.noAlertsTitle' | translate | async }}</h2>
+      <p>{{ 'alerts.noAlertsDescription' | translate | async }}</p>
+    </div>
   </div>
 </div> 

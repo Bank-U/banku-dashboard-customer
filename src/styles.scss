@@ -2,6 +2,7 @@
 @use 'colors';
 @use 'components';
 @use 'custom-material';
+@use '@angular/material' as mat;
 
 /* Font imports */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
@@ -41,6 +42,14 @@ body {
 
 .full-width {
   width: 100%;
+}
+
+.mat-mdc-tab-label-container {
+  border: none !important;
+}
+
+.title-message-text {
+  font-weight: 200;
 }
 
 /* Spacing utilities */
