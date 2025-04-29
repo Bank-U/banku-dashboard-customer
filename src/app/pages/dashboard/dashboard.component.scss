@@ -91,24 +91,6 @@
   color: var(--text-secondary);
   line-height: 1.5;
 }
-.connect-button-icon{
-  width: 24px !important;
-  height: 20px !important;
-  font-size: 20px;
-}
-.connect-button {
-  padding: 0.75rem 2rem;
-  height: 55px;
-  font-size: 1.125rem;
-  border-radius: 8px;
-  background-color: var(--banku-call-to-action) !important;
-  color: white;
-  font-weight: 200;
-  
-  mat-icon {
-    margin-right: 0.5rem;
-  }
-}
 
 .alert, .recommendation {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -155,9 +137,5 @@ h1, h2 {
 
   .no-accounts-subtitle {
     font-size: 1rem;
-  }
-
-  .connect-button {
-    width: 100%;
   }
 } 
