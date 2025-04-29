@@ -7,7 +7,8 @@ export interface Alert {
   title: string;
   description: string;
   type: string;
-  timestamp: Date;
+  lastUpdated: Date;
+  resolved: boolean;
 }
 
 export interface Recommendation {
@@ -16,6 +17,8 @@ export interface Recommendation {
   description: string;
   type: string;
   priority: number;
+  lastUpdated: Date;
+  resolved: boolean;
 }
 
 export interface IntelligenceData {

@@ -15,7 +15,7 @@ import { NotificationService } from '../../core/services/notification.service';
 import { finalize } from 'rxjs/operators';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { TranslateService } from '../../core/services/translate.service';
-
+import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -68,7 +68,7 @@ export class RegisterComponent extends AbstractFormComponent implements OnInit {
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  protected override onSubmit(): void {
+  protected override async onSubmit(): Promise<void> {
     if (this.form.valid) {
       this.isSubmitting = true;
       this.disableForm();
@@ -84,17 +84,17 @@ export class RegisterComponent extends AbstractFormComponent implements OnInit {
           this.enableForm();
         }))
         .subscribe({
-          next: () => {
-            this.translateService.translate('register.registrationSuccess').subscribe((message: string) => {
+          next: async () => {
+            await firstValueFrom(this.translateService.translate('register.registrationSuccess')).then((message: string) => {
               this.notificationService.success(message);
               this.router.navigate(['/dashboard']);
             });
           },
-          error: (error) => {
+          error: async (error) => {
             if (error.error?.message) {
               this.notificationService.error(error.error.message);
             } else {
-              this.translateService.translate('register.registrationError').subscribe((message: string) => {
+              await firstValueFrom(this.translateService.translate('register.registrationError')).then((message: string) => {
                 this.notificationService.error(message);
               });
             }
@@ -104,11 +104,11 @@ export class RegisterComponent extends AbstractFormComponent implements OnInit {
       this.markFormGroupTouched(this.form);
       
       if (this.form.hasError('passwordMismatch')) {
-        this.translateService.translate('register.passwordMismatch').subscribe((message: string) => {
+        await firstValueFrom(this.translateService.translate('register.passwordMismatch')).then((message: string) => {
           this.notificationService.warning(message);
         });
       } else {
-        this.translateService.translate('common.formError').subscribe((message: string) => {
+        await firstValueFrom(this.translateService.translate('common.formError')).then((message: string) => {
           this.notificationService.warning(message);
         });
       }

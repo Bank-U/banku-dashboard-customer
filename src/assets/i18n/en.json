@@ -29,6 +29,9 @@
     "pending": "Pending",
     "done": "Done",
     "alerts": "Alerts",
+    "recommendations": "Recommendations",
+    "showResolved": "Show resolved",
+    "showApplied": "Show applied",
     "unusualSpending": "Unusual spending detected",
     "unusualSpendingDesc": "We've identified a significant spike in your transactions this week compared to your usual patterns.",
     "duplicateCharges": "Possible duplicate charges",
@@ -42,7 +45,8 @@
     "tryAgain": "Try Again",
     "formError": "Please complete all fields correctly.",
     "cancel": "Cancel",
-    "close": "Close"
+    "close": "Close",
+    "hello": "Hello"
   },
   "login": {
     "title": "Login",
@@ -60,6 +64,14 @@
     "loginError": "Login error. Please verify your credentials.",
     "or": "or",
     "signInWithGoogle": "Sign in with Google"
+  },
+  "alerts": {
+    "noAlertsTitle": "No alerts found",
+    "noAlertsDescription": "We'll notify you when we detect any unusual activity."
+  },
+  "recommendations": {
+    "noRecommendationsTitle": "No recommendations found",
+    "noRecommendationsDescription": "We'll notify you when we detect any unusual activity."
   },
   "register": {
     "title": "Create new account",

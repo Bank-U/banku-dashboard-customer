@@ -37,7 +37,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
     
     .main-content {
       flex: 1;
-      padding: 24px 5rem;
+      padding: 32px 5rem;
       background-color: var(--background);
       min-height: calc(100vh - 64px);
       overflow-y: auto;

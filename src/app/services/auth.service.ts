@@ -213,7 +213,7 @@ export class AuthService {
    */
   loginWithGoogle(): void {
     const clientId = '441073112820-p5s6l898b5v91bouvltbccbu7cf147lk.apps.googleusercontent.com';
-    const redirectUri = encodeURIComponent(`${environment.apiUrl}/api/v1/auth/oauth2/callback/google`);
+    const redirectUri = encodeURIComponent(`${environment.apiUrl}/v1/auth/oauth2/callback/google`);
     const scope = encodeURIComponent('email profile');
     const responseType = 'code';
     

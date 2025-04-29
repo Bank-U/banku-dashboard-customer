@@ -1,41 +1,82 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { IntelligenceData, IntelligenceService, Recommendation } from '../../services/intelligence.service';
 import { MatButtonModule } from '@angular/material/button';
-import { Recommendation } from '../../services/intelligence.service';
-
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../../pipes/translate.pipe';
+import { FormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @Component({
   selector: 'app-recommendations',
-  standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule],
   templateUrl: './recommendations.component.html',
-  styleUrls: ['./recommendations.component.scss']
+  styleUrls: ['./recommendations.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatButtonModule,
+    TranslatePipe,
+    FormsModule
+  ]
 })
-export class RecommendationsComponent {
-  @Input() recommendations: Recommendation[] = [];
-  @Output() resolve = new EventEmitter<string>();
-  @Output() viewAll = new EventEmitter<void>();
+export class RecommendationsComponent implements OnInit {
+  @Input() mode: 'light' | 'full' = 'full';
+  recommendations: Recommendation[] = [];
+  showApplied = false;
 
-  getRecommendationIcon(type: string): string {
-    switch (type) {
-      case 'SAVINGS':
-        return 'savings_outlined';
-      case 'INVESTMENT':
-        return 'trending_up_outlined';
-      case 'BUDGETING':
-        return 'account_balance_outlined';
-      case 'DEBT_MANAGEMENT':
-        return 'credit_card_outlined';
-      default:
-        return 'lightbulb_outlined';
-    }
+  constructor(
+    private intelligenceService: IntelligenceService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.loadRecommendations();
+  }
+
+  get filteredRecommendations(): Recommendation[] {
+    return this.recommendations.filter(rec => this.showApplied || !rec.resolved);
+  }
+
+  private loadRecommendations() {
+    this.intelligenceService.getIntelligenceData().subscribe({
+      next: (intelligenceData: IntelligenceData) => {
+        this.recommendations = intelligenceData.recommendations;
+      },
+      error: (error: Error) => {
+        console.error('Error loading recommendations:', error);
+      }
+    });
   }
 
   onResolve(recommendationId: string) {
-    this.resolve.emit(recommendationId);
+    if (this.mode === 'light') return;
+    
+    this.intelligenceService.resolveRecommendation(recommendationId).subscribe({
+      next: () => {
+        this.loadRecommendations();
+      },
+      error: (error: Error) => {
+        console.error('Error resolving recommendation:', error);
+      }
+    });
   }
 
   onViewAll() {
-    this.viewAll.emit();
+    this.router.navigate(['/intelligence']);
+  }
+
+  getRecommendationIcon(type: string): string {
+    switch (type.toLowerCase()) {
+      case 'savings':
+        return 'savings';
+      case 'investment':
+        return 'trending_up';
+      case 'optimization':
+        return 'auto_graph';
+      default:
+        return 'lightbulb';
+    }
   }
 } 

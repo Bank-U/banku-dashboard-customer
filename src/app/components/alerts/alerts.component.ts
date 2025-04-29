@@ -1,38 +1,85 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Alert, IntelligenceData, IntelligenceService } from '../../services/intelligence.service';
+import { TranslateService } from '../../core/services/translate.service';
 import { CommonModule } from '@angular/common';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Alert } from '../../services/intelligence.service';
+import { TranslatePipe } from '../../pipes/translate.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-alerts',
-  standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule],
   templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.scss']
+  styleUrls: ['./alerts.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatButtonModule,
+    TranslatePipe,
+    FormsModule
+  ]
 })
-export class AlertsComponent {
-  @Input() alerts: Alert[] = [];
-  @Output() resolve = new EventEmitter<string>();
-  @Output() viewAll = new EventEmitter<void>();
+export class AlertsComponent implements OnInit {
+  @Input() mode: 'light' | 'full' = 'full';
+  alerts: Alert[] = [];
+  showResolved = false;
 
-  getAlertIcon(type: string): string {
-    switch (type) {
-      case 'CRITICAL':
-        return 'error_outlined';
-      case 'WARNING':
-        return 'warning_amber_outlined';
-      case 'INFO':
-      default:
-        return 'info_outlined';
-    }
+  constructor(
+    private intelligenceService: IntelligenceService,
+    private router: Router,
+    private translate: TranslateService
+  ) {}
+
+  ngOnInit() {
+    this.loadAlerts();
+  }
+
+  get filteredAlerts(): Alert[] {
+    return this.alerts.filter(alert => this.showResolved || !alert.resolved);
+  }
+
+  private loadAlerts() {
+    this.intelligenceService.getIntelligenceData().subscribe({
+      next: (intelligenceData: IntelligenceData) => {
+        this.alerts = intelligenceData.alerts;
+      },
+      error: (error) => {
+        console.error('Error loading alerts:', error);
+      }
+    });
   }
 
   onResolve(alertId: string) {
-    this.resolve.emit(alertId);
+    if (this.mode === 'light') return;
+    
+    this.intelligenceService.resolveAlert(alertId).subscribe({
+      next: () => {
+        this.loadAlerts();
+      },
+      error: (error) => {
+        console.error('Error resolving alert:', error);
+      }
+    });
   }
 
   onViewAll() {
-    this.viewAll.emit();
+    this.router.navigate(['/intelligence']);
+  }
+
+  getAlertIcon(type: string): string {
+    switch (type.toLowerCase()) {
+      case 'critical':
+        return 'error';
+      case 'warning':
+        return 'warning';
+      case 'info':
+        return 'info';
+      default:
+        return 'notifications';
+    }
   }
 } 

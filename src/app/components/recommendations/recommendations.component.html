@@ -1,23 +1,44 @@
-<div class="recommendations-container">
-  <div class="space-y-3">
-    <div *ngFor="let rec of recommendations" 
-         class="recommendation-item flex items-start gap-3 p-4 rounded-lg bg-white shadow-sm border-l-4 border-indigo-500">
-      <mat-icon class="material-symbols-outlined text-indigo-500">{{ getRecommendationIcon(rec.type) }}</mat-icon>
-      <div class="flex-grow">
-        <h4 class="font-bold text-gray-900 text-sm">{{ rec.title }}</h4>
-        <p class="text-gray-600 text-sm mt-1">{{ rec.description }}</p>
-        <button mat-button color="primary" class="text-xs mt-2" (click)="onResolve(rec.id)">
-          Resolve
-        </button>
+<div class="recommendations-container" [class.light-mode]="mode === 'light'">
+  <div class="recommendations-header">
+    <div class="recommendations-controls" *ngIf="mode === 'full' && filteredRecommendations && filteredRecommendations.length > 0">
+      <mat-slide-toggle [(ngModel)]="showApplied" >
+        {{ 'common.showApplied' | translate | async }}
+      </mat-slide-toggle>
+    </div>
+    <div class="recommendations-controls" *ngIf="mode === 'light'">
+      <button mat-button color="primary" (click)="onViewAll()">
+        {{ 'common.viewAll' | translate | async }}
+        <mat-icon class="material-symbols-outlined">arrow_forward</mat-icon>
+      </button>
+      <h2>{{ 'common.recommendations' | translate | async }}</h2>
+    </div>
+  </div>
+
+  <div class="recommendations-list">
+    <div *ngFor="let recommendation of (mode === 'light' ? (filteredRecommendations | slice:0:3) : filteredRecommendations)" class="recommendation-item" [class.resolved]="recommendation.resolved">
+      <div class="recommendation-icon" [class]="recommendation.type.toLowerCase()">
+        <mat-icon class="material-symbols-outlined">{{ getRecommendationIcon(recommendation.type) }}</mat-icon>
+      </div>
+      <div class="recommendation-content">
+        <h3>{{ recommendation.title }}</h3>
+        <p>{{ recommendation.description }}</p>
+        <div class="recommendation-meta">
+          <span class="recommendation-date">{{ recommendation.lastUpdated | date:'short' }}</span>
+          <span class="recommendation-type">{{ recommendation.type }}</span>
+        </div>
+      </div>
+      <div class="recommendation-actions" *ngIf="mode === 'full'">
+        <mat-icon (click)="onResolve(recommendation.id)" *ngIf="!recommendation.resolved" class="material-symbols-outlined unresolved-icon">check_circle</mat-icon>
+        <mat-icon *ngIf="recommendation.resolved" class="resolved-icon material-symbols-outlined">check_circle</mat-icon>
       </div>
     </div>
-    <div *ngIf="recommendations.length === 0" class="text-gray-500 text-sm italic text-center p-4">
-      No recommendations at this time.
+  </div>
+
+  <div class="no-recommendations-container" *ngIf="!filteredRecommendations || filteredRecommendations.length === 0">
+    <div class="no-recommendations-content">
+      <h2>{{ 'recommendations.noRecommendationsTitle' | translate | async }}</h2>
+      <p>{{ 'recommendations.noRecommendationsDescription' | translate | async }}</p>
     </div>
   </div>
-  <div class="text-center mt-4" *ngIf="recommendations.length > 0">
-    <button mat-button color="primary" class="text-sm" (click)="onViewAll()">
-      View all recommendations
-    </button>
-  </div>
+
 </div> 
