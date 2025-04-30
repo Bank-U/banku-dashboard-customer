@@ -124,6 +124,7 @@
     "yourAccounts": "Your Accounts",
     "subtitle": "Manage all your bank accounts in one place",
     "noAccounts": "No linked accounts",
+    "linkYourAccount": "Link your bank account to see your transactions",
     "accountTypes": {
       "credit": "Credit Card",
       "loan": "Loan",

@@ -124,6 +124,7 @@
     "yourAccounts": "Tus Cuentas",
     "subtitle": "Gestiona todas tus cuentas bancarias en un solo lugar",
     "noAccounts": "No tienes cuentas vinculadas",
+    "linkYourAccount": "Conecta tu cuenta bancaria para ver tus transacciones",
     "accountTypes": {
       "credit": "Tarjeta de Crédito",
       "loan": "Préstamo",
