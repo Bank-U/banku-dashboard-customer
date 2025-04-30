@@ -32,14 +32,6 @@
     "recommendations": "Recomendaciones",
     "showResolved": "Mostrar resueltas",
     "showApplied": "Mostrar aplicadas",
-    "unusualSpending": "Gasto inusual detectado",
-    "unusualSpendingDesc": "Hemos identificado un aumento significativo en tus transacciones esta semana en comparación con tus patrones habituales.",
-    "duplicateCharges": "Posibles cargos duplicados",
-    "duplicateChargesDesc": "Dos o más transacciones con el mismo importe y comercio se registraron en un corto período de tiempo.",
-    "unusedSubscriptions": "Podrías optimizar suscripciones sin usar",
-    "unusedSubscriptionsDesc": "Varios cargos recurrentes no muestran actividad relacionada reciente. Considera revisar estas suscripciones.",
-    "highEntertainment": "Alto gasto en Entretenimiento",
-    "highEntertainmentDesc": "Tus gastos en entretenimiento han superado tu promedio mensual en más del 35%.",
     "loading": "Cargando...",
     "errorLoading": "Hubo un error al cargar los datos",
     "tryAgain": "Intentar de nuevo",
@@ -96,11 +88,9 @@
     "plaidConnectionError": "Error al conectar con Plaid. Por favor, inténtalo de nuevo.",
     "alertDismissed": "Alerta resuelta",
     "alertDismissError": "Error al resolver la alerta",
-    "recommendationDismissed": "Recomendación aplicada",
-    "recommendationDismissError": "Error al aplicar la recomendación"
+    "recommendationDismissed": "Recomendación aplicada"
   },
   "sidebar": {
-    "mainMenu": "Menú Principal",
     "home": "Inicio",
     "accounts": "Cuentas",
     "intelligence": "Intelligence",
@@ -134,7 +124,7 @@
     "yourAccounts": "Tus Cuentas",
     "subtitle": "Gestiona todas tus cuentas bancarias en un solo lugar",
     "noAccounts": "No tienes cuentas vinculadas",
-    "linkYourAccount": "Vincula tu primera cuenta para empezar a gestionar tus finanzas",
+    "linkYourAccount": "Conecta tu cuenta bancaria para ver tus transacciones",
     "accountTypes": {
       "credit": "Tarjeta de Crédito",
       "loan": "Préstamo",
@@ -208,5 +198,17 @@
         "sunday": "D"
       }
     }
+  },
+  "motivationalMessages": {
+    "message1": "El primer paso para dominar tus finanzas es comprenderlas. Empieza hoy",
+    "message2": "Una visión clara de tus cuentas es la base de una vida financiera sólida",
+    "message3": "Gestionar tu dinero con inteligencia es invertir en tu libertad futura",
+    "message4": "Controlar tus finanzas es controlar tu destino. Da el primer paso",
+    "message5": "Cada decisión financiera consciente te acerca a tus objetivos",
+    "message6": "La estabilidad financiera no ocurre por accidente. Se construye día a día",
+    "message7": "Hoy es el mejor momento para tomar el control de tu salud financiera",
+    "message8": "Conoce tus números. Toma decisiones informadas. Avanza con confianza",
+    "message9": "El progreso financiero empieza con claridad, disciplina y acción",
+    "message10": "Tener control sobre tus finanzas es tener control sobre tu vida"
   }
 } 

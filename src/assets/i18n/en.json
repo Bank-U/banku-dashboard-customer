@@ -32,14 +32,6 @@
     "recommendations": "Recommendations",
     "showResolved": "Show resolved",
     "showApplied": "Show applied",
-    "unusualSpending": "Unusual spending detected",
-    "unusualSpendingDesc": "We've identified a significant spike in your transactions this week compared to your usual patterns.",
-    "duplicateCharges": "Possible duplicate charges",
-    "duplicateChargesDesc": "Two or more transactions with the same amount and merchant were posted within a short timeframe.",
-    "unusedSubscriptions": "You could optimize unused subscriptions",
-    "unusedSubscriptionsDesc": "Several recurring charges show no recent related activity. Consider reviewing these subscriptions.",
-    "highEntertainment": "High spending in Entertainment",
-    "highEntertainmentDesc": "Your entertainment expenses have exceeded your monthly average by more than 35%.",
     "loading": "Loading...",
     "errorLoading": "There was an error loading the data",
     "tryAgain": "Try Again",
@@ -96,11 +88,9 @@
     "plaidConnectionError": "Error connecting to Plaid. Please try again.",
     "alertDismissed": "Alert dismissed",
     "alertDismissError": "Error dismissing the alert",
-    "recommendationDismissed": "Recommendation dismissed",
-    "recommendationDismissError": "Error dismissing the recommendation"
+    "recommendationDismissed": "Recommendation dismissed"
   },
   "sidebar": {
-    "mainMenu": "Main Menu",
     "home": "Home",
     "accounts": "Accounts",
     "intelligence": "Intelligence",
@@ -134,7 +124,7 @@
     "yourAccounts": "Your Accounts",
     "subtitle": "Manage all your bank accounts in one place",
     "noAccounts": "No linked accounts",
-    "linkYourAccount": "Link your first account to start managing your finances",
+    "linkYourAccount": "Link your bank account to see your transactions",
     "accountTypes": {
       "credit": "Credit Card",
       "loan": "Loan",
@@ -208,5 +198,17 @@
         "sunday": "S"
       }
     }
+  },
+  "motivationalMessages": {
+    "message1": "Mastering your finances starts with understanding them. Begin today",
+    "message2": "Clear insight into your accounts is the foundation of strong financial health",
+    "message3": "Managing money wisely is an investment in your future freedom",
+    "message4": "Controlling your finances means controlling your future. Take the first step",
+    "message5": "Every mindful financial decision brings you closer to your goals",
+    "message6": "Financial stability isn't accidental. It's built consistently over time",
+    "message7": "Today is the best day to take control of your financial wellbeing",
+    "message8": "Know your numbers. Make informed decisions. Move forward with confidence",
+    "message9": "Financial progress starts with clarity, discipline, and decisive action",
+    "message10": "Taking charge of your finances is taking charge of your life"
   }
 } 
