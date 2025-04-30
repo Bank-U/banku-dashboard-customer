@@ -39,7 +39,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/banku-dashboard-customer/browser",
+            "outputPath": "dist/banku-dashboard-customer",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
