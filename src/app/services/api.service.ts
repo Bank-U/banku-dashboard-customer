@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   get<T>(endpoint: string, params?: HttpParams, headers?: HttpHeaders): Observable<T> {
     return this.http.get<T>(`${environment.apiUrl}${endpoint}`, { params, headers });

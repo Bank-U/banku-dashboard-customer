@@ -14,7 +14,7 @@ export interface UserInfo {
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private apiService: ApiService) { }
+  constructor(private readonly apiService: ApiService) { }
 
   getUserInfo(): Observable<UserInfo> {
     return this.apiService.get<UserInfo>('/v1/users/self');

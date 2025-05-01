@@ -8,7 +8,7 @@ import { CustomNotificationComponent } from '../../components/custom-notificatio
   providedIn: 'root'
 })
 export class NotificationService {
-  private snackBarConfig = {
+  private readonly snackBarConfig = {
     duration: 5000,
     horizontalPosition: 'center' as const,
     verticalPosition: 'top' as const,
@@ -16,8 +16,8 @@ export class NotificationService {
   };
 
   constructor(
-    private snackBar: MatSnackBar,
-    private stateService: StateService
+    private readonly snackBar: MatSnackBar,
+    private readonly stateService: StateService
   ) {}
 
   /**

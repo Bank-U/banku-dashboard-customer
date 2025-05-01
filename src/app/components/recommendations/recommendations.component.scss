@@ -22,6 +22,7 @@
 
 .recommendations-controls {
   display: flex;
+  gap: 1.5rem;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
@@ -33,12 +34,6 @@
     font-weight: 400;
     color: #1a1a1a;
   }
-}
-
-.recommendations-controls {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
 }
 
 .recommendations-list {

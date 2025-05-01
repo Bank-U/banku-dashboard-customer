@@ -13,8 +13,8 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
   constructor(
-    private apiService: ApiService,
-    private stateService: StateService
+    private readonly apiService: ApiService,
+    private readonly stateService: StateService
   ) {
     // Initialize authentication state when service starts
     this.initAuthState();
@@ -57,7 +57,7 @@ export class AuthService {
         catchError(error => {
           this.stateService.updateAuthState({ 
             loading: false, 
-            error: error.error?.message || 'Authentication error. Please verify your credentials.' 
+            error: error.error?.message ?? 'Authentication error. Please verify your credentials.' 
           });
           
           return throwError(() => error);
@@ -86,7 +86,7 @@ export class AuthService {
         catchError(error => {
           this.stateService.updateAuthState({ 
             loading: false, 
-            error: error.error?.message || 'Registration error. Please try again.' 
+            error: error.error?.message ?? 'Registration error. Please try again.' 
           });
           
           return throwError(() => error);
@@ -153,7 +153,7 @@ export class AuthService {
         }),
         catchError(error => {
           this.stateService.updateAuthState({ 
-            error: error.error?.message || 'Error deleting account. Please try again.' 
+            error: error.error?.message ?? 'Error deleting account. Please try again.' 
           });
           return throwError(() => error);
         })

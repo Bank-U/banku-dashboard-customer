@@ -27,8 +27,8 @@ export class RecommendationsComponent implements OnInit {
   showApplied = false;
 
   constructor(
-    private intelligenceService: IntelligenceService,
-    private router: Router
+    private readonly intelligenceService: IntelligenceService,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {

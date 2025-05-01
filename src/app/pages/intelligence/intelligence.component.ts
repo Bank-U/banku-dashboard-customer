@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AlertsComponent } from '../../components/alerts/alerts.component';
@@ -38,8 +38,6 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
 
   `]
 })
-export class IntelligenceComponent implements OnInit {
+export class IntelligenceComponent {
   constructor() {}
-
-  ngOnInit() {}
 } 

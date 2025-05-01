@@ -37,7 +37,7 @@ declare const Plaid: any;
 export class PlaidLinkComponent implements OnInit {
   private handler: any;
 
-  constructor(private plaidService: PlaidService) {}
+  constructor(private readonly plaidService: PlaidService) {}
 
   ngOnInit() {
     // Load Plaid Link script

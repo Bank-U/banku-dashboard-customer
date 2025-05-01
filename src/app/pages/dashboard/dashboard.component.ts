@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   hasAccounts = false;
   currentMotivationalMessage = '';
 
-  private snackBarConfig: MatSnackBarConfig = {
+  private readonly snackBarConfig: MatSnackBarConfig = {
     duration: 5000,
     horizontalPosition: 'center',
     verticalPosition: 'top',
@@ -58,13 +58,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private intelligenceService: IntelligenceService,
-    private plaidService: PlaidService,
-    private snackBar: MatSnackBar,
-    private router: Router,
-    private translateService: TranslateService,
-    private userService: UserService,
-    private financialService: FinancialService
+    private readonly intelligenceService: IntelligenceService,
+    private readonly plaidService: PlaidService,
+    private readonly snackBar: MatSnackBar,
+    private readonly router: Router,
+    private readonly translateService: TranslateService,
+    private readonly userService: UserService,
+    private readonly financialService: FinancialService
   ) {}
 
   ngOnInit() {

@@ -16,7 +16,6 @@ import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-acc
 import { StateService } from '../../core/services/state.service';
 import { TranslateService } from '../../core/services/translate.service';
 import { UserService } from '../../services/user.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { firstValueFrom } from 'rxjs';
 import { NotificationService } from '../../core/services/notification.service';
 
@@ -58,15 +57,14 @@ export class SettingsComponent implements OnInit {
   ];
   
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private translateService: TranslateService,
-    private dialog: MatDialog,
-    private stateService: StateService,
-    private userService: UserService,
-    private snackBar: MatSnackBar,
-    private router: Router,
-    private notificationService: NotificationService
+    private readonly fb: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly translateService: TranslateService,
+    private readonly dialog: MatDialog,
+    private readonly stateService: StateService,
+    private readonly userService: UserService,
+    private readonly router: Router,
+    private readonly notificationService: NotificationService
   ) {
     this.notificationForm = this.fb.group({
       emailNotifications: [true],

@@ -192,9 +192,6 @@
   visibility: hidden !important;
 }
 
-::ng-deep .mat-calendar-body-cell {
-  height: 32px !important;
-}
 
 ::ng-deep .mat-calendar-body-cell-content {
   border-radius: 50% !important;
@@ -287,6 +284,7 @@
   text-align: center !important;
   padding: 0 !important;
   outline: none !important;
+  height: 32px !important;
 }
 
 ::ng-deep .mat-date-range-input-container {

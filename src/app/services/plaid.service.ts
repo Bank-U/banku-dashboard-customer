@@ -28,9 +28,9 @@ export class PlaidService {
   private selectedInstitution: string = '';
 
   constructor(
-    private authService: AuthService,
-    private apiService: ApiService,
-    private stateService: StateService
+    private readonly authService: AuthService,
+    private readonly apiService: ApiService,
+    private readonly stateService: StateService
   ) {}
 
   createLinkToken(): Observable<LinkTokenResponse> {
@@ -43,7 +43,7 @@ export class PlaidService {
       switchMap(language => 
         this.apiService.post<LinkTokenResponse>(`/v1/openbanking/link-token`, { 
           userId, 
-          language: language || "en" 
+          language: language ?? "en" 
         })
       )
     );

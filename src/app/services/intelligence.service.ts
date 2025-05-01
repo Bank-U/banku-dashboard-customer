@@ -31,7 +31,7 @@ export interface IntelligenceData {
 })
 export class IntelligenceService {
 
-  constructor(private apiService: ApiService) {}
+  constructor(private readonly apiService: ApiService) {}
 
   getIntelligenceData(): Observable<IntelligenceData> {
     return this.apiService.get<IntelligenceData>(`/v1/engine/intelligence`);
