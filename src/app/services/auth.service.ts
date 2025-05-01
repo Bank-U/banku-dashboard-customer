@@ -234,6 +234,7 @@ export class AuthService {
         error: null
       });
     } catch (error) {
+      console.error(`Error while handling OAuth callback: ${error}`);
       this.stateService.updateAuthState({
         loading: false,
         error: 'Invalid token received'
