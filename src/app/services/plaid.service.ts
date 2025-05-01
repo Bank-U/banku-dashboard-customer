@@ -22,7 +22,7 @@ interface PlaidEventData {
   providedIn: 'root'
 })
 export class PlaidService {
-  private plaidEvents = new Subject<PlaidEventData>();
+  private readonly plaidEvents = new Subject<PlaidEventData>();
 
   plaidEvents$ = this.plaidEvents.asObservable();
   private selectedInstitution: string = '';
