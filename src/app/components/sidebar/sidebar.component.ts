@@ -205,8 +205,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SidebarComponent {
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private readonly authService: AuthService,
+    private readonly router: Router
   ) {}
 
   logout(): void {

@@ -9,11 +9,11 @@ import { Language } from '../models/app-state.model';
   providedIn: 'root'
 })
 export class TranslateService {
-  private currentLanguage = new BehaviorSubject<Language>(navigator.language.split('-')[0] as Language || 'en');
-  private translations: { [key: string]: any } = {};
-  private loadedLanguages: Set<Language> = new Set();
+  private readonly currentLanguage = new BehaviorSubject<Language>(navigator.language.split('-')[0] as Language || 'en');
+  private readonly translations: { [key: string]: any } = {};
+  private readonly loadedLanguages: Set<Language> = new Set();
 
-  constructor(private http: HttpClient, private stateService: StateService) {
+  constructor(private readonly http: HttpClient, private readonly stateService: StateService) {
     this.loadTranslations();
   }
 

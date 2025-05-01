@@ -87,7 +87,7 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar'
 export class CustomNotificationComponent {
   constructor(
     @Inject(MAT_SNACK_BAR_DATA) public data: { message: string, type: 'error' | 'success' | 'info' | 'warning' },
-    private snackBarRef: MatSnackBarRef<CustomNotificationComponent>
+    private readonly snackBarRef: MatSnackBarRef<CustomNotificationComponent>
   ) {}
 
   getIcon(): string {

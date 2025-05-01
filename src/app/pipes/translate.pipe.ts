@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   pure: false
 })
 export class TranslatePipe implements PipeTransform {
-  constructor(private translateService: TranslateService) {}
+  constructor(private readonly translateService: TranslateService) {}
 
   transform(value: string): Observable<string> {
     if (!value) {

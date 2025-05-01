@@ -215,7 +215,7 @@ export class DeleteAccountDialogComponent {
     Validators.pattern('DELETE')
   ]);
 
-  constructor(private dialogRef: MatDialogRef<DeleteAccountDialogComponent>) {}
+  constructor(private readonly dialogRef: MatDialogRef<DeleteAccountDialogComponent>) {}
 
   get isConfirmed(): boolean {
     return this.confirmationInput.value?.toUpperCase() === 'DELETE';

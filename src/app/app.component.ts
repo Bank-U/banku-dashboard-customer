@@ -22,7 +22,7 @@ import { TokenRefreshService } from './services/token-refresh.service';
 export class AppComponent {
   title = 'BankU Dashboard';
 
-  constructor(private tokenRefreshService: TokenRefreshService) {
+  constructor(private readonly tokenRefreshService: TokenRefreshService) {
     // The service will be initialized when the component is created
   }
 } 

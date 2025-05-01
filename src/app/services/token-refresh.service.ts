@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AuthService } from './auth.service';
 import { interval, Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -10,7 +10,7 @@ export class TokenRefreshService implements OnDestroy {
   private refreshSubscription: Subscription | null = null;
   private readonly REFRESH_INTERVAL = environment.tokenRefreshInterval || 15 * 60 * 1000; // Default 15 minutes
 
-  constructor(private authService: AuthService) {
+  constructor(private readonly authService: AuthService) {
     // Initialize the refresh timer immediately
     this.startRefreshTimer();
   }

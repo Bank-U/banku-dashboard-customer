@@ -9,9 +9,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AuthCallbackComponent implements OnInit {
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private authService: AuthService
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit() {

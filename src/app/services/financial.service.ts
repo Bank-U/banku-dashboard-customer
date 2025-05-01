@@ -26,7 +26,7 @@ export interface Transaction {
   providedIn: 'root'
 })
 export class FinancialService {
-  constructor(private apiService: ApiService) { }
+  constructor(private readonly apiService: ApiService) { }
 
   getAccounts(): Observable<Account[]> {
     return this.apiService.get<Account[]>(`/v1/openbanking/financial/accounts`);

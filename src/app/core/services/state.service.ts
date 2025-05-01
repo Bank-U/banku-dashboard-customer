@@ -7,7 +7,7 @@ import { AppState, AuthState, UiState, AppNotification, Language } from '../mode
 })
 export class StateService {
   // Initial state
-  private initialState: AppState = {
+  private readonly initialState: AppState = {
     auth: {
       isAuthenticated: false,
       userId: null,
@@ -23,10 +23,10 @@ export class StateService {
     }
   };
 
-  private state = new BehaviorSubject<AppState>(this.initialState);
+  private readonly state = new BehaviorSubject<AppState>(this.initialState);
   
-  public authState = signal<AuthState>(this.initialState.auth);
-  public uiState = signal<UiState>(this.initialState.ui);
+  public readonly authState = signal<AuthState>(this.initialState.auth);
+  public readonly uiState = signal<UiState>(this.initialState.ui);
 
   constructor() {
     this.loadStateFromStorage();

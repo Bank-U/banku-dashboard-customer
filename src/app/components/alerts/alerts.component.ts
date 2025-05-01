@@ -29,9 +29,8 @@ export class AlertsComponent implements OnInit {
   showResolved = false;
 
   constructor(
-    private intelligenceService: IntelligenceService,
-    private router: Router,
-    private translate: TranslateService
+    private readonly intelligenceService: IntelligenceService,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
