@@ -7,17 +7,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatNativeDateModule, DateAdapter } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { FinancialService, Transaction, Account } from '../../services/financial.service';
 import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
-import { DateAdapter } from '@angular/material/core';
 import { StateService } from '../../core/services/state.service';
 
 @Component({
@@ -63,9 +61,9 @@ export class TransactionsComponent implements OnInit {
   });
 
   constructor(
-    private financialService: FinancialService,
-    private dateAdapter: DateAdapter<any>,
-    private stateService: StateService
+    private readonly financialService: FinancialService,
+    private readonly dateAdapter: DateAdapter<any>,
+    private readonly stateService: StateService
   ) {
     this.stateService.getLanguage().subscribe(lang => {
       this.dateAdapter.setLocale(lang);

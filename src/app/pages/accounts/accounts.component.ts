@@ -34,7 +34,7 @@ export class AccountsComponent implements OnInit {
   loading = true;
   error = false;
 
-  constructor(private financialService: FinancialService) { }
+  constructor(private readonly financialService: FinancialService) { }
 
   ngOnInit(): void {
     this.loadAccounts();

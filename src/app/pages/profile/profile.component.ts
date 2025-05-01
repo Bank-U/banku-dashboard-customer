@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
@@ -32,8 +31,7 @@ export class ProfileComponent implements OnInit {
   isPasswordLoading = false;
   
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService
+    private readonly fb: FormBuilder
   ) {
     this.profileForm = this.fb.group({
       name: ['', Validators.required],

@@ -40,11 +40,11 @@ export class RegisterComponent extends AbstractFormComponent implements OnInit {
   hideConfirmPassword = true;
 
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private authService: AuthService,
-    private notificationService: NotificationService,
-    private translateService: TranslateService
+    private readonly fb: FormBuilder,
+    private readonly router: Router,
+    private readonly authService: AuthService,
+    private readonly notificationService: NotificationService,
+    private readonly translateService: TranslateService
   ) {
     super();
     this.form = this.fb.group({
@@ -68,7 +68,7 @@ export class RegisterComponent extends AbstractFormComponent implements OnInit {
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  protected override async onSubmit(): Promise<void> {
+  protected override onSubmit(): void {
     if (this.form.valid) {
       this.isSubmitting = true;
       this.disableForm();
@@ -84,17 +84,17 @@ export class RegisterComponent extends AbstractFormComponent implements OnInit {
           this.enableForm();
         }))
         .subscribe({
-          next: async () => {
-            await firstValueFrom(this.translateService.translate('register.registrationSuccess')).then((message: string) => {
+          next: () => {
+            firstValueFrom(this.translateService.translate('register.registrationSuccess')).then((message: string) => {
               this.notificationService.success(message);
               this.router.navigate(['/dashboard']);
             });
           },
-          error: async (error) => {
+          error: (error) => {
             if (error.error?.message) {
               this.notificationService.error(error.error.message);
             } else {
-              await firstValueFrom(this.translateService.translate('register.registrationError')).then((message: string) => {
+              firstValueFrom(this.translateService.translate('register.registrationError')).then((message: string) => {
                 this.notificationService.error(message);
               });
             }
@@ -104,11 +104,11 @@ export class RegisterComponent extends AbstractFormComponent implements OnInit {
       this.markFormGroupTouched(this.form);
       
       if (this.form.hasError('passwordMismatch')) {
-        await firstValueFrom(this.translateService.translate('register.passwordMismatch')).then((message: string) => {
+        firstValueFrom(this.translateService.translate('register.passwordMismatch')).then((message: string) => {
           this.notificationService.warning(message);
         });
       } else {
-        await firstValueFrom(this.translateService.translate('common.formError')).then((message: string) => {
+        firstValueFrom(this.translateService.translate('common.formError')).then((message: string) => {
           this.notificationService.warning(message);
         });
       }

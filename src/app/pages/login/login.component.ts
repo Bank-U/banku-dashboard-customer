@@ -40,11 +40,11 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
   hidePassword = true;
 
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private authService: AuthService,
-    private notificationService: NotificationService,
-    private translateService: TranslateService
+    private readonly fb: FormBuilder,
+    private readonly router: Router,
+    private readonly authService: AuthService,
+    private readonly notificationService: NotificationService,
+    private readonly translateService: TranslateService
   ) {
     super();
     this.form = this.fb.group({
@@ -61,7 +61,7 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
     }
   }
 
-  protected override async onSubmit(): Promise<void> {
+  protected override onSubmit(): void {
     if (this.form.valid) {
       this.isSubmitting = true;
       this.disableForm();
@@ -80,11 +80,11 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
           next: () => {
             this.router.navigate(['/dashboard']);
           },
-          error: async (error) => {
+          error: (error) => {
             if (error.error?.message) {
               this.notificationService.error(error.error.message, true);
             } else {
-              await firstValueFrom(this.translateService.translate('login.loginError')).then((message: string) => {
+              firstValueFrom(this.translateService.translate('login.loginError')).then((message: string) => {
                 this.notificationService.error(message);
               });
             }
@@ -92,7 +92,7 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
         });
     } else {
       this.markFormGroupTouched(this.form);
-      await firstValueFrom(this.translateService.translate('common.formError')).then((message: string) => {
+      firstValueFrom(this.translateService.translate('common.formError')).then((message: string) => {
         this.notificationService.warning(message);
       });
     }

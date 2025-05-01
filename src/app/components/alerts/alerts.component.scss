@@ -8,6 +8,18 @@
     background: transparent;
     box-shadow: none;
     padding: 0;
+    
+    .no-alerts-container {
+      .no-alerts-content {
+        h2 {
+          color: #1A202C;
+        }
+  
+        p {
+          color: #4A5568;
+        }
+      }
+    }
 
     .alerts-header {
       margin-bottom: 1rem;
@@ -22,6 +34,7 @@
 
 .alerts-controls {
   display: flex;
+  gap: 1.5rem;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
@@ -33,12 +46,6 @@
     font-weight: 400;
     color: #1a1a1a;
   }
-}
-
-.alerts-controls {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
 }
 
 .alerts-list {
@@ -183,18 +190,3 @@
     transform: translateY(0);
   }
 }
-
-// Light mode specific styles
-.alerts-container.light-mode {
-  .no-alerts-container {
-    .no-alerts-content {
-      h2 {
-        color: #1A202C;
-      }
-
-      p {
-        color: #4A5568;
-      }
-    }
-  }
-} 
