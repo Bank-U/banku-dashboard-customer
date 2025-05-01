@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="recommendation-actions" *ngIf="mode === 'full'">
-        <mat-icon (click)="onResolve(recommendation.id)" *ngIf="!recommendation.resolved" class="material-symbols-outlined unresolved-icon">check_circle</mat-icon>
+        <mat-icon (click)="onResolve(recommendation.id)" (keydown)="onResolve(recommendation.id)" *ngIf="!recommendation.resolved" class="material-symbols-outlined unresolved-icon">check_circle</mat-icon>
         <mat-icon *ngIf="recommendation.resolved" class="resolved-icon material-symbols-outlined">check_circle</mat-icon>
       </div>
     </div>

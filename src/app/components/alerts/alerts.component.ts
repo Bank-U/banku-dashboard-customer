@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Alert, IntelligenceData, IntelligenceService } from '../../services/intelligence.service';
-import { TranslateService } from '../../core/services/translate.service';
 import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';

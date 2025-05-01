@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if (event.success) {
         await firstValueFrom(this.translateService.translate('dashboard.connectionSuccess')).then((message: string) => {
           this.showNotification(
-            message.replace('{{institution}}', event.institutionName || ''),
+            message.replace('{{institution}}', event.institutionName ?? ''),
             'success'
           );
         });
@@ -109,7 +109,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private handleError(error: any, defaultMessage: string) {
     console.error('Error:', error);
-    this.showNotification(error?.message || defaultMessage, 'error');
+    this.showNotification(error?.message ?? defaultMessage, 'error');
   }
 
   loadIntelligenceData(): void {
