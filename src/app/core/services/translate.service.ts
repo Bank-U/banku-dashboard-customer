@@ -50,7 +50,7 @@ export class TranslateService {
         let translation = this.translations[lang];
         
         for (const k of keys) {
-          if (translation && translation[k]) {
+          if (translation?.[k]) {
             translation = translation[k];
           } else {
             return key;
