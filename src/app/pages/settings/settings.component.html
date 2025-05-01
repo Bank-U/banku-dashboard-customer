@@ -14,7 +14,8 @@
             <div *ngFor="let lang of languages" 
                  class="language-option" 
                  [class.selected]="settingsForm.get('language')?.value === lang.code"
-                 (click)="settingsForm.get('language')?.setValue(lang.code)">
+                 (click)="settingsForm.get('language')?.setValue(lang.code)"
+                 (keydown)="settingsForm.get('language')?.setValue(lang.code)">
               <span class="language-flag">{{ lang.flag }}</span>
               <span class="language-name">{{ lang.name }}</span>
             </div>

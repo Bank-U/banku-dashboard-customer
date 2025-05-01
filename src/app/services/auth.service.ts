@@ -199,13 +199,9 @@ export class AuthService {
       return true;
     }
 
-    try {
-      const tokenData = JSON.parse(atob(token.split('.')[1]));
-      const expirationDate = new Date(tokenData.exp * 1000);
-      return expirationDate < new Date();
-    } catch (error) {
-      return true;
-    }
+    const tokenData = JSON.parse(atob(token.split('.')[1]));
+    const expirationDate = new Date(tokenData.exp * 1000);
+    return expirationDate < new Date();
   }
 
   /**
