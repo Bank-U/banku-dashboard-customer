@@ -1,6 +1,6 @@
 <div class="login-container">
   <div class="logo-container">
-    <img src="assets/images/logo.png" alt="BankU Logo" class="logo">
+    <img src="assets/images/black-logo.png" alt="BankU Logo" class="logo">
     <span class="brand-name">BankU</span>
   </div>
 
@@ -11,7 +11,7 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
         <mat-form-field appearance="outline" class="form-field">
           <mat-label class="login-label">{{ 'login.email' | translate | async }}</mat-label>
-          <input matInput formControlName="email" type="email">
+          <input matInput formControlName="email" type="email" class="login-input">
           <mat-icon class="material-symbols-outlined login-input-icon" matPrefix>mail_outlined</mat-icon>
           <mat-error *ngIf="hasError('email', 'required')">{{ 'login.emailRequired' | translate | async }}</mat-error>
           <mat-error *ngIf="hasError('email', 'email')">{{ 'login.emailInvalid' | translate | async }}</mat-error>
@@ -31,9 +31,9 @@
           <a routerLink="/forgot-password" class="forgot-password-link">{{ 'login.forgotPassword' | translate | async }}</a>
         </div>
 
-        <button mat-flat-button color="primary" type="submit" class="login-button" [disabled]="form.invalid || isSubmitting">
-          <mat-spinner *ngIf="isSubmitting" diameter="20" class="spinner"></mat-spinner>
-          <span>{{ 'login.signIn' | translate | async }}</span>
+        <button mat-flat-button color="warn" type="submit" class="login-button" [disabled]="form.invalid || isSubmitting">
+          <mat-spinner *ngIf="isSubmitting" diameter="20" class="spinner" color="accent"></mat-spinner>
+          <span *ngIf="!isSubmitting">{{ 'login.signIn' | translate | async }}</span>
         </button>
 
         <div class="divider">

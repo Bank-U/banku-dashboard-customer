@@ -1,6 +1,6 @@
 <div class="register-container">
   <div class="logo-container">
-    <img src="assets/images/logo.png" alt="BankU Logo" class="logo">
+    <img src="assets/images/black-logo.png" alt="BankU Logo" class="logo">
     <span class="brand-name">BankU</span>
   </div>
 
@@ -40,7 +40,7 @@
 
         <button mat-flat-button color="primary" type="submit" class="register-button" [disabled]="form.invalid || isSubmitting">
           <mat-spinner *ngIf="isSubmitting" diameter="20" class="spinner"></mat-spinner>
-          <span>{{ 'register.register' | translate | async }}</span>
+          <span *ngIf="!isSubmitting">{{ 'register.register' | translate | async }}</span>
         </button>
 
         <div class="login-prompt">

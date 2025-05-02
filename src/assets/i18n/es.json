@@ -66,7 +66,7 @@
     "noRecommendationsDescription": "Te notificaremos cuando detectemos cualquier actividad anormal."
   },
   "register": {
-    "title": "Crear nueva cuenta",
+    "title": "Crear cuenta",
     "register": "Registrarse",
     "email": "Correo electrónico",
     "emailRequired": "El correo electrónico es obligatorio",

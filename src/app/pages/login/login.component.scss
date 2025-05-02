@@ -19,11 +19,10 @@
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
-  gap: 12px;
 
   .logo {
-    height: 36px;
-    width: 36px;
+    height: 38px;
+    width: 38px;
   }
 
   .brand-name {
@@ -64,31 +63,53 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
 
   .form-field {
     width: 100%;
-
+    border: none;
     ::ng-deep {
       .mat-mdc-form-field-flex {
+        border-radius: 10px;
         background-color: var(--banku-bg-light);
+      }
+      
+      .mdc-notched-outline__leading {
+        border-left: 1px solid var(--banku-border);
+      }
+
+      .mdc-notched-outline__trailing {
+        border-right: 1px solid var(--banku-border);
+      }
+      
+      .mat-mdc-notch-piece {
+        border-top: 1px solid var(--banku-border);
+        border-bottom: 1px solid var(--banku-border);
       }
 
       .mat-mdc-text-field-wrapper {
+        border-radius: 10px;
         background-color: var(--banku-bg-light);
       }
-
+      
       .mdc-text-field--outlined {
         --mdc-outlined-text-field-container-shape: 8px;
       }
-
+      
       .mat-mdc-form-field-icon-prefix {
         color: var(--banku-text-muted);
         padding-right: 8px;
       }
-
+      
       .mat-mdc-form-field-required-marker {
         display: none;
+      }
+
+      .mat-mdc-form-field-hint-wrapper, .mat-mdc-form-field-error-wrapper {
+        position: absolute;
+        top: -5px;
+        font-size: 12px;
+        text-align: right;
+        padding: 0px;
       }
     }
   }
@@ -106,16 +127,17 @@
     background-color: var(--banku-text-muted) !important;
   }
   .spinner {
-    margin-right: 8px;
+    ::ng-deep circle {
+      stroke: #fff;
+    }
   }
 }
 
 .forgot-password {
-  text-align: center;
+  text-align: right;
   color: var(--banku-blue);
   text-decoration: none;
-  font-size: 14px;
-  margin: 16px 0;
+  font-size: 12px;
   display: block;
   cursor: pointer;
 
@@ -136,10 +158,9 @@
 }
 .register-prompt {
   text-align: center;
-  padding-top: 30px;
+  padding-top: 20px;
   font-size: 14px;
   color: var(--banku-text-muted);
-  border-top: 1px solid var(--banku-border);
 
   .register-link{
     color: var(--background-dark);
@@ -158,9 +179,9 @@
   display: flex;
   align-items: center;
   text-align: center;
-  margin: 20px 0;
   color: rgba(0, 0, 0, 0.54);
-
+  margin-top: 8px;
+  margin-bottom: 16px;
   &::before,
   &::after {
     content: '';
@@ -180,16 +201,20 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--banku-border);
   background-color: white;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--banku-text);
   transition: background-color 0.2s;
+  border-radius: 10px;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.04);
+    color: var(--banku-blue-dark);
   }
 
   .google-logo {
+    vertical-align: bottom;
+    margin-right: 8px;
     width: 18px;
     height: 18px;
   }
