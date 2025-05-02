@@ -101,7 +101,8 @@
     "title": "Settings",
     "language": {
       "title": "Language",
-      "subtitle": "Select your preferred language"
+      "subtitle": "Select your preferred language",
+      "updateSuccess": "Language updated successfully"
     },
     "dangerZone": {
       "title": "Danger Zone",

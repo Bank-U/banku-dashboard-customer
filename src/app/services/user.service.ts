@@ -8,6 +8,7 @@ export interface UserInfo {
   firstName: string;
   lastName: string;
   profilePicture: string;
+  preferredLanguage: string;
 }
 
 @Injectable({
@@ -22,5 +23,9 @@ export class UserService {
 
   deleteAccount(): Observable<void> {
     return this.apiService.delete<void>(`/v1/users/self`);
+  }
+
+  updateUser(user: Partial<UserInfo>): Observable<UserInfo> {
+    return this.apiService.put<UserInfo>(`/v1/users/self`, user);
   }
 } 

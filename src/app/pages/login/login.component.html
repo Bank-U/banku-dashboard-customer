@@ -31,7 +31,7 @@
           <a routerLink="/forgot-password" class="forgot-password-link">{{ 'login.forgotPassword' | translate | async }}</a>
         </div>
 
-        <button mat-flat-button color="warn" type="submit" class="login-button" [disabled]="form.invalid || isSubmitting">
+        <button mat-flat-button type="submit" class="login-button" [disabled]="form.invalid || isSubmitting">
           <mat-spinner *ngIf="isSubmitting" diameter="20" class="spinner" color="accent"></mat-spinner>
           <span *ngIf="!isSubmitting">{{ 'login.signIn' | translate | async }}</span>
         </button>
@@ -40,9 +40,10 @@
           <span>{{ 'login.or' | translate | async }}</span>
         </div>
 
-        <button mat-stroked-button type="button" class="google-button" (click)="loginWithGoogle()" [disabled]="isSubmitting">
-          <img src="assets/images/google-logo.svg" alt="Google" class="google-logo">
-          <span>{{ 'login.signInWithGoogle' | translate | async }}</span>
+        <button mat-stroked-button type="button" class="google-button" (click)="loginWithGoogle()" [disabled]="isSubmittingGoogle">
+          <mat-spinner *ngIf="isSubmittingGoogle" diameter="20" class="spinner" color="accent"></mat-spinner>
+          <img *ngIf="!isSubmittingGoogle" src="assets/images/google-logo.svg" alt="Google" class="google-logo">
+          <span *ngIf="!isSubmittingGoogle">{{ 'login.signInWithGoogle' | translate | async }}</span>
         </button>
 
         <div class="register-prompt">
