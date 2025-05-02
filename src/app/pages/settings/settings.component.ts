@@ -47,7 +47,6 @@ interface Language {
 })
 export class SettingsComponent implements OnInit {
   notificationForm: FormGroup;
-  displayForm: FormGroup;
   isLoading = false;
   isDisplayLoading = false;
   settingsForm: FormGroup;
@@ -71,11 +70,7 @@ export class SettingsComponent implements OnInit {
       pushNotifications: [true],
       transactionAlerts: [true]
     });
-    
-    this.displayForm = this.fb.group({
-      theme: ['light'],
-      currency: ['USD']
-    });
+
 
     this.settingsForm = this.fb.group({
       language: [this.stateService.uiState().language]
@@ -86,8 +81,17 @@ export class SettingsComponent implements OnInit {
     // Load saved preferences
     this.loadSettings();
 
-    this.settingsForm.get('language')?.valueChanges.subscribe(lang => {
+    this.settingsForm.get('language')?.valueChanges.subscribe(async lang => {
       this.stateService.updateUiState({ language: lang });
+      try {
+        await firstValueFrom(this.userService.updateUser({ preferredLanguage: lang }));
+        const successMessage = await firstValueFrom(this.translateService.translate('settings.language.updateSuccess'));
+        this.notificationService.success(successMessage);
+      } catch (error) {
+        console.error('Error updating language:', error);
+        const errorMessage = await firstValueFrom(this.translateService.translate('common.errorLoading'));
+        this.notificationService.error(errorMessage);
+      }
     });
   }
   
@@ -98,11 +102,6 @@ export class SettingsComponent implements OnInit {
       pushNotifications: true,
       transactionAlerts: true
     });
-    
-    this.displayForm.patchValue({
-      theme: 'light',
-      currency: 'USD'
-    });
   }
   
   onSubmit(): void {
@@ -112,18 +111,6 @@ export class SettingsComponent implements OnInit {
       // Simulation of saving
       setTimeout(() => {
         this.isLoading = false;
-        // Show success message
-      }, 1500);
-    }
-  }
-  
-  onDisplaySubmit(): void {
-    if (this.displayForm.valid) {
-      this.isDisplayLoading = true;
-      
-      // Simulation of saving
-      setTimeout(() => {
-        this.isDisplayLoading = false;
         // Show success message
       }, 1500);
     }
