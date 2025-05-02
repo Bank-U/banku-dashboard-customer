@@ -38,6 +38,7 @@ import { firstValueFrom } from 'rxjs';
 export class LoginComponent extends AbstractFormComponent implements OnInit {
   form: FormGroup;
   hidePassword = true;
+  isSubmittingGoogle = false;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -99,7 +100,7 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
   }
 
   loginWithGoogle(): void {
-    this.isSubmitting = true;
+    this.isSubmittingGoogle = true;
     this.authService.loginWithGoogle();
   }
 } 

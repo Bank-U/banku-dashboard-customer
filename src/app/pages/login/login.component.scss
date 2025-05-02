@@ -126,10 +126,11 @@
   &.mat-mdc-button-disabled {
     background-color: var(--banku-text-muted) !important;
   }
-  .spinner {
-    ::ng-deep circle {
-      stroke: #fff;
-    }
+}
+
+.spinner {
+  ::ng-deep circle {
+    stroke: var(--banku-text) !important;
   }
 }
 

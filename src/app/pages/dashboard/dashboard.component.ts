@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 import { TranslateService } from '../../core/services/translate.service';
 import { UserService, UserInfo } from '../../services/user.service';
 import { FinancialService } from '../../services/financial.service';
+import { StateService } from '../../core/services/state.service';
+import { Language } from '../../core/models/app-state.model';
 
 interface LinkTokenResponse {
   linkToken: string;
@@ -64,7 +66,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly translateService: TranslateService,
     private readonly userService: UserService,
-    private readonly financialService: FinancialService
+    private readonly financialService: FinancialService,
+    private readonly stateService: StateService
   ) {}
 
   ngOnInit() {
@@ -190,6 +193,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.userService.getUserInfo().subscribe({
       next: (userInfo) => {
         this.userInfo = userInfo;
+        const language = this.userInfo.preferredLanguage as Language;
+        this.stateService.updateUiState({ language });
       },
       error: (error) => {
         console.error('Error loading user info:', error);
