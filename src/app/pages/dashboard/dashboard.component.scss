@@ -122,6 +122,11 @@ h1, h2 {
 }
 
 @media (max-width: 768px) {
+
+  .main-content {
+    padding: 0px;
+  }
+  
   .dashboard-container {
     padding: 1rem;
   }
