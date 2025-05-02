@@ -66,7 +66,7 @@
     "noRecommendationsDescription": "We'll notify you when we detect any unusual activity."
   },
   "register": {
-    "title": "Create new account",
+    "title": "Create account",
     "register": "Register",
     "email": "Email",
     "emailRequired": "Email is required",
