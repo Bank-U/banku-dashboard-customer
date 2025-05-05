@@ -11,7 +11,7 @@ export interface AuthState {
   loading: boolean;
 }
 
-export type Language = 'en' | 'es';
+export type Language = 'en' | 'es' | 'de';
 
 export interface UiState {
   isDarkMode: boolean;
