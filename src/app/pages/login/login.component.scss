@@ -10,9 +10,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   background-color: var(--banku-bg-light);
   padding: 20px;
+  padding-top: 10vh;
 }
 
 .logo-container {
@@ -40,6 +40,7 @@
   background: var(--banku-surface);
   padding: 24px;
 }
+
 .login-label {
   color: var(--banku-text);
   opacity: 0.8;
@@ -126,11 +127,11 @@
   &.mat-mdc-button-disabled {
     background-color: var(--banku-text-muted) !important;
   }
-}
-
-.spinner {
-  ::ng-deep circle {
-    stroke: var(--banku-text) !important;
+  
+  .spinner {
+    ::ng-deep circle {
+      stroke: var(--banku-text) !important;
+    }
   }
 }
 
