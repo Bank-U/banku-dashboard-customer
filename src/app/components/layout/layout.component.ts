@@ -42,6 +42,12 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
       min-height: calc(100vh - 64px);
       overflow-y: auto;
     }
+
+    @media (max-width: 768px) {
+      .main-content {
+        padding: 32px 1rem;
+      }
+    }
   `]
 })
 export class LayoutComponent {
