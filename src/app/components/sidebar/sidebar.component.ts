@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
@@ -8,6 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { AuthService } from '../../services/auth.service';
+import { StateService } from '../../core/services/state.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,11 +24,14 @@ import { AuthService } from '../../services/auth.service';
     TranslatePipe
   ],
   template: `
-    <div class="sidebar-container">
+    <div class="sidebar-container" *ngIf="isSidebarExpanded != undefined" [class.collapsed]="!isSidebarExpanded">
+      <button mat-icon-button (click)="toggleSidebar()" class="toggle-btn material-symbols-outlined">
+        <mat-icon>{{ isSidebarExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+      </button>
       <div class="menu-section">
       <div routerLink="/dashboard" class="sidebar-logo-container">
         <img src="assets/images/white-logo.png" alt="BankU Logo" class="sidebar-logo">
-        <span class="sidebar-brand-name">BankU</span>
+        <span matListItemTitle class="sidebar-brand-name">BankU</span>
       </div>
         <mat-nav-list>
           <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
@@ -81,6 +85,7 @@ import { AuthService } from '../../services/auth.service';
     }
     
     .sidebar-container {
+      transition: all 0.3s ease-in-out;
       display: flex;
       flex-direction: column;
       height: 100%;
@@ -178,7 +183,41 @@ import { AuthService } from '../../services/auth.service';
       margin-right: 0.5rem;
     }
     
+        
+    .toggle-btn {
+      transition: all 0.3s ease-in-out;
+      z-index: 1100;
+      color: white;
+      position: fixed;
+      top: 50%;
+      margin: 0px;
+      margin-left: 235px;
+      border: 1px solid var(--banku-border);
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+      width: 30px;
+      height: 30px;
+      background: var(--banku-bg-light);
+
+      .mat-icon {
+        position: relative;
+        top: -5px;
+        right: 5px;
+      }
+    }
+
+    .sidebar-container.collapsed {
+      width: 60px;
+
+      .toggle-btn {
+        margin-left: 45px;
+      }
+    }
+
     @media (max-width: 768px) {
+      .toggle-btn {
+        display: none;
+      }
+        
       .sidebar-brand-name {
         display: none;
       }
@@ -190,6 +229,7 @@ import { AuthService } from '../../services/auth.service';
       a.mat-list-item {
         justify-content: center;
         padding: 0;
+        
       }
       
       mat-icon {
@@ -204,10 +244,21 @@ import { AuthService } from '../../services/auth.service';
   `]
 })
 export class SidebarComponent {
+  public isSidebarExpanded: Boolean = this.stateService.uiState()?.isSidebarExpanded;
+
   constructor(
     private readonly authService: AuthService,
-    private readonly router: Router
-  ) {}
+    private readonly router: Router,
+    private readonly stateService: StateService
+  ) {
+    effect(() => {
+      this.isSidebarExpanded = this.stateService.uiState()?.isSidebarExpanded ?? false;
+    });
+  }
+
+  toggleSidebar(): void {
+    this.stateService.updateUiState({ isSidebarExpanded: !this.stateService.uiState().isSidebarExpanded });
+  }
 
   logout(): void {
     this.authService.logout();
