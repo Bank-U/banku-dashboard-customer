@@ -78,12 +78,7 @@ import { StateService } from '../../core/services/state.service';
     </div>
   `,
   styles: [`
-    :host {
-      display: block;
-      height: 100%;
-      width: 250px;
-    }
-    
+   
     .sidebar-container {
       transition: all 0.3s ease-in-out;
       display: flex;
@@ -244,8 +239,7 @@ import { StateService } from '../../core/services/state.service';
   `]
 })
 export class SidebarComponent {
-  public isSidebarExpanded: Boolean = this.stateService.uiState()?.isSidebarExpanded;
-
+  public isSidebarExpanded: boolean = this.stateService.uiState()?.isSidebarExpanded;
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
