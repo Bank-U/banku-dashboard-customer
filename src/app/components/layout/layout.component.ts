@@ -14,9 +14,11 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   template: `
     <div class="layout-container">
       <app-sidebar></app-sidebar>
-      <main class="main-content">
-        <router-outlet></router-outlet>
-      </main>
+      <div class="layout-content">
+        <main class="main-content">
+          <router-outlet></router-outlet>
+        </main>
+      </div>
     </div>
   `,
   styles: [`
@@ -29,23 +31,28 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
       display: flex;
       height: 100%;
       flex-direction: row;
+
+      .layout-content {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        .main-content {
+          max-width: 1400px;
+          flex: 1;
+          padding: 32px 5rem;
+          background-color: var(--background);
+          min-height: calc(100vh - 64px);
+          overflow-y: auto;
+        }
+      }
+      
     }
     
-    .layout-content {
-      display: flex;
-    }
-    
-    .main-content {
-      flex: 1;
-      padding: 32px 5rem;
-      background-color: var(--background);
-      min-height: calc(100vh - 64px);
-      overflow-y: auto;
-    }
 
     @media (max-width: 768px) {
       .main-content {
-        padding: 32px 1rem;
+        padding: 32px 1rem !important;
       }
     }
   `]
