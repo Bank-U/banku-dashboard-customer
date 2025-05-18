@@ -26,6 +26,7 @@ import { StateService } from '../../core/services/state.service';
   template: `
     <div class="sidebar-container" *ngIf="isSidebarExpanded != undefined" [class.collapsed]="!isSidebarExpanded">
       <button mat-icon-button (click)="toggleSidebar()" class="toggle-btn material-symbols-outlined">
+        <mat-icon class="first-icon">{{ isSidebarExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
         <mat-icon>{{ isSidebarExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
       </button>
       <div class="menu-section">
@@ -178,8 +179,7 @@ import { StateService } from '../../core/services/state.service';
     .logout-button mat-icon {
       margin-right: 0.5rem;
     }
-    
-        
+
     .toggle-btn {
       transition: all 0.3s ease-in-out;
       z-index: 200;
@@ -188,17 +188,27 @@ import { StateService } from '../../core/services/state.service';
       top: 50%;
       margin: 0px;
       margin-left: 235px;
-      border: 1px solid var(--banku-border);
       box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
       width: 30px;
       height: 30px;
-      background: var(--banku-bg-light);
+      background-color: var(--background-dark);
+      border: 2px solid var(--banku-border);
 
       .mat-icon {
-        position: relative;
-        top: -5px;
-        right: 5px;
+        position: absolute;
+        color: white;
+        top: 1px;
+        right: 3px;
+        padding: 0px;
+        margin: 0px;
       }
+
+      
+      .first-icon {
+        position: absolute !important;
+        right: -3px !important;
+      }
+
     }
 
     .sidebar-container.collapsed {
