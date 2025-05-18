@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError, Subject, take, switchMap } from 'rxjs';
+import { Observable, throwError, Subject, take, switchMap, BehaviorSubject, map, ReplaySubject } from 'rxjs';
 import { AuthService } from './auth.service';
 import { ApiService } from './api.service';
 import { StateService } from '../core/services/state.service';
+import { WebsocketBankuEvent, WebSocketService } from './websocket.service';
 
 interface LinkTokenResponse {
   linkToken: string;
@@ -23,15 +24,29 @@ interface PlaidEventData {
 })
 export class PlaidService {
   private readonly plaidEvents = new Subject<PlaidEventData>();
+  private isConnectingPlaid = new BehaviorSubject<boolean>(false);
+  private isProcessingData = new BehaviorSubject<boolean>(false);
+  public hasFinishedProcessing = new Subject<void>();
 
   plaidEvents$ = this.plaidEvents.asObservable();
+
+  public isConnectingPlaid$ = this.isConnectingPlaid.asObservable();
+  public isProcessingData$ = this.isProcessingData.asObservable();
   private selectedInstitution: string = '';
 
   constructor(
     private readonly authService: AuthService,
     private readonly apiService: ApiService,
-    private readonly stateService: StateService
-  ) {}
+    private readonly stateService: StateService,
+    private readonly webSocketService: WebSocketService
+  ) {
+    this.webSocketService.events$.subscribe((event: WebsocketBankuEvent) => {
+      if (event.type === 'PROCESSING_COMPLETE') {
+        this.isProcessingData.next(false);
+        this.hasFinishedProcessing.next();
+      }
+    });
+  }
 
   createLinkToken(): Observable<LinkTokenResponse> {
     const userId = this.authService.getUserId();
@@ -52,7 +67,8 @@ export class PlaidService {
   openPlaidLink(token: string): void {
     const handler = (window as any).Plaid.create({
       token,
-      onSuccess: (public_token: string, metadata: any) => {
+      onSuccess: (public_token: string, _metadata: any) => {
+        this.isConnectingPlaid.next(true);
         this.exchangePublicToken(public_token).subscribe({
           next: (response) => {
             console.log('Successfully exchanged token:', response);
@@ -60,12 +76,15 @@ export class PlaidService {
               success: true,
               institutionName: this.selectedInstitution
             });
+            this.isProcessingData.next(true);
+            this.isConnectingPlaid.next(false);
           },
           error: (error) => {
             console.error('Error exchanging public token:', error);
             this.plaidEvents.next({
               success: false
             });
+            this.isConnectingPlaid.next(false);
           }
         });
       },

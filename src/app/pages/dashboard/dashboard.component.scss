@@ -116,6 +116,12 @@ h1, h2 {
   color: var(--warning-color);
 }
 
+.spinner {
+  ::ng-deep circle {
+    stroke: #fff;
+  }
+}
+
 @media (max-width: 768px) {
 
   .main-content {
@@ -128,5 +134,85 @@ h1, h2 {
 
   .no-accounts-subtitle {
     font-size: 1rem;
+  }
+}
+
+.processing-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  color: white;
+
+  p {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  } 
+}
+
+.financial-overview {
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .overview-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      background: var(--banku-border);
+    }
+
+    .overview-icon {
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--banku-border);
+      border-radius: 100%;
+      width: 40px;
+      height: 40px;
+      color: var(--banku-call-to-action);
+
+      mat-icon {
+        color: var(--banku-call-to-action);
+        font-size: 24px;
+        height: 24px;
+        width: 24px;
+      }
+    }
+
+    .overview-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      .overview-label {
+        font-weight: 300;
+      }
+
+      .overview-value {
+        color: var(--banku-call-to-action);
+        font-size: 1.5rem;
+        font-weight: 400;
+        line-height: 1;
+      }
+    }
   }
 } 

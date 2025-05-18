@@ -8,16 +8,17 @@ import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from '@angular/mate
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { PlaidService } from '../../services/plaid.service';
 import { IntelligenceService, Alert, Recommendation, IntelligenceData } from '../../services/intelligence.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { firstValueFrom, Subscription, switchMap, take, combineLatest, map } from 'rxjs';
 import { CustomNotificationComponent } from '../../components/custom-notification/custom-notification.component';
 import { AlertsComponent } from '../../components/alerts/alerts.component';
 import { RecommendationsComponent } from '../../components/recommendations/recommendations.component';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { TranslateService } from '../../core/services/translate.service';
 import { UserService, UserInfo } from '../../services/user.service';
 import { FinancialService } from '../../services/financial.service';
 import { StateService } from '../../core/services/state.service';
 import { Language } from '../../core/models/app-state.model';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 interface LinkTokenResponse {
   linkToken: string;
@@ -37,6 +38,8 @@ interface LinkTokenResponse {
     MatSnackBarModule,
     TranslatePipe,
     AlertsComponent,
+    MatProgressSpinnerModule,
+    RouterModule,
     RecommendationsComponent
   ]
 })
@@ -45,12 +48,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isSyncing = false;
   plaidSubscription: Subscription | undefined;
   intelligenceSubscription: Subscription | undefined;
+  hasFinishedProcessingSubscription: Subscription | undefined;
   alerts: Alert[] = [];
   recommendations: Recommendation[] = [];
   userInfo: UserInfo | null = null;
   accounts: any[] = [];
-  hasAccounts = false;
+  transactions: any[] = [];
   currentMotivationalMessage = '';
+  isConnectingPlaid$ = this.plaidService.isConnectingPlaid$;
+  isProcessingData$ = this.plaidService.isProcessingData$;
+  isLoading$ = combineLatest([
+    this.isProcessingData$,
+    this.isConnectingPlaid$
+  ]).pipe(
+    map(([processing, connecting]) => !!processing || !!connecting)
+  );
 
   private readonly snackBarConfig: MatSnackBarConfig = {
     duration: 5000,
@@ -63,7 +75,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private readonly intelligenceService: IntelligenceService,
     private readonly plaidService: PlaidService,
     private readonly snackBar: MatSnackBar,
-    private readonly router: Router,
     private readonly translateService: TranslateService,
     private readonly userService: UserService,
     private readonly financialService: FinancialService,
@@ -73,17 +84,37 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadUserInfo();
     this.loadAccounts();
+    this.loadTransactions();
+    this.loadIntelligenceData();
     this.setupPlaidSubscription();
+    this.setupIntelligenceSubscription();
     this.setRandomMotivationalMessage();
   }
 
   ngOnDestroy() {
+    console.log('DashboardComponent ngOnDestroy');
     if (this.plaidSubscription) {
       this.plaidSubscription.unsubscribe();
     }
     if (this.intelligenceSubscription) {
       this.intelligenceSubscription.unsubscribe();
     }
+    if (this.hasFinishedProcessingSubscription) {
+      this.hasFinishedProcessingSubscription.unsubscribe();
+    }
+  }
+
+  private setupIntelligenceSubscription() {
+    this.hasFinishedProcessingSubscription = this.plaidService.hasFinishedProcessing
+      .pipe(take(1))
+      .subscribe(async () => {
+        this.loadAccounts();
+        this.loadTransactions();
+        this.loadIntelligenceData();
+        await firstValueFrom(this.translateService.translate('dashboard.intelligenceProcessed')).then((message: string) => {
+          this.showNotification(message, 'success');
+        });
+      });
   }
 
   private setupPlaidSubscription() {
@@ -116,18 +147,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   loadIntelligenceData(): void {
-    this.isLoading = true;
-    this.intelligenceSubscription = this.intelligenceService.getIntelligenceData().subscribe({
-      next: async (data: IntelligenceData) => {
-        this.alerts = data.alerts;
-        this.recommendations = data.recommendations;
-        this.isLoading = false;
+    this.intelligenceService.getIntelligenceData()
+    .subscribe({
+      next: (intelligenceData: IntelligenceData) => {
+        this.alerts = intelligenceData.alerts;
+        this.recommendations = intelligenceData.recommendations;
       },
-      error: async (error: any) => {
-        this.isLoading = false;
-        await firstValueFrom(this.translateService.translate('dashboard.intelligenceLoadError')).then((message: string) => {
-          this.handleError(error, message);
-        });
+      error: (error: Error) => {
+        console.error('Error loading intelligence data:', error);
       }
     });
   }
@@ -181,14 +208,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  viewAllAlerts(): void {
-    this.router.navigate(['/alerts']);
-  }
-
-  viewAllRecommendations(): void {
-    this.router.navigate(['/recommendations']);
-  }
-
   private loadUserInfo() {
     this.userService.getUserInfo().subscribe({
       next: (userInfo) => {
@@ -206,14 +225,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.financialService.getAccounts().subscribe({
       next: (accounts) => {
         this.accounts = accounts;
-        this.hasAccounts = accounts.length > 0;
-        if (this.hasAccounts) {
-          this.loadIntelligenceData();
-        }
       },
       error: (error) => {
         console.error('Error loading accounts:', error);
-        this.hasAccounts = false;
+      }
+    });
+  }
+
+  private loadTransactions() {
+    this.financialService.getTransactions().subscribe({
+      next: (transactions) => {
+        this.transactions = transactions;
+      },
+      error: (error) => {
+        console.error('Error loading transactions:', error);
       }
     });
   }

@@ -80,6 +80,7 @@ import { StateService } from '../../core/services/state.service';
   styles: [`
    
     .sidebar-container {
+      position: fixed;
       transition: all 0.3s ease-in-out;
       display: flex;
       flex-direction: column;
@@ -87,7 +88,7 @@ import { StateService } from '../../core/services/state.service';
       width: 250px;
       background-color: var(--background-dark);
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
-      z-index: 1000;
+      z-index: 100;
       color: white;
       font-family: 'Roboto';
       font-weight: 100;
@@ -181,7 +182,7 @@ import { StateService } from '../../core/services/state.service';
         
     .toggle-btn {
       transition: all 0.3s ease-in-out;
-      z-index: 1100;
+      z-index: 200;
       color: white;
       position: fixed;
       top: 50%;
@@ -219,6 +220,7 @@ import { StateService } from '../../core/services/state.service';
 
       .sidebar-container, :host {
         width: 60px;
+        min-width: 60px;
       }
       
       a.mat-list-item {
@@ -247,11 +249,13 @@ export class SidebarComponent {
   ) {
     effect(() => {
       this.isSidebarExpanded = this.stateService.uiState()?.isSidebarExpanded ?? false;
+      document.getElementById('main-content')?.classList.toggle('sidebar-expanded', this.isSidebarExpanded);
     });
   }
 
   toggleSidebar(): void {
     this.stateService.updateUiState({ isSidebarExpanded: !this.stateService.uiState().isSidebarExpanded });
+    document.getElementById('main-content')?.classList.toggle('sidebar-expanded', this.isSidebarExpanded);
   }
 
   logout(): void {
