@@ -58,11 +58,11 @@
     "signInWithGoogle": "Iniciar sesión con Google"
   },
   "alerts": {
-    "noAlertsTitle": "No se encontraron alertas",
+    "noAlertsTitle": "No tienes alertas",
     "noAlertsDescription": "Te notificaremos cuando detectemos cualquier actividad anormal."
   },
   "recommendations": {
-    "noRecommendationsTitle": "No se encontraron recomendaciones",
+    "noRecommendationsTitle": "No tienes recomendaciones",
     "noRecommendationsDescription": "Te notificaremos cuando detectemos cualquier actividad anormal."
   },
   "register": {
@@ -82,13 +82,23 @@
     "passwordMismatch": "Las contraseñas no coinciden."
   },
   "dashboard": {
+    "totalAccounts": "Cuentas",
+    "totalTransactions": "Transacciones",
     "connectionSuccess": "Conexión exitosa con {{institution}}",
     "connectionError": "Error en la conexión con el banco. Por favor, inténtalo de nuevo.",
+    "intelligenceProcessed": "Enhorabuena! Ya puedes ver tu reporte de inteligencia.",
     "intelligenceLoadError": "Error al cargar los datos de inteligencia",
     "plaidConnectionError": "Error al conectar con Plaid. Por favor, inténtalo de nuevo.",
     "alertDismissed": "Alerta resuelta",
     "alertDismissError": "Error al resolver la alerta",
-    "recommendationDismissed": "Recomendación aplicada"
+    "recommendationDismissed": "Recomendación aplicada",
+    "connectingPlaid": "Conectando con tu banco...",
+    "processingData": "Procesando datos bancarios..."
+  },
+  "intelligence": {
+    "title": "Intelligence",
+    "alerts": "Alertas",
+    "recommendations": "Recomendaciones"
   },
   "sidebar": {
     "home": "Inicio",

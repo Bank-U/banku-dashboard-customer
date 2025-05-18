@@ -34,6 +34,21 @@
     font-weight: 400;
     color: #1a1a1a;
   }
+  ::ng-deep .mat-mdc-checkbox {
+    &.mdc-checkbox__native-control:focus:focus:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:focus:focus:indeterminate~.mdc-checkbox__background {
+      background-color: var(--banku-call-to-action) !important;
+        border-color: var(--banku-call-to-action) !important;
+        color: white !important;
+    }
+  
+    &.mat-mdc-checkbox-checked {
+      .mdc-checkbox__background {
+        background-color: var(--banku-call-to-action);
+        border-color: var(--banku-call-to-action);
+        color: white;
+      }
+    }
+  }
 }
 
 .recommendations-list {
@@ -68,8 +83,8 @@
     background: rgba(0, 0, 0, 0.1);
 
     &.savings {
-      color: #28a745;
-      background: rgba(40, 167, 69, 0.1);
+      color: #eb6ffc;
+      background: rgba(235, 111, 252, 0.1);
     }
 
     &.investment {
@@ -80,6 +95,11 @@
     &.optimization {
       color: #ffc107;
       background: rgba(255, 193, 7, 0.1);
+    }
+
+    &.debt_management {
+      color: #2f9920;
+      background: rgba(47, 153, 32, 0.1);
     }
   }
 
@@ -127,12 +147,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 300px;
-  padding: 2rem;
   text-align: center;
   background: transparent;
   border-radius: 12px;
-  margin: 1rem 0;
 
   .no-recommendations-content {
     max-width: 500px;
@@ -145,13 +162,13 @@
 
     h2 {
       font-size: 1.5rem;
-      font-weight: 600;
+      font-weight: 500;
       color: #2D3748;
       margin-bottom: 1rem;
     }
 
     p {
-      color: #718096;
+      color: var(--banku-subtitle);
       margin-bottom: 1.5rem;
       line-height: 1.5;
     }

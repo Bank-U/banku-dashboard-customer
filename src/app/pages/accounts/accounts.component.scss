@@ -1,6 +1,6 @@
 @use 'colors';
 
-// Estilos de la página
+// Page
 .page-container {
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@
   margin-top: 24px;
 }
 
-// Estilos de la tarjeta principal
+// Main card
 .accounts-card {
   background-color: var(--banku-surface);
   border-radius: 12px;
@@ -51,7 +51,7 @@
   padding: 16px !important;
 }
 
-// Contenedor de cuentas
+// Accounts container
 .accounts-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -59,7 +59,7 @@
   padding: 8px 0;
 }
 
-// Estilos de cada cuenta
+// Each account
 .account-item {
   display: flex;
   align-items: center;
@@ -109,7 +109,7 @@
   color: var(--background-dark);
 }
 
-// Estados vacíos y errores
+// Empty and error states
 .no-data-container, .loading-container {
   display: flex;
   flex-direction: column;
@@ -118,26 +118,30 @@
   padding: 48px 24px;
   text-align: center;
   
-  h3 {
-    font-size: 1.25rem;
+  mat-icon {
+    color: var(--background-dark);
+  }
+  
+  h2 {
+    font-size: 1.5rem;
     font-weight: 500;
-    color: var(--banku-text);
-    margin: 16px 0 8px;
+    color: #2D3748;
+    margin-bottom: 1rem;
   }
   
   p {
-    font-size: 0.875rem;
-    color: var(--banku-text-muted);
-    margin: 0;
+    color: var(--banku-subtitle);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    font-weight: 300;
   }
 }
 
 .no-data-icon {
-  font-size: 48px;
-  height: 48px;
-  width: 48px;
-  color: var(--banku-text-muted);
-  opacity: 0.5;
+  font-size: 3rem;
+  height: 3rem;
+  width: 3rem;
+  margin-bottom: 1rem;
 }
 
 .error-message {

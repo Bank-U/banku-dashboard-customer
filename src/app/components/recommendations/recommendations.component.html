@@ -1,12 +1,12 @@
 <div class="recommendations-container" [class.light-mode]="mode === 'light'">
   <div class="recommendations-header">
-    <div class="recommendations-controls" *ngIf="mode === 'full' && filteredRecommendations && filteredRecommendations.length > 0">
-      <mat-slide-toggle [(ngModel)]="showApplied" >
+    <div class="recommendations-controls" *ngIf="mode === 'full' && recommendations && recommendations.length > 0">
+      <mat-checkbox [(ngModel)]="showApplied" color="primary">
         {{ 'common.showApplied' | translate | async }}
-      </mat-slide-toggle>
+      </mat-checkbox>
     </div>
     <div class="recommendations-controls" *ngIf="mode === 'light'">
-      <button mat-button color="primary" (click)="onViewAll()">
+      <button mat-button color="primary" routerLink="/intelligence">
         {{ 'common.viewAll' | translate | async }}
         <mat-icon class="material-symbols-outlined">arrow_forward</mat-icon>
       </button>

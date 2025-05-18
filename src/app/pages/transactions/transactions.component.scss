@@ -1,6 +1,6 @@
 @use 'colors';
 
-// Estilos de la página
+// Page
 .page-container {
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@
   color: #0f172a;
 }
 
-// Estilos de los filtros
+// Filters
 .filters-container {
   display: flex;
   gap: 16px;
@@ -62,7 +62,7 @@
   padding-right: 12px;
 }
 
-// Estilos de Material Design personalizados
+// Custom Material Design styles
 ::ng-deep .mat-form-field-wrapper {
   margin: 0;
   padding: 0;
@@ -118,7 +118,7 @@
   color: var(--background) !important;
 }
 
-// Estilos del DatePicker
+// DatePicker
 ::ng-deep .mat-calendar {
   background-color: var(--banku-surface) !important;
   border-radius: 8px !important;
@@ -306,7 +306,7 @@
   padding: 0 4px !important;
 }
 
-// Estilos para los botones de limpieza de filtros
+// Clear Filters Button
 ::ng-deep .mat-mdc-form-field-suffix {
   .mat-mdc-icon-button {
     width: 24px !important;
@@ -323,7 +323,7 @@
   }
 }
 
-// Estilos para el botón Limpiar Filtros
+// Clear Filters Button
 ::ng-deep .mat-date-range-picker-actions {
   display: flex !important;
   justify-content: center !important;
@@ -340,11 +340,10 @@
   font-size: 14px !important;
 }
 
-// Estilos de las transacciones
+// Transactions
 .transactions-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
 }
 
 .transaction-card {
@@ -418,7 +417,7 @@
   color: #64748b;
 }
 
-// Estilos para estados vacíos y errores
+// Empty and error states
 .no-data-container, .loading-container {
   display: flex;
   flex-direction: column;
@@ -428,18 +427,30 @@
   color: #64748b;
   text-align: center;
   font-weight: 300;
+
+  mat-icon {
+    color: var(--background-dark);
+  }
 }
 
 .no-data-title {
   font-size: 1.5rem;
   font-weight: 500;
+  color: #2D3748;
+  margin-bottom: 1rem;
+}
+
+.no-data-subtitle {
+  color: var(--banku-subtitle);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
 }
 
 .no-data-icon {
   font-size: 3rem;
   height: 3rem;
   width: 3rem;
-  opacity: 0.5;
+  margin-bottom: 1rem;
 }
 
 .error-message {

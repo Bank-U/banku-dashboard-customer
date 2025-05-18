@@ -1,44 +1,78 @@
-<div>
-  <!-- Header with Welcome and Sync Button -->
-  <div class="flex justify-between items-center mb-8 dashboard-header">
-    <div class="welcome-message">
-      <h1 class="text-2xl font-semibold text-primary title-message-text" *ngIf="!userInfo?.firstName">
-        {{ 'common.hello' | translate | async }}
-      </h1>
-      <h1 class="text-2xl font-semibold text-primary title-message-text" *ngIf="userInfo?.firstName">
-        {{ 'common.hello' | translate | async }}, {{ userInfo?.firstName }}
-      </h1>
+<div class="dashboard-container">
+  <ng-container *ngIf="isLoading$ | async">
+    <div class="processing-overlay">
+      <mat-spinner diameter="50" class="spinner" color="primary"></mat-spinner>
+      <p *ngIf="isConnectingPlaid$ | async">{{ 'dashboard.connectingPlaid' | translate | async }}</p>
+      <p *ngIf="isProcessingData$ | async">{{ 'dashboard.processingData' | translate | async }}</p>
     </div>
-    <button mat-raised-button color="primary" class="sync-button" (click)="syncWithPlaid()" [disabled]="isSyncing">
-      <mat-icon class="material-symbols-outlined sync-button-icon">sync_outlined</mat-icon>
-      <span>{{ 'common.sync' | translate | async }}</span>
-    </button>
-  </div>
+  </ng-container>
 
-  <!-- No Accounts Connected Section -->
-  <div *ngIf="!hasAccounts" class="no-accounts-container">
-    <div class="no-accounts-content">
-      <div class="no-accounts-logo-container">
-        <img src="assets/images/black-logo.png" alt="BankU Logo" class="no-accounts-logo">
+  <ng-container #content>
+    <!-- Header with Welcome and Sync Button -->
+    <div class="flex justify-between items-center mb-8 dashboard-header">
+      <div class="welcome-message">
+        <h1 class="text-2xl font-semibold text-primary title-message-text" *ngIf="!userInfo?.firstName">
+          {{ 'common.hello' | translate | async }}
+        </h1>
+        <h1 class="text-2xl font-semibold text-primary title-message-text" *ngIf="userInfo?.firstName">
+          {{ 'common.hello' | translate | async }}, {{ userInfo?.firstName }}
+        </h1>
       </div>
-      <p class="no-accounts-subtitle">{{ currentMotivationalMessage }}</p>
+      <button mat-raised-button color="primary" class="sync-button" (click)="syncWithPlaid()" [disabled]="isSyncing">
+        <mat-icon class="material-symbols-outlined sync-button-icon">sync_outlined</mat-icon>
+        <span>{{ 'common.sync' | translate | async }}</span>
+      </button>
     </div>
-  </div>
 
-  <!-- BankU Intelligence Section -->
-  <div *ngIf="hasAccounts" class="bg-white p-6 rounded-lg shadow">
-    <div class="flex flex-col dashboard-intelligence-container">
-      <!-- Alerts Section -->
-      <app-alerts
-        [mode]="'light'"
-        (viewAll)="viewAllAlerts()">  
-      </app-alerts>
-
-      <!-- Recommendations Section -->
-      <app-recommendations
-        [mode]="'light'"
-        (viewAll)="viewAllRecommendations()">
-      </app-recommendations>
+    <!-- Financial Overview Section -->
+    <div *ngIf="accounts && accounts.length > 0" class="financial-overview mb-8">
+      <div class="overview-grid">
+        <div class="overview-card pointer" routerLink="/accounts">
+          <div class="overview-icon">
+            <mat-icon class="material-symbols-outlined">account_balance</mat-icon>
+          </div>
+          <div class="overview-content">
+            <span class="overview-label">{{ 'dashboard.totalAccounts' | translate | async }}</span>
+            <span class="overview-value">{{ accounts.length }}</span>
+          </div>
+        </div>
+        <div class="overview-card pointer" routerLink="/transactions">
+          <div class="overview-icon">
+            <mat-icon class="material-symbols-outlined">receipt_long</mat-icon>
+          </div>
+          <div class="overview-content">
+            <span class="overview-label">{{ 'dashboard.totalTransactions' | translate | async }}</span>
+            <span class="overview-value">{{ transactions.length }}</span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+
+    <!-- No Accounts Connected Section -->
+    <div *ngIf="!accounts || accounts.length === 0" class="no-accounts-container">
+      <div class="no-accounts-content">
+        <div class="no-accounts-logo-container">
+          <img src="assets/images/black-logo.png" alt="BankU Logo" class="no-accounts-logo">
+        </div>
+        <p class="no-accounts-subtitle">{{ currentMotivationalMessage }}</p>
+      </div>
+    </div>
+
+    <!-- BankU Intelligence Section -->
+    <div *ngIf="accounts && accounts.length > 0" class="bg-white p-6 rounded-lg shadow">
+      <div class="flex flex-col dashboard-intelligence-container">
+        <!-- Alerts Section -->
+        <app-alerts
+          [mode]="'light'"
+          [alerts]="alerts">  
+        </app-alerts>
+
+        <!-- Recommendations Section -->
+        <app-recommendations
+          [mode]="'light'"
+          [recommendations]="recommendations">
+        </app-recommendations>
+      </div>
+    </div>
+  </ng-container>
 </div> 

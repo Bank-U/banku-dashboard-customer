@@ -15,7 +15,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
     <div class="layout-container">
       <app-sidebar></app-sidebar>
       <div class="layout-content">
-        <main class="main-content">
+        <main id="main-content" class="main-content">
           <router-outlet></router-outlet>
         </main>
       </div>
@@ -37,13 +37,25 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
         justify-content: center;
         width: 100%;
 
+        .sidebar-expanded {
+          margin-left: 250px;
+        }
+        .sidebar-collapsed {
+          margin-left: 60px;
+        }
+
+        :not(.sidebar-expanded) {
+          margin-left: 60px;
+        }
+        
         .main-content {
           max-width: 1400px;
           flex: 1;
           padding: 32px 5rem;
           background-color: var(--background);
           min-height: calc(100vh - 64px);
-          overflow-y: auto;
+          transition: margin-left 0.3s ease-in-out;
+
         }
       }
       
@@ -51,8 +63,19 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
     
 
     @media (max-width: 768px) {
+      .sidebar-expanded {
+        margin-left: 0px !important;
+      }
+
+      .sidebar-collapsed {
+        .main-content {
+          padding: 32px 1rem !important;
+        }
+      }
+
       .main-content {
-        padding: 32px 1rem !important;
+        padding: 16px 2rem !important;
+        margin-left: 0px !important;
       }
     }
   `]

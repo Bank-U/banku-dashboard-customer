@@ -1,11 +1,11 @@
 <div class="alerts-container" [class.light-mode]="mode === 'light'">
-  <div class="alerts-controls" *ngIf="mode === 'full' && filteredAlerts && filteredAlerts.length > 0">
-    <mat-slide-toggle [(ngModel)]="showResolved" >
+  <div class="alerts-controls" *ngIf="mode === 'full' && alerts && alerts.length > 0">
+    <mat-checkbox [(ngModel)]="showResolved" color="primary">
       {{ 'common.showResolved' | translate | async }}
-    </mat-slide-toggle>
+    </mat-checkbox>
   </div>
   <div class="alerts-controls" *ngIf="mode === 'light'">
-    <button mat-button color="primary" (click)="onViewAll()">
+    <button mat-button color="primary" routerLink="/intelligence">
       {{ 'common.viewAll' | translate | async }}
       <mat-icon class="material-symbols-outlined">arrow_forward</mat-icon>
     </button>
