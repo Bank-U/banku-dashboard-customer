@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { IntelligenceData, IntelligenceService, Recommendation } from '../../services/intelligence.service';
+import { Component, Input } from '@angular/core';
+import { IntelligenceService, Recommendation } from '../../services/intelligence.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { FormsModule } from '@angular/forms';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-recommendations',
   templateUrl: './recommendations.component.html',
@@ -14,40 +14,25 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   standalone: true,
   imports: [
     CommonModule,
-    MatSlideToggleModule,
+    MatCheckboxModule,
     MatIconModule,
     MatButtonModule,
     TranslatePipe,
-    FormsModule
+    FormsModule,
+    RouterLink
   ]
 })
-export class RecommendationsComponent implements OnInit {
+export class RecommendationsComponent {
   @Input() mode: 'light' | 'full' = 'full';
-  recommendations: Recommendation[] = [];
+  @Input() recommendations: Recommendation[] = [];
   showApplied = false;
 
   constructor(
     private readonly intelligenceService: IntelligenceService,
-    private readonly router: Router
   ) {}
-
-  ngOnInit() {
-    this.loadRecommendations();
-  }
 
   get filteredRecommendations(): Recommendation[] {
     return this.recommendations.filter(rec => this.showApplied || !rec.resolved);
-  }
-
-  private loadRecommendations() {
-    this.intelligenceService.getIntelligenceData().subscribe({
-      next: (intelligenceData: IntelligenceData) => {
-        this.recommendations = intelligenceData.recommendations;
-      },
-      error: (error: Error) => {
-        console.error('Error loading recommendations:', error);
-      }
-    });
   }
 
   onResolve(recommendationId: string) {
@@ -55,16 +40,15 @@ export class RecommendationsComponent implements OnInit {
     
     this.intelligenceService.resolveRecommendation(recommendationId).subscribe({
       next: () => {
-        this.loadRecommendations();
+        const recommendation = this.recommendations.find(rec => rec.id === recommendationId);
+        if (recommendation) {
+          recommendation.resolved = true;
+        }
       },
       error: (error: Error) => {
         console.error('Error resolving recommendation:', error);
       }
     });
-  }
-
-  onViewAll() {
-    this.router.navigate(['/intelligence']);
   }
 
   getRecommendationIcon(type: string): string {
@@ -75,6 +59,8 @@ export class RecommendationsComponent implements OnInit {
         return 'trending_up';
       case 'optimization':
         return 'auto_graph';
+      case 'debt_management':
+        return 'payments';
       default:
         return 'lightbulb';
     }

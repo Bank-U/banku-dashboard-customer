@@ -37,10 +37,6 @@ export class IntelligenceService {
     return this.apiService.get<IntelligenceData>(`/v1/engine/intelligence`);
   }
 
-  syncIntelligenceData(): Observable<any> {
-    return this.apiService.post(`/v1/engine/sync`, {});
-  }
-
   resolveAlert(alertId: string): Observable<void> {
     return this.apiService.put<void>(`/v1/engine/alerts/${alertId}/resolve`, {});
   }

@@ -58,11 +58,11 @@
     "signInWithGoogle": "Mit Google anmelden"
   },
   "alerts": {
-    "noAlertsTitle": "Keine Warnungen gefunden",
+    "noAlertsTitle": "Sie haben keine Warnungen",
     "noAlertsDescription": "Wir benachrichtigen Sie, wenn wir ungewöhnliche Aktivitäten feststellen."
   },
   "recommendations": {
-    "noRecommendationsTitle": "Keine Empfehlungen gefunden",
+    "noRecommendationsTitle": "Sie haben keine Empfehlungen",
     "noRecommendationsDescription": "Wir benachrichtigen Sie, wenn wir ungewöhnliche Aktivitäten feststellen."
   },
   "register": {
@@ -82,13 +82,23 @@
     "passwordMismatch": "Passwörter stimmen nicht überein."
   },
   "dashboard": {
+    "totalAccounts": "Konten",
+    "totalTransactions": "Transaktionen",
     "connectionSuccess": "Erfolgreich verbunden mit {{institution}}",
     "connectionError": "Fehler bei der Verbindung zur Bank. Bitte versuchen Sie es erneut.",
+    "intelligenceProcessed": "Glückwunsch! Du kannst jetzt deinen Intelligenzbericht ansehen.",
     "intelligenceLoadError": "Fehler beim Laden der Intelligenzdaten",
     "plaidConnectionError": "Fehler bei der Verbindung zu Plaid. Bitte versuchen Sie es erneut.",
     "alertDismissed": "Warnung erledigt",
     "alertDismissError": "Fehler beim Erledigen der Warnung",
-    "recommendationDismissed": "Empfehlung erledigt"
+    "recommendationDismissed": "Empfehlung erledigt",
+    "connectingPlaid": "Mit BankU verbinden...",
+    "processingData": "Datenbankankonten werden verarbeitet..."
+  },
+  "intelligence": {
+    "title": "Intelligenz",
+    "alerts": "Warnungen",
+    "recommendations": "Empfehlungen"
   },
   "sidebar": {
     "home": "Startseite",

@@ -58,11 +58,11 @@
     "signInWithGoogle": "Sign in with Google"
   },
   "alerts": {
-    "noAlertsTitle": "No alerts found",
+    "noAlertsTitle": "You have no alerts",
     "noAlertsDescription": "We'll notify you when we detect any unusual activity."
   },
   "recommendations": {
-    "noRecommendationsTitle": "No recommendations found",
+    "noRecommendationsTitle": "You have no recommendations",
     "noRecommendationsDescription": "We'll notify you when we detect any unusual activity."
   },
   "register": {
@@ -82,13 +82,23 @@
     "passwordMismatch": "Passwords do not match."
   },
   "dashboard": {
+    "totalAccounts": "Accounts",
+    "totalTransactions": "Transactions",
     "connectionSuccess": "Success connecting to {{institution}}",
     "connectionError": "Error connecting to the bank. Please try again.",
+    "intelligenceProcessed": "Congratulations! You can now view your intelligence report.",
     "intelligenceLoadError": "Error loading intelligence data",
     "plaidConnectionError": "Error connecting to Plaid. Please try again.",
     "alertDismissed": "Alert dismissed",
     "alertDismissError": "Error dismissing the alert",
-    "recommendationDismissed": "Recommendation dismissed"
+    "recommendationDismissed": "Recommendation dismissed",
+    "connectingPlaid": "Connecting with your bank...",
+    "processingData": "Processing bank data..."
+  },
+  "intelligence": {
+    "title": "Intelligence",
+    "alerts": "Alerts",
+    "recommendations": "Recommendations"
   },
   "sidebar": {
     "home": "Home",
