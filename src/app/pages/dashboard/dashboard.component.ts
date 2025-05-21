@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslatePipe } from '../../pipes/translate.pipe';
-import { PlaidService } from '../../services/plaid.service';
 import { IntelligenceService, Alert, Recommendation, IntelligenceData } from '../../services/intelligence.service';
 import { firstValueFrom, Subscription, switchMap, take, combineLatest, map, Observable } from 'rxjs';
 import { CustomNotificationComponent } from '../../components/custom-notification/custom-notification.component';
@@ -19,11 +18,7 @@ import { FinancialService } from '../../services/financial.service';
 import { StateService } from '../../core/services/state.service';
 import { Language } from '../../core/models/app-state.model';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { LoaderComponent } from '../../components/loader/loader.component';
-
-interface LinkTokenResponse {
-  linkToken: string;
-}
+import { SyncOpenbankingComponent } from '../../components/sync-openbanking/sync-openbanking.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -42,29 +37,17 @@ interface LinkTokenResponse {
     MatProgressSpinnerModule,
     RouterModule,
     RecommendationsComponent,
-    LoaderComponent
+    SyncOpenbankingComponent
   ]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  isLoading = false;
-  isSyncing = false;
-  plaidSubscription: Subscription | undefined;
   intelligenceSubscription: Subscription | undefined;
-  hasFinishedProcessingSubscription: Subscription | undefined;
   alerts: Alert[] = [];
   recommendations: Recommendation[] = [];
   userInfo: UserInfo | null = null;
   accounts: any[] = [];
   transactions: any[] = [];
   currentMotivationalMessage = '';
-  isConnectingPlaid$ = this.plaidService.isConnectingPlaid$;
-  isProcessingData$ = this.plaidService.isProcessingData$;
-  isLoading$ = combineLatest([
-    this.isProcessingData$,
-    this.isConnectingPlaid$
-  ]).pipe(
-    map(([processing, connecting]) => !!processing || !!connecting)
-  );
 
   private readonly snackBarConfig: MatSnackBarConfig = {
     duration: 5000,
@@ -75,7 +58,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly intelligenceService: IntelligenceService,
-    private readonly plaidService: PlaidService,
     private readonly snackBar: MatSnackBar,
     private readonly translateService: TranslateService,
     private readonly userService: UserService,
@@ -85,55 +67,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadUserInfo();
-    this.loadAccounts();
-    this.loadTransactions();
-    this.loadIntelligenceData();
-    this.setupPlaidSubscription();
-    this.setupIntelligenceSubscription();
     this.setRandomMotivationalMessage();
+    this.fetchData();
   }
 
   ngOnDestroy() {
-    console.log('DashboardComponent ngOnDestroy');
-    if (this.plaidSubscription) {
-      this.plaidSubscription.unsubscribe();
-    }
     if (this.intelligenceSubscription) {
       this.intelligenceSubscription.unsubscribe();
     }
-    if (this.hasFinishedProcessingSubscription) {
-      this.hasFinishedProcessingSubscription.unsubscribe();
-    }
-  }
-
-  private setupIntelligenceSubscription() {
-    this.hasFinishedProcessingSubscription = this.plaidService.hasFinishedProcessing
-      .pipe(take(1))
-      .subscribe(async () => {
-        this.loadAccounts();
-        this.loadTransactions();
-        this.loadIntelligenceData();
-        await firstValueFrom(this.translateService.translate('dashboard.intelligenceProcessed')).then((message: string) => {
-          this.showNotification(message, 'success');
-        });
-      });
-  }
-
-  private setupPlaidSubscription() {
-    this.plaidSubscription = this.plaidService.plaidEvents$.subscribe(async (event) => {
-      if (event.success) {
-        await firstValueFrom(this.translateService.translate('dashboard.connectionSuccess')).then((message: string) => {
-          this.showNotification(
-            message.replace('{{institution}}', event.institutionName ?? ''),
-            'success'
-          );
-        });
-      } else {
-        await firstValueFrom(this.translateService.translate('dashboard.connectionError')).then((message: string) => {
-          this.showNotification(message, 'error');
-        });
-      }
-    });
   }
 
   private showNotification(message: string, type: 'error' | 'success' | 'info' | 'warning') {
@@ -148,6 +89,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.showNotification(error?.message ?? defaultMessage, 'error');
   }
 
+  public fetchData(): void {
+    this.loadIntelligenceData();
+    this.loadAccounts();
+    this.loadTransactions();
+  }
+
   loadIntelligenceData(): void {
     this.intelligenceService.getIntelligenceData()
     .subscribe({
@@ -157,23 +104,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
       error: (error: Error) => {
         console.error('Error loading intelligence data:', error);
-      }
-    });
-  }
-
-  syncWithPlaid(): void {
-    this.isLoading = true;
-    this.plaidService.createLinkToken().subscribe({
-      next: async (response: LinkTokenResponse) => {
-        this.plaidService.openPlaidLink(response.linkToken);
-        this.isLoading = false;
-      },
-      error: async (error: Error) => {
-        console.error('Error creating link token:', error);
-        this.isLoading = false;
-        await firstValueFrom(this.translateService.translate('dashboard.plaidConnectionError')).then((message: string) => {
-          this.showNotification(message, 'error');
-        });
       }
     });
   }

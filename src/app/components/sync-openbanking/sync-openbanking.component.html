@@ -1,0 +1,14 @@
+<ng-container *ngIf="isLoading$ | async">
+  <div class="processing-overlay">
+    <app-loader></app-loader>
+    <p *ngIf="isConnectingPlaid$ | async">{{ 'dashboard.connectingPlaid' | translate | async }}</p>
+    <p *ngIf="isProcessingData$ | async">{{ 'dashboard.processingData' | translate | async }}</p>
+  </div>
+</ng-container>
+
+<button mat-raised-button color="primary" class="sync-button" (click)="syncWithPlaid()" [disabled]="isLoading$ | async">
+  <mat-icon class="material-symbols-outlined sync-button-icon">auto_awesome</mat-icon>
+  <div id="button-separator"></div>
+  <span>{{ 'common.sync' | translate | async }}</span>
+</button>
+

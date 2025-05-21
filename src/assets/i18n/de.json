@@ -84,16 +84,17 @@
   "dashboard": {
     "totalAccounts": "Konten",
     "totalTransactions": "Transaktionen",
-    "connectionSuccess": "Erfolgreich verbunden mit {{institution}}",
-    "connectionError": "Fehler bei der Verbindung zur Bank. Bitte versuchen Sie es erneut.",
-    "intelligenceProcessed": "Glückwunsch! Du kannst jetzt deinen Intelligenzbericht ansehen.",
-    "intelligenceLoadError": "Fehler beim Laden der Intelligenzdaten",
-    "plaidConnectionError": "Fehler bei der Verbindung zu Plaid. Bitte versuchen Sie es erneut.",
     "alertDismissed": "Warnung erledigt",
     "alertDismissError": "Fehler beim Erledigen der Warnung",
     "recommendationDismissed": "Empfehlung erledigt",
     "connectingPlaid": "Mit BankU verbinden...",
     "processingData": "Datenbankankonten werden verarbeitet..."
+  },
+  "openbanking": {
+    "plaidConnectionError": "Fehler bei der Verbindung zu Plaid. Bitte versuchen Sie es erneut.",
+    "intelligenceProcessed": "Glückwunsch! Du kannst jetzt deinen Intelligenzbericht ansehen.",
+    "connectionSuccess": "Erfolgreich verbunden mit {{institution}}",
+    "connectionError": "Fehler bei der Verbindung zur Bank. Bitte versuchen Sie es erneut."
   },
   "intelligence": {
     "title": "Intelligenz",

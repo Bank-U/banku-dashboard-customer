@@ -16,22 +16,6 @@
   gap: 24px;
 }
 
-.sync-button {
-  color: white;
-  font-weight: 200;
-  padding: 0.5rem 1.5rem;
-  border-radius: 8px;
-  background-color: var(--banku-call-to-action) !important;
-  &:hover {
-    color: var(--banku-bg-light) !important;
-  }
-  .sync-button-icon {
-    width: 24px;
-    height: 24px;
-    font-size: 24px;
-  }
-}
-
 .no-accounts-logo-container {
   width: 120px;
   height: 120px;
@@ -135,26 +119,6 @@ h1, h2 {
   .no-accounts-subtitle {
     font-size: 1rem;
   }
-}
-
-.processing-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  color: white;
-
-  p {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-  } 
 }
 
 .financial-overview {

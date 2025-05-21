@@ -26,7 +26,6 @@ import { StateService } from '../../core/services/state.service';
   template: `
     <div class="sidebar-container" *ngIf="isSidebarExpanded != undefined" [class.collapsed]="!isSidebarExpanded">
       <button mat-icon-button (click)="toggleSidebar()" class="toggle-btn material-symbols-outlined">
-        <mat-icon class="first-icon">{{ isSidebarExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
         <mat-icon>{{ isSidebarExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
       </button>
       <div class="menu-section">
@@ -187,35 +186,28 @@ import { StateService } from '../../core/services/state.service';
       position: fixed;
       top: 50%;
       margin: 0px;
-      margin-left: 235px;
-      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+      margin-left: 225px;
       width: 30px;
       height: 30px;
       background-color: var(--background-dark);
-      border: 2px solid var(--banku-border);
+      height: 40px;
+      width: 40px;
 
       .mat-icon {
         position: absolute;
         color: white;
-        top: 1px;
-        right: 3px;
+        top: 6px;
+        right: -1px;
         padding: 0px;
         margin: 0px;
       }
-
-      
-      .first-icon {
-        position: absolute !important;
-        right: -3px !important;
-      }
-
     }
 
     .sidebar-container.collapsed {
       width: 60px;
 
       .toggle-btn {
-        margin-left: 45px;
+        margin-left: 35px;
       }
     }
 

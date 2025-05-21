@@ -22,7 +22,6 @@
         <p class="alert-description">{{ alert.description }}</p>
         <div class="alert-meta">
           <span class="alert-date">{{ alert.lastUpdated | date:'short' }}</span>
-          <span class="alert-type">{{ alert.type }}</span>
         </div>
       </div>
       <div class="alert-actions" *ngIf="mode === 'full'">

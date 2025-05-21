@@ -99,7 +99,8 @@
 
     .alert-title {
       margin: 0 0 0.5rem;
-      font-weight: 400;
+      font-size: 1rem;
+      font-weight: 500;
       color: #1a1a1a;
     }
 
@@ -116,11 +117,6 @@
     margin-top: 0.5rem;
     font-size: 0.75rem;
     color: #888;
-
-    .alert-type {
-      text-transform: uppercase;
-      font-weight: 500;
-    }
   }
 
   .alert-actions {
