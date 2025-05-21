@@ -1,0 +1,53 @@
+:root {
+  --duration: 4s;
+}
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+
+  svg {
+    width: 100px;
+    height: 100px;
+    stroke: var(--banku-border);
+    stroke-width: 6;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    overflow: visible;
+    filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.15));
+  }
+
+  path,
+  line,
+  rect,
+  circle {
+    stroke-dasharray: var(--len);
+    stroke-dashoffset: var(--len);
+    animation: bankudraw var(--duration) ease-in-out infinite;
+  }
+
+  circle {
+    animation:
+      bankudraw var(--duration) ease-in-out infinite,
+  }
+}
+
+@keyframes bankudraw {
+  0% {
+    stroke-dashoffset: var(--len);
+  }
+  35% {
+    stroke-dashoffset: 0;
+  }
+  65% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: var(--len);
+  }
+}
+

@@ -1,7 +1,7 @@
 <div class="dashboard-container">
   <ng-container *ngIf="isLoading$ | async">
     <div class="processing-overlay">
-      <mat-spinner diameter="50" class="spinner" color="primary"></mat-spinner>
+      <app-loader></app-loader>
       <p *ngIf="isConnectingPlaid$ | async">{{ 'dashboard.connectingPlaid' | translate | async }}</p>
       <p *ngIf="isProcessingData$ | async">{{ 'dashboard.processingData' | translate | async }}</p>
     </div>
