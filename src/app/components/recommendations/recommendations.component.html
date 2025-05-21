@@ -24,7 +24,6 @@
         <p>{{ recommendation.description }}</p>
         <div class="recommendation-meta">
           <span class="recommendation-date">{{ recommendation.lastUpdated | date:'short' }}</span>
-          <span class="recommendation-type">{{ recommendation.type }}</span>
         </div>
       </div>
       <div class="recommendation-actions" *ngIf="mode === 'full'">

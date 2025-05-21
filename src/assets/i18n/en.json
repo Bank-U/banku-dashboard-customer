@@ -84,16 +84,17 @@
   "dashboard": {
     "totalAccounts": "Accounts",
     "totalTransactions": "Transactions",
-    "connectionSuccess": "Success connecting to {{institution}}",
-    "connectionError": "Error connecting to the bank. Please try again.",
-    "intelligenceProcessed": "Congratulations! You can now view your intelligence report.",
-    "intelligenceLoadError": "Error loading intelligence data",
-    "plaidConnectionError": "Error connecting to Plaid. Please try again.",
     "alertDismissed": "Alert dismissed",
     "alertDismissError": "Error dismissing the alert",
     "recommendationDismissed": "Recommendation dismissed",
     "connectingPlaid": "Connecting with your bank...",
     "processingData": "Processing bank data..."
+  },
+  "openbanking": {
+    "plaidConnectionError": "Error connecting to Plaid. Please try again.",
+    "intelligenceProcessed": "Congratulations! You can now view your intelligence report.",
+    "connectionSuccess": "Success connecting to {{institution}}",
+    "connectionError": "Error connecting to the bank. Please try again."
   },
   "intelligence": {
     "title": "Intelligence",

@@ -84,16 +84,17 @@
   "dashboard": {
     "totalAccounts": "Cuentas",
     "totalTransactions": "Transacciones",
-    "connectionSuccess": "Conexión exitosa con {{institution}}",
-    "connectionError": "Error en la conexión con el banco. Por favor, inténtalo de nuevo.",
-    "intelligenceProcessed": "Enhorabuena! Ya puedes ver tu reporte de inteligencia.",
-    "intelligenceLoadError": "Error al cargar los datos de inteligencia",
-    "plaidConnectionError": "Error al conectar con Plaid. Por favor, inténtalo de nuevo.",
     "alertDismissed": "Alerta resuelta",
     "alertDismissError": "Error al resolver la alerta",
     "recommendationDismissed": "Recomendación aplicada",
     "connectingPlaid": "Conectando con tu banco...",
     "processingData": "Procesando datos bancarios..."
+  },
+  "openbanking": {
+    "plaidConnectionError": "Error al conectar con Plaid. Por favor, inténtalo de nuevo.",
+    "intelligenceProcessed": "¡Enhorabuena! Ahora puedes ver tu informe de inteligencia.",
+    "connectionSuccess": "Conexión exitosa con {{institution}}",
+    "connectionError": "Error en la conexión con el banco. Por favor, inténtalo de nuevo."
   },
   "intelligence": {
     "title": "Intelligence",
