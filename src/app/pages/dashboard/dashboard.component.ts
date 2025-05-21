@@ -8,7 +8,7 @@ import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from '@angular/mate
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { PlaidService } from '../../services/plaid.service';
 import { IntelligenceService, Alert, Recommendation, IntelligenceData } from '../../services/intelligence.service';
-import { firstValueFrom, Subscription, switchMap, take, combineLatest, map } from 'rxjs';
+import { firstValueFrom, Subscription, switchMap, take, combineLatest, map, Observable } from 'rxjs';
 import { CustomNotificationComponent } from '../../components/custom-notification/custom-notification.component';
 import { AlertsComponent } from '../../components/alerts/alerts.component';
 import { RecommendationsComponent } from '../../components/recommendations/recommendations.component';
@@ -19,6 +19,7 @@ import { FinancialService } from '../../services/financial.service';
 import { StateService } from '../../core/services/state.service';
 import { Language } from '../../core/models/app-state.model';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoaderComponent } from '../../components/loader/loader.component';
 
 interface LinkTokenResponse {
   linkToken: string;
@@ -40,7 +41,8 @@ interface LinkTokenResponse {
     AlertsComponent,
     MatProgressSpinnerModule,
     RouterModule,
-    RecommendationsComponent
+    RecommendationsComponent,
+    LoaderComponent
   ]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
