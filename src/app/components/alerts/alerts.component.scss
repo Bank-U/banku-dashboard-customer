@@ -46,22 +46,6 @@
     font-weight: 400;
     color: #1a1a1a;
   }
-
-  ::ng-deep .mat-mdc-checkbox {
-    &.mdc-checkbox__native-control:focus:focus:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:focus:focus:indeterminate~.mdc-checkbox__background {
-      background-color: var(--banku-call-to-action) !important;
-        border-color: var(--banku-call-to-action) !important;
-        color: white !important;
-    }
-  
-    &.mat-mdc-checkbox-checked {
-      .mdc-checkbox__background {
-        background-color: var(--banku-call-to-action);
-        border-color: var(--banku-call-to-action);
-        color: white;
-      }
-    }
-  }
 }
 
 .alerts-list {
