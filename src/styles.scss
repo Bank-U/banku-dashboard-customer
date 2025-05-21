@@ -80,6 +80,11 @@ body {
   align-items: flex-start !important;
 } 
 
+.mat-mdc-checkbox-checked .mdc-checkbox__background {
+  background-color: var(--banku-call-to-action) !important;
+  border-color: var(--banku-call-to-action) !important;
+  color: white  !important;
+}
 
 .modal-delete-account {
   .mat-mdc-dialog-container {
